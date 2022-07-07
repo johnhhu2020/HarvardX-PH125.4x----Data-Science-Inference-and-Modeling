@@ -1,0 +1,357 @@
+---
+title: 'HarvardX PH125.4x Data Science: Inference and Modeling'
+author: "John HHU"
+date: '2022-07-02'
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r cars}
+summary(cars)
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+
+
+
+
+
+
+## Course  /  Section 1: Parameters and Estimates  /  Parameters and Estimates
+
+
+# Sampling Model Parameters and Estimates
+
+
+To help us understand the connection between polls
+and the probability theory that we have learned, let's
+construct a scenario that we can work through together
+and that is similar to the one that pollsters face.
+We will use an urn instead of voters.
+And because pollsters are competing with other pollsters for media attention,
+we will imitate that by having our competition with a $25 prize.
+The challenge is to guess the spread between the proportion
+of blue and red balls in this urn.
+Before making a prediction, you can take a sample, with replacement,
+from the urn.
+To mimic the fact that running polls is expensive,
+it will cost you $0.10 per bead you sample.
+So if your sample size is 250 and you win,
+you'll break even, as you'll have to pay me $25 to collect your $25.
+Your entry into the competition can be an interval.
+If the interval you submit contains the true proportion,
+you get half what you paid and pass to the second phase of the competition.
+In the second phase of the competition, the entry with the smallest interval
+is selected as the winner.
+The dslabs package includes a function that shows a random draw from the urn
+that we just saw.
+Here's the code that you can write to see a sample.
+And here is a sample with 25 beads.
+OK, now that you know the rules, think about how
+you would construct your interval.
+How many beads would you sample, et cetera?
+Notice that we have just described a simple sampling
+model for opinion polls.
+The beads inside the urn represent the individuals
+that will vote on election day.
+Those that will vote Republican are represented with red beads
+and the Democrats with blue beads.
+For simplicity, assume there are no other colors,
+that there are just two parties.
+We want to predict the proportion of blue beads in the urn.
+Let's call this quantity p, which in turn tells us
+the proportion of red beads, 1 minus p, and the spread, p minus (1 minus p),
+which simplifies to 2p minus 1.
+In statistical textbooks, the beads in the urn are called the population.
+The proportion of blue beads in the population, p, is called a parameter.
+The 25 beads that we saw in an earlier plot after we sampled,
+that's called a sample.
+The task of statistical inference is to predict the parameter, p, using
+the observed data in the sample.
+Now, can we do this with just the 25 observations we showed you?
+Well, they are certainly informative.
+For example, given that we see 13 red and 12 blue,
+it is unlikely that p is bigger than 0.9 or smaller than 0.1.
+Because if they were, it would be un-probable to see 13 red and 12 blue.
+But are we ready to predict with certainty that there
+are more red beads than blue?
+OK, what we want to do is construct an estimate of p
+using only the information we observe.
+An estimate can be thought of as a summary of the observed data
+that we think is informative about the parameter of interest.
+It seems intuitive to think that the proportion of blue beads in the sample,
+which in this case is 0.48, must be at least related to the actual proportion
+p.
+But do we simply predict p to be 0.48?
+First, note that the sample proportion is a random variable.
+If we run the command take_poll(25), say four times,
+we get four different answers.
+Each time the sample is different and the sample proportion is different.
+The sample proportion is a random variable.
+Note that in the four random samples we show,
+the sample proportion ranges from 0.44 to 0.6.
+By describing the distribution of this random variable,
+we'll be able to gain insights into how good this estimate is
+and how we can make it better.
+
+
+[][Textbook link]
+
+This video matches the textbook sections on the sampling model for polls and the first part of populations, samples, parameters and estimates.
+https://rafalab.github.io/dsbook/inference.html#the-sampling-model-for-polls
+https://rafalab.github.io/dsbook/inference.html#populations-samples-parameters-and-estimates
+
+
+
+[][Key points]
+
+    The task of statistical inference is to estimate an unknown population parameter using observed data from a sample.
+    In a sampling model, the collection of elements in the urn is called the population.
+    A parameter is a number that summarizes data for an entire population.
+    A sample is observed data from a subset of the population.
+    An estimate is a summary of the observed data about a parameter that we believe is informative. It is a data-driven guess of the population parameter.
+[][*    We want to predict the proportion of the blue beads in the urn, the parameter p . The proportion of red beads in the urn is 1 - p and the spread is 2p - 1.*]
+    The sample proportion is a random variable. Sampling gives random results drawn from the population distribution.
+
+Code: Function for taking a random draw from a specific urn
+
+The dslabs package includes a function for taking a random draw of size n from the urn described in the video:
+
+library(tidyverse)
+library(dslabs)
+take_poll(25)    # draw 25 beads
+
+
+
+
+
+![the challenge is to guess the spread between proportion of blue and red in this urn](C:/Users/qp/Pictures/to help us understand the connection between polls and probability theory.png)
+
+![](C:/Users/qp/Pictures/running poll is expansive.png)
+
+![](C:/Users/qp/Pictures/the take poll dataset.png)
+
+![](C:/Users/qp/Pictures/and here is the sample with 25 beads.png)
+
+![](C:/Users/qp/Pictures/we want to predict the proportion of blue beads in the urn.png)
+
+![consider we have only two parties in the urn, then](C:/Users/qp/Pictures/assuming the quantity is p for blue beads, then we get the proportion of read bead too.png)
+
+![](C:/Users/qp/Pictures/and here is out sperad, can be simplifies as 2p-1.png)
+
+![](C:/Users/qp/Pictures/in statistical book, the beads in the urn are called the population.png)
+
+![](C:/Users/qp/Pictures/the proportion of blue beads in the population is called a parameter.png)
+
+![](C:/Users/qp/Pictures/the 25 beads we draw earlier is called a sample.png)
+
+![](C:/Users/qp/Pictures/the task of statistical inference is to predict the parameter p using the observed data in the sample.png)
+
+![](C:/Users/qp/Pictures/can we do this statistical inference with just 25 observations, with 12 blue and 13 read, they unlikelly that p is 90% of extreme value.png)
+
+![](C:/Users/qp/Pictures/the estimate is a summary of observed data that we think is informative about the parameter of interest.png)
+
+![the sample proportion is a random variable](C:/Users/qp/Pictures/if we run the command take_poll 25 many times, each time, the sample proportion is different.png)
+
+
+
+
+
+
+
+
+
+
+
+# The Sample Average
+
+
+[][*Taking an opinion poll is being modeled as taking a random sample from an urn*].  **We are proposing the use of the proportion of blue beads in our sample as an estimate of the parameter p**.  
+
+Taking an opinion poll is being modeled
+as taking a random sample from an urn.
+We are proposing the use of the proportion of blue beads in our sample
+as an estimate of the parameter p.
+Once we have this estimate, we can easily
+report an estimate of the spread, 2p minus 1.
+But for simplicity, we will illustrate the concept of statistical inference
+for estimating p.
+We will use our knowledge of probability to defend our use of the sample
+proportion, and quantify how close we think
+it is from the population proportion p.
+We start by defining the random variable X. X is
+going to be 1 if we pick a blue bead at random, and 0 if it's red.
+This implies that we're assuming that the population, the beads in the urn,
+are a list of 0s and 1s.
+If we sample N beads, then the average of the draws X_1 through X_N
+is equivalent to the proportion of blue beads in our sample.
+This is because adding the Xs is equivalent to counting the blue beads,
+and dividing by the total N turns this into a proportion.
+We use the symbol X-bar to represent this average.
+In general, in statistics textbooks, a bar on top of a symbol
+means the average.
+The theory we just learned about the sum of draws
+becomes useful, because we know the distribution of the sum N times X-bar.
+We know the distribution of the average X-bar,
+because N is a non random constant.
+For simplicity, let's assume that the draws are independent.
+After we see each sample bead, we return it to the urn.
+It's a sample with replacement.
+In this case, what do we know about the distribution of the sum of draws?
+First, we know that the expected value of the sum of draws
+is N times the average of the values in the urn.
+We know that the average of the 0s and 1s in the urn
+must be the proportion p, the value we want to estimate.
+Here, we encounter an important difference
+with what we did in the probability module.
+We don't know what is in the urn.
+We know there are blue and red beads, but we don't know how many of each.
+This is what we're trying to find out.
+We're trying to estimate p.
+Just like we use variables to define unknowns in systems of equations,
+in statistical inference, we define parameters
+to define unknown parts of our models.
+In the urn model we are using to mimic an opinion poll,
+we do not know the proportion of blue beads in the urn.
+We define the parameter p to represent this quantity.
+We are going to estimate this parameter.
+Note that the ideas presented here, on how we estimate parameters
+and provide insights into how good these estimates are,
+extrapolate to many data science tasks.
+For example, we may ask, what is the difference
+in health improvement between patients receiving treatment and a control
+group?
+We may ask, what are the health effects of smoking on a population?
+What are the differences in racial groups of fatal shootings by police?
+What is the rate of change in life expectancy in the US during the last 10
+years?
+All these questions can be framed as a task of estimating
+a parameter from a sample.
+
+
+[][Textbook ]
+
+This video matches the textbook section on the sample average and the textbook section on parameters.
+https://rafalab.github.io/dsbook/inference.html#the-sample-average
+https://rafalab.github.io/dsbook/inference.html#parameters
+
+
+
+[][Key points]
+
+    Many common data science tasks can be framed as estimating a parameter from a sample.
+[][*    We illustrate statistical inference by walking through the process to estimate p. From the estimate of p, we can easily calculate an estimate of the spread, 2p-1.*]
+    Consider the random variable X that is 1 if a blue bead is chosen and 0 if a red bead is chosen. The proportion of blue beads in draws is the average of the draws X_1,,,,X_n.
+    X_bar is the sample average. In statistics, a bar on top of a symbol denotes the average. X_bar is a random variable because it is the average of random draws - each time we take a sample, X_bar is different.
+        X_bar = (X_1 + X_2 + ... + X_n)/N
+[][*    The number of blue beads drawn in N draws, NX_bar, is N times the proportion of values in the urn. However, we do not know the true proportion: we are trying to estimate this parameter p.]
+
+
+
+![](C:/Users/qp/Pictures/the spread id 2p-1.png)
+
+![this implies that we' 're assuming that the population are a list of 0s and 1s](C:/Users/qp/Pictures/we start by definding a random variable X, with each value represent each outcome from the urn.png)
+
+![](C:/Users/qp/Pictures/if we sample N beads, then the average of draw x1 through xn is equivalent to the population of the bead we use 1 to represent.png)
+
+![adding the Xs is equivalent to counting blue beads, divide by the total n turns this into proportion](C:/Users/qp/Pictures/adding the Xs is equivalent to counting blue beads, divide by the total n turns this into proportion.png)
+
+![N is a non-random constant, and its a independent sample with replacement](C:/Users/qp/Pictures/now the distribution of the sum N times X bar.png)
+
+![](C:/Users/qp/Pictures/we dont know what is in the urn.png)
+
+![](C:/Users/qp/Pictures/in statistical inference we define parameters to define the unknow part of our models.png)
+
+![](C:/Users/qp/Pictures/we may ask this question with a statistical solution.png)
+
+![](C:/Users/qp/Pictures/or this similar question with same goal which is to estimate the population.png)
+
+![](C:/Users/qp/Pictures/or this question, think about them.png)
+
+
+
+
+
+
+
+
+# Polling versus Forecasting
+
+
+Before we continue, let's make an important clarification related to the practical problem of forecasting the election.  If a poll is conducted 4 months before the election, it is estimating the p for that moment, not for election day.  But, note that the p for election night might be different since people's opinions fluctuate through time.  The polls provided the night before the election tend to be the most accurate  since opinions don't change that much in a couple of days.  [][*However, forecasters try to build tools that model how opinions vary across time and try to predict the election day result, taking into consideration the fact that opinions fluctuate*].  We'll describe some approaches for doing this in a later section.  
+
+
+[][Textbook link]
+
+This video corresponds to the textbook section on polling versus forecasting.
+https://rafalab.github.io/dsbook/inference.html#polling-versus-forecasting
+
+
+
+[][Key points]
+
+    A poll taken in advance of an election estimates p for that moment, not for election day.
+    In order to predict election results, forecasters try to use early estimates of p to predict p on election day. We discuss some approaches in later sections.
+
+
+![](C:/Users/qp/Pictures/if a poll is conducted 4 months ago before the election day, it is estimating p for that moment not for the election day outcome.png)
+
+![](C:/Users/qp/Pictures/however forecasters try to build tools that model how opinion vary across time and try to predict the election day result, taking into consideration the opinion fluctute.png)
+
+
+
+
+
+
+
+
+
+
+# Properties of Our Estimate
+
+
+
+
+
+
+![](C:/Users/qp/Pictures/do you remember the statistical probabilities of random variable we defined earlier.png)
+
+![so teh rules we cover in the probability module apply](C:/Users/qp/Pictures/note that if we multiply by n, n times x_bar gives us the sun of independent draws.png)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
