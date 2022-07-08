@@ -40,33 +40,9 @@ Note that the `echo = FALSE` parameter was added to the code chunk to prevent pr
 # Sampling Model Parameters and Estimates
 
 
-To help us understand the connection between polls
-and the probability theory that we have learned, let's
-construct a scenario that we can work through together
-and that is similar to the one that pollsters face.
-We will use an urn instead of voters.
-And because pollsters are competing with other pollsters for media attention,
-we will imitate that by having our competition with a $25 prize.
-The challenge is to guess the spread between the proportion
-of blue and red balls in this urn.
-Before making a prediction, you can take a sample, with replacement,
-from the urn.
-To mimic the fact that running polls is expensive,
-it will cost you $0.10 per bead you sample.
-So if your sample size is 250 and you win,
-you'll break even, as you'll have to pay me $25 to collect your $25.
-Your entry into the competition can be an interval.
-If the interval you submit contains the true proportion,
-you get half what you paid and pass to the second phase of the competition.
-In the second phase of the competition, the entry with the smallest interval
-is selected as the winner.
-The dslabs package includes a function that shows a random draw from the urn
-that we just saw.
-Here's the code that you can write to see a sample.
-And here is a sample with 25 beads.
-OK, now that you know the rules, think about how
-you would construct your interval.
-How many beads would you sample, et cetera?
+To help us understand the connection between polls and the probability theory that we have learned, let's construct a scenario that we can work through together and that is similar to the one that pollsters face.  We will use an urn instead of voters.  And because pollsters are competing with other pollsters for media attention, we will imitate that by having our competition with a $25 prize.  The challenge is to guess the spread between the proportion of blue and red balls in this urn.  Before making a prediction, you can take a sample, with replacement, from the urn.  To mimic the fact that running polls is expensive, it will cost you $0.10 per bead you sample.  So if your sample size is 250 and you win, you'll break even, as you'll have to pay me $25 to collect your $25.  Your entry into the competition can be an interval.  
+
+If the interval you submit contains the true proportion, you get half what you paid and pass to the second phase of the competition.  In the second phase of the competition, the entry with the smallest interval is selected as the winner.  The dslabs package includes a function that shows a random draw from the urn that we just saw.  Here's the code that you can write to see a sample.  And here is a sample with 25 beads.  OK, now that you know the rules, think about how you would construct your interval.  How many beads would you sample, et cetera?
 Notice that we have just described a simple sampling
 model for opinion polls.
 The beads inside the urn represent the individuals
@@ -183,67 +159,14 @@ take_poll(25)    # draw 25 beads
 # The Sample Average
 
 
-[][*Taking an opinion poll is being modeled as taking a random sample from an urn*].  **We are proposing the use of the proportion of blue beads in our sample as an estimate of the parameter p**.  
+[][*Taking an opinion poll is being modeled as taking a random sample from an urn*].  **We are proposing the use of the proportion of blue beads in our sample as an estimate of the parameter p**.  Once we have this estimate, we can easily report *an estimate of the spread, 2p minus 1*.  But for simplicity, we will illustrate the concept of statistical inference for estimating p.  We will use our knowledge of probability to defend our use of the sample proportion, and quantify how close we think it is from the population proportion p.  We start by defining the random variable X.  X is going to be 1 if we pick a blue bead at random, and 0 if it's red.  
 
-Taking an opinion poll is being modeled
-as taking a random sample from an urn.
-We are proposing the use of the proportion of blue beads in our sample
-as an estimate of the parameter p.
-Once we have this estimate, we can easily
-report an estimate of the spread, 2p minus 1.
-But for simplicity, we will illustrate the concept of statistical inference
-for estimating p.
-We will use our knowledge of probability to defend our use of the sample
-proportion, and quantify how close we think
-it is from the population proportion p.
-We start by defining the random variable X. X is
-going to be 1 if we pick a blue bead at random, and 0 if it's red.
-This implies that we're assuming that the population, the beads in the urn,
-are a list of 0s and 1s.
-If we sample N beads, then the average of the draws X_1 through X_N
-is equivalent to the proportion of blue beads in our sample.
-This is because adding the Xs is equivalent to counting the blue beads,
-and dividing by the total N turns this into a proportion.
-We use the symbol X-bar to represent this average.
-In general, in statistics textbooks, a bar on top of a symbol
-means the average.
-The theory we just learned about the sum of draws
-becomes useful, because we know the distribution of the sum N times X-bar.
-We know the distribution of the average X-bar,
-because N is a non random constant.
-For simplicity, let's assume that the draws are independent.
-After we see each sample bead, we return it to the urn.
-It's a sample with replacement.
-In this case, what do we know about the distribution of the sum of draws?
-First, we know that the expected value of the sum of draws
-is N times the average of the values in the urn.
-We know that the average of the 0s and 1s in the urn
-must be the proportion p, the value we want to estimate.
-Here, we encounter an important difference
-with what we did in the probability module.
-We don't know what is in the urn.
-We know there are blue and red beads, but we don't know how many of each.
-This is what we're trying to find out.
-We're trying to estimate p.
-Just like we use variables to define unknowns in systems of equations,
-in statistical inference, we define parameters
-to define unknown parts of our models.
-In the urn model we are using to mimic an opinion poll,
-we do not know the proportion of blue beads in the urn.
-We define the parameter p to represent this quantity.
-We are going to estimate this parameter.
-Note that the ideas presented here, on how we estimate parameters
-and provide insights into how good these estimates are,
-extrapolate to many data science tasks.
-For example, we may ask, what is the difference
-in health improvement between patients receiving treatment and a control
-group?
-We may ask, what are the health effects of smoking on a population?
-What are the differences in racial groups of fatal shootings by police?
-What is the rate of change in life expectancy in the US during the last 10
-years?
-All these questions can be framed as a task of estimating
-a parameter from a sample.
+# =======================================================================================================
+[][*This implies that we're assuming that the population, the beads in the urn, are a list of 0s and 1s*].  If we sample N beads, then the average of the draws X_1 through X_N is equivalent to the proportion of blue beads in our sample.  This is because adding the Xs is equivalent to counting the blue beads, and dividing by the total N turns this into a proportion.  We use the symbol X-bar to represent this average.  In general, in statistics textbooks, a bar on top of a symbol means the average.  The theory we just learned about the sum of draws becomes useful, because we know the distribution of the sum N times X-bar.  We know the distribution of the average X-bar, because N is a non random constant.  For simplicity, let's assume that the draws are independent.  After we see each sample bead, we return it to the urn.  It's a sample with replacement.  
+
+[][*In this case, what do we know about the distribution of the sum of draws*]?  First, we know that the expected value of the sum of draws is N times the average of the values in the urn.  We know that the average of the 0s and 1s in the urn must be the proportion p, the value we want to estimate.  Here, we encounter an important difference with what we did in the probability module.  We don't know what is in the urn.  We know there are blue and red beads, but we don't know how many of each.  This is what we're trying to find out.  We're trying to estimate p.  Just like we use variables to define unknowns in systems of equations, in statistical inference, we define parameters to define unknown parts of our models.  In the urn model we are using to mimic an opinion poll, we do not know the proportion of blue beads in the urn.  We define the parameter p to represent this quantity.  We are going to estimate this parameter.  
+
+Note that the ideas presented here, on how we estimate parameters and provide insights into how good these estimates are, extrapolate to many data science tasks.  For example, we may ask, what is the difference in health improvement between patients receiving treatment and a control group?  We may ask, what are the health effects of smoking on a population?  What are the differences in racial groups of fatal shootings by police?  What is the rate of change in life expectancy in the US during the last 10 years?  All these questions can be framed as a task of estimating a parameter from a sample.  
 
 
 [][Textbook ]
@@ -271,9 +194,10 @@ https://rafalab.github.io/dsbook/inference.html#parameters
 
 ![](C:/Users/qp/Pictures/if we sample N beads, then the average of draw x1 through xn is equivalent to the population of the bead we use 1 to represent.png)
 
+# =================================================================================================================
 ![adding the Xs is equivalent to counting blue beads, divide by the total n turns this into proportion](C:/Users/qp/Pictures/adding the Xs is equivalent to counting blue beads, divide by the total n turns this into proportion.png)
 
-![N is a non-random constant, and its a independent sample with replacement](C:/Users/qp/Pictures/now the distribution of the sum N times X bar.png)
+![assuming throw die 100 tmes, how do you think it, X_1 through X_n and whats X_bar](C:/Users/qp/Pictures/now the distribution of the sum N times X bar.png)
 
 ![](C:/Users/qp/Pictures/we dont know what is in the urn.png)
 
@@ -327,6 +251,74 @@ https://rafalab.github.io/dsbook/inference.html#polling-versus-forecasting
 # Properties of Our Estimate
 
 
+To understand how good our estimate is,
+we'll describe the statistical properties of the random variable we
+just defined, the sample proportion.
+Note that if we multiply by N, N times X bar is the sum of independent draws.
+So the rules we cover in the probability module apply.
+Using what we have learned, the expected value of the sum N times X bar
+is N times the average of the urn, p.
+So dividing by the non-random constant N gives us
+that the expected value of the average X bar is p.
+We can write it using our mathematical notation like this.
+We also can use what we learned to figure out the standard error.
+We know that the standard error of the sum is square root of N
+times a standard deviation of the values in the urn.
+Can we compute the standard error of the urn?
+We learn a formula that tells us that it's
+1 minus 0 times the square root of p times 1 minus p,
+which is the square root of p times 1 minus p.
+Because we are dividing by the sum N, we arrive at the following formula
+for the standard error of the average.
+The standard error of the average is square root of p times 1 minus p
+divided by the square root of N. This result reveals the power of polls.
+The expected value of the sample proportion X bar
+is the parameter of interest p, and we can
+make the standard error as small as we want by increasing the sample size N.
+The law of large numbers tells us that with a large enough poll,
+our estimate converges to p.
+If we take a large enough poll to make our standard error, say, about 0.01,
+we'll be quite certain about who will win.
+But how large does the poll have to be for the standard error
+to be this small?
+One problem is that we do not know p, so we can't actually
+compute the standard error.
+For illustrative purposes, let's assume that p is 0.51
+and make a plot of the standard error versus a sample size N. Here it is.
+We can see that, obviously, it's dropping.
+From the plot we also see that we would need a poll of over 10,000 people
+to get the standard error as low as we want it to be.
+We rarely see polls of this size, due in part to cost.
+We'll give other reasons later.
+From the RealClearPolitics table we saw earlier,
+we learn that the sample sizes in opinion polls range from 500 to 3,500.
+For a sample size of 1,000, if we set p to be 0.51,
+the standard error is about 0.15, or 1.5 percentage points.
+So even with large polls for close elections,
+X bar can lead us astray if we don't realize it's a random variable.
+But we can actually say more about how close we can get to the parameter p.
+We'll do that in the next video.
+
+
+[][Textbook link]
+
+This video corresponds to the textbook section on properties of our estimate.
+https://rafalab.github.io/dsbook/inference.html#properties-of-our-estimate-expected-value-and-standard-error
+
+
+
+[][Key points]
+
+[][*    When interpreting values of X_bar, it is important to remember that X_bar is a random variable with an expected value and standard error that represents the sample proportion of positive events.*]
+    The expected value of X_bar is the parameter of interest p. This follows from the fact that X_bar is the sum of independent draws of a random variable times a constant 1/N.
+        E(X_bar) = p
+    As the number of draws N increases, the standard error of our estimate X_bar decreases. The standard error of the average of X_bar over N draws is:
+        SE(X_bar) = sqrt(p(1-p)/N)
+
+        In theory, we can get more accurate estimates of p by increasing N. In practice, there are limits on the size of N due to costs, as well as other factors we discuss later.
+    We can also use other random variable equations to determine the expected value of the sum of draws E(S) and standard error of the sum of draws SE(S).
+        E(X) = Np
+        SE(S) = sqrt(Np(1-p))
 
 
 
@@ -334,6 +326,379 @@ https://rafalab.github.io/dsbook/inference.html#polling-versus-forecasting
 ![](C:/Users/qp/Pictures/do you remember the statistical probabilities of random variable we defined earlier.png)
 
 ![so teh rules we cover in the probability module apply](C:/Users/qp/Pictures/note that if we multiply by n, n times x_bar gives us the sun of independent draws.png)
+
+![](C:/Users/qp/Pictures/N times the average of the urn.png)
+
+![](C:/Users/qp/Pictures/so dividing by the non-random constant is p.png)
+
+![](C:/Users/qp/Pictures/can we compute the standard error of the urn.png)
+
+![](C:/Users/qp/Pictures/the standard error of the average is this one, squart root of p times 1 minus p devided by square root of N.png)
+
+![](C:/Users/qp/Pictures/and here is our problem, although we can increase the sample size N, but p is unknow.png)
+
+![](C:/Users/qp/Pictures/assuming the p is given, we can see the standard error decrease when sample size N increase.png)
+
+![](C:/Users/qp/Pictures/sample poll size were from 500 to 3500.png)
+
+![](C:/Users/qp/Pictures/for a sample size of 1000, if we set p to 0.51, then the standard error is about 0.015.png)
+
+
+
+
+
+
+
+
+# Assessment 1.1: Parameters and Estimates
+
+
+
+DataCamp due Jul 8, 2022 02:35 AWST
+
+In this assessment, you will learn about parameters and estimates using the example of election polling.
+
+By clicking OK, you agree to DataCamp's privacy policy: https://www.datacamp.com/privacy-policy. Note that you might need to disable your pop-up blocker, or allow "www.datacamp.com" in your pop-up blocker allowed list. When you have completed the exercises, return to edX to continue your learning.
+
+Assessment 1.1: Parameters and Estimates (External resource) (7.0 points possible)
+By clicking OK, you agree to DataCamp's privacy policy: https://www.datacamp.com/privacy-policy.
+
+Ask your questions about parameters and estimates or the related DataCamp assessment here. Remember to search the discussion board before posting to see if someone else has asked the same thing before asking a new question! You're also encouraged to answer each other's questions to help further your own learning.
+
+Some reminders:
+
+    Please be specific in the title and body of your post regarding which question you're asking about to facilitate answering your question.
+    Posting snippets of code is okay, but posting full code solutions is not.
+    If you do post snippets of code, please format it as code for readability. If you're not sure how to do this, there are instructions in a pinned post in the "general" discussion forum.
+
+Discussion: Assessment 1.1
+Topic: Section 1 / Assessment 1.1: Parameters and Estimates
+Filter:
+Sort:
+
+    unanswered question
+    Troubleshooting, already finish the course exercises but, cant´ see the grades!
+    DataCamp linkage with Edx is working? Troubleshooting, already finish the course exercises but, cant´ see the grades It happens over additional sections too, 1, 2, 4 and 6. Help please!
+    2 comments (2 unread comments)
+    unanswered question
+    Why is Xbar is the sum of independent draws
+    The textbook in 16.2.4 says that "X bar is the sum of independent draws". Shouldn't it by definition be the sum of independent draws divided by N (or multiplied by 1/N)?
+    3 comments (3 unread comments)
+    unanswered question
+    Could someone explain the question in which we had to calculate the SE of the spread?
+    This was the only question that I had a doubt in and any help would be appreciated. Thank you so much!
+    2 comments (2 unread comments)
+    unanswered question
+    Which lesson covered the expectation algebra for random variables?
+    A couple of these questions went through derivations based on E[X(1-X)]. While it was fairly intuitive, I don't recall a lesson covering this at the same level of detail. Specifically, when taking the SE on expected values, there's a key step where a constant drops out of the SE. Makes sense, but I don't recall a discussion behind that. Anyone else remember where that was?
+    2 comments (2 unread comments)
+    discussion
+    Issue with exercise 6
+    The posted solution involves dividing the upper limit of the y-axis by sqrt(25) which is not indicated or requested anywhere in the question.
+    3 comments (3 unread comments)
+    answered question
+    Why Subtracting 1 does not affect the standard error?
+    In Exercise 8 (Standard error of d), my derivation included the constant -1, but it wasn't correct.
+    4 comments (4 unread comments)
+    discussion
+    Very nice introduction section!
+    It is an important introductory section that defines the difference actual probability and sampling estimates (e.g. in case of polls) Really cool how the definitions of the estimates of X-bar and SE of X-bar can give good view of how sample size can sufficient or not to derive a good estimate!
+    1 comments
+
+
+
+## Exercise 1. Polling - expected value of S
+
+# =========================================================================================================
+Suppose you poll a population in which a proportion p of voters are Democrats and 1-p are Republicans. Your sample size is N=25. Consider the random variable S, which is the total number of Democrats in your sample.
+
+What is the expected value of this random variable S?
+Instructions
+50 XP
+Possible Answers
+
+E(S) = 25(1-p)
+E(S) = 25p
+E(S) = sqrt(25p(1-p))
+E(S) = p
+
+
+## Exercise 2. Polling - standard error of S
+
+Again, consider the random variable S, which is the total number of Democrats in your sample of 25 voters. The variable p describes the proportion of Democrats in the sample, whereas 1-p describes the proportion of Republicans.
+
+What is the standard error of S?
+Instructions
+50 XP
+Possible Answers
+
+SE(S) = 25p(1-p)
+SE(S) = sqrt(25p)
+SE(S) = 25(1-p)
+SE(S) = sqrt(25*p(1-p))
+
+
+## Exercise 3. Polling - expected value of X-bar
+
+Consider the random variable S/N, which is equivalent to the sample average that we have been denoting as X_bar. The variable N represents the sample size and p is the proportion of Democrats in the population.
+
+What is the expected value of X_bar?
+Instructions
+50 XP
+Possible Answers
+
+E(X_bar) = p
+E(X_bar) = Np
+E(X_bar) = N(1-p)
+E(X_bar) = 1-p
+
+
+## Exercise 4. Polling - standard error of X-bar
+
+What is the standard error of the sample average, X_bar?
+
+The variable N represents the sample size and p is the proportion of Democrats in the population.
+Instructions
+50 XP
+Possible Answers
+
+SE(X_bar) = sqrt(Np(1-p))
+SE(X_bar) = sqrt(p(1-p)/N)
+SE(X_bar) = sqrt(p(1-p))
+SE(X_bar) = sqrt(N)
+
+
+## Exercise 5. se versus p
+
+Write a line of code that calculates the standard error se of a sample average when you poll 25 people in the population. Generate a sequence of 100 proportions of Democrats p that vary from 0 (no Democrats) to 1 (all Democrats).
+
+Plot se versus p for the 100 different proportions.
+Instructions
+100 XP
+
+    Use the seq function to generate a vector of 100 values of p that range from 0 to 1.
+    Use the sqrt function to generate a vector of standard errors for all values of p.
+    Use the plot function to generate a plot with p on the x-axis and se on the y-axis.
+
+
+```{r}
+# `N` represents the number of people polled
+N <- 25
+
+# Create a variable `p` that contains 100 proportions ranging from 0 to 1 using the `seq` function
+p <- seq(0, 1, 1/100)
+p
+
+# Create a variable `se` that contains the standard error of each sample average
+se <- sqrt(N*p*(1-p))
+
+# Plot `p` on the x-axis and `se` on the y-axis
+plot(p, se)
+```
+Incorrect submission
+Check your call of seq(). Did you specify the argument length.out? 
+Incorrect submission
+Use sqrt to calculate the standard error and save it as se. Make sure to specify the correct formula for standard error. 
+
+```{r}
+# `N` represents the number of people polled
+N <- 25
+
+# Create a variable `p` that contains 100 proportions ranging from 0 to 1 using the `seq` function
+p <- seq(0, 1, length.out=100)
+
+# Create a variable `se` that contains the standard error of each sample average
+se <- sqrt(p*(1-p)/N)
+
+# Plot `p` on the x-axis and `se` on the y-axis
+plot(p, se)
+```
+
+
+## Exercise 6. Multiple plots of se versus p
+
+Using the same code as in the previous exercise, create a for-loop that generates three plots of p versus se when the sample sizes equal N = 25, N = 100, N = 1000.
+Instructions
+100 XP
+
+    Your for-loop should contain two lines of code to be repeated for three different values of N.
+    The first line within the for-loop should use the sqrt function to generate a vector of standard errors se for all values of p.
+    The second line within the for-loop should use the plot function to generate a plot with p on the x-axis and se on the y-axis.
+    Use the ylim argument to keep the y-axis limits constant across all three plots. The lower limit should be equal to 0 and the upper limit should equal 0.1 (it can be shown that this value is the highest calculated standard error across all values of p and N).
+
+```{r}
+# The vector `p` contains 100 proportions of Democrats ranging from 0 to 1 using the `seq` function
+p <- seq(0, 1, length = 100)
+
+# The vector `sample_sizes` contains the three sample sizes
+sample_sizes <- c(25, 100, 1000)
+
+# Write a for-loop that calculates the standard error `se` for every value of `p` for each of the three samples sizes `N` in the vector `sample_sizes`. Plot the three graphs, using the `ylim` argument to standardize the y-axis across all three plots.
+se <- sqrt(p*(1-p))
+plot(p, se, ylim=c(0, 0.1))
+
+```
+Exercise 6. Multiple plots of se versus p
+
+Using the same code as in the previous exercise, create a for-loop that generates three plots of p versus se when the sample sizes equal
+, , and
+
+.
+Instructions
+70 XP
+Instructions
+70 XP
+
+    Your for-loop should contain two lines of code to be repeated for three different values of N.
+    The first line within the for-loop should use the sqrt function to generate a vector of standard errors se for all values of p.
+    The second line within the for-loop should use the plot function to generate a plot with p on the x-axis and se on the y-axis.
+    Use the ylim argument to keep the y-axis limits constant across all three plots. The lower limit should be equal to 0 and the upper limit should equal 0.1 (it can be shown that this value is the highest calculated standard error across all values of p and N).
+
+Hint
+
+    The standard error of the sample average is
+
+    .
+    The standard error of the sample average is highest when p = 0.5 and N is small.
+    Use the command for to define your loop within parentheses. Write the lines of code to be repeated within curly brackets. For example, the example for-loop executes two lines of code for each element N in the vector sample_sizes.
+
+for(N in sample_sizes){
+  example_line1
+  example_line2
+}
+
+```{r}
+# The vector `p` contains 100 proportions of Democrats ranging from 0 to 1 using the `seq` function
+p <- seq(0, 1, length = 100)
+
+# The vector `sample_sizes` contains the three sample sizes
+sample_sizes <- c(25, 100, 1000)
+
+# Write a for-loop that calculates the standard error `se` for every value of `p` for each of the three samples sizes `N` in the vector `sample_sizes`. Plot the three graphs, using the `ylim` argument to standardize the y-axis across all three plots.
+se <- sqrt(p*(1-p)/sample_sizes)
+plot(p, se, ylim=c(0, 0.1))
+```
+Incorrect submission
+Make sure to write a for-loop using for. 
+
+```{r}
+# The vector `p` contains 100 proportions of Democrats ranging from 0 to 1 using the `seq` function
+p <- seq(0, 1, length = 100)
+
+# The vector `sample_sizes` contains the three sample sizes
+sample_sizes <- c(25, 100, 1000)
+
+# Write a for-loop that calculates the standard error `se` for every value of `p` for each of the three samples sizes `N` in the vector `sample_sizes`. Plot the three graphs, using the `ylim` argument to standardize the y-axis across all three plots.
+for (N in sample_sizes) {
+  se <- sqrt(p*(1-p)/N)
+  plot(p, se, ylim=c(0, 0.1))
+}
+```
+
+
+## Exercise 7. Expected value of d
+
+Our estimate for the difference in proportions of Democrats and Republicans is d = X_bar - (1-X_bar).
+
+Which derivation correctly uses the rules we learned about sums of random variables and scaled random variables to derive the expected value of d?
+Instructions
+50 XP
+Possible Answers
+
+E[X_bar-(1-X_bar)] = E[2X_bar-1] = 2E[X_bar]-1 = N(2p-1) = Np-N(1-p)
+E[X_bar-(1-X_bar)] = E[X_bar-1] = E[X_bar]-1 = p-1
+E[X_bar-(1-X_bar)] = E[2X_bar-1] = 2sqrt(p(1-p))-1 = p-(1-p)
+E[X_bar-(1-X_bar)] = E[2X_bar-1] = 2p-1 = p-(1-p)   O
+# ================================================================================
+
+
+## Exercise 8. Standard error of d
+
+Our estimate for the difference in proportions of Democrats and Republicans is d = X_bar - (1-X_bar).
+
+Which derivation correctly uses the rules we learned about sums of random variables and scaled random variables to derive the standard error of d?
+Instructions
+50 XP
+Possible Answers
+
+SE[X_bar-(1-X_bar)] = SE[2X_bar-1] = 2SE[X_bar] = 2sqrt(p/N)
+SE[X_bar-(1-X_bar)] = SE[2X_bar-1] = 2SE[X_bar-1] = 2sqrt(p(1-p)/N)-1
+SE[X_bar-(1-X_bar)] = SE[2X_bar-1] = 2SE[X_bar] = 2sqrt(p(1-p)/N)   O
+SE[X_bar-(1-X_bar)] = SE[X_bar-1] = SE[X_bar] = sqrt(p(1-p)/N)
+
+Incorrect submission
+Try again. Subtracting 1 does not affect the standard error. 
+# ================================================================================
+
+
+## Exercise 9. Standard error of the spread
+
+Say the actual proportion of Democratic voters is p=0.45. In this case, the Republican party is winning by a relatively large margin of d=-0.1, or a 10% margin of victory. What is the standard error of the spread 2X_bar-1 in this case?
+Instructions
+100 XP
+
+    Use the sqrt function to calculate the standard error of the spread 2X_bar-1.
+
+```{r}
+# `N` represents the number of people polled
+N <- 25
+
+# `p` represents the proportion of Democratic voters
+p <- 0.45
+
+# Calculate the standard error of the spread. Print this value to the console.
+2*sqrt(p*(1-p)/N)
+
+
+```
+
+
+## Exercise 10. Sample size
+
+So far we have said that the difference between the proportion of Democratic voters and Republican voters is about 10% and that the standard error of this spread is about 0.2 when N=25. Select the statement that explains why this sample size is sufficient or not.
+Instructions
+50 XP
+Possible Answers
+
+    This sample size is sufficient because the expected value of our estimate 2X_bar-1 is d so our prediction will be right on.
+[][*    This sample size is too small because the standard error is larger than the spread.   O*]
+    This sample size is sufficient because the standard error of about 0.2 is much smaller than the spread of 10%.
+    Without knowing p, we have no way of knowing that increasing our sample size would actually improve our standard error.
+# =======================================================================================================
+# ========================================================= What is the spread the instructor mentioned here and above
+
+
+## End of Assessment
+
+This is the end of the programming assignment for this section. Please DO NOT click through to additional assessments from this page. If you do click through, your scores may NOT be recorded.
+
+Click "Got it!" and submit to get the "points" for this question.
+
+You can close this window and return to Data Science: Inference.
+Answer the question
+50XP
+Possible Answers
+
+    Got it!
+    press
+    1
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
