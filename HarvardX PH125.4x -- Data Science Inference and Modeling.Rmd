@@ -658,6 +658,173 @@ We encourage you to use R to interactively test out your answers and further you
 # The Central Limit Theorem in Practice
 
 
+The central limit theorem
+tells us that the distribution function for a sum of draws
+is approximately normal.
+We also learned that when dividing a normally
+distributed random variable by a nonrandom constant,
+the resulting random variable is also normally distributed.
+This implies that the distribution of X-bar is approximately normal.
+So in summary, we have that X-bar has an approximately normal distribution.
+And in a previous video, we determined that the expected value is p,
+and the standard error is the square root of p times 1 minus p
+divided by the sample size N.
+Now, how does this help us?
+Let's ask an example question.
+Suppose we want to know what is the probability that we
+are within one percentage point from p-- that we
+made a very, very good estimate?
+So we're basically asking, what's the probability
+that the distance between X-bar and p, the absolute value of X-bar minus p,
+is less than 0.01, 1 percentage point.
+We can use what we've learned to see that this is the same as asking, what
+is the probability of X-bar being less than or equal to p plus 0.01
+minus the probability of X-bar being less than or equal to p minus 0.01.
+Now, can we answer the question now?
+Can we compute that probability?
+Note that we can use the mathematical trick
+that we learned in the previous module.
+What was that trick?
+We subtract the expected value and divide
+by the standard error on both sides of the equation.
+What this does is it gives us a standard normal variable, which we have been
+calling capital Z, on the left side.
+And we know how to make calculations for that.
+Since p is the expected value, and the standard error of X-bar
+is the square root of p times 1 minus p divided by N,
+we get that the probability that we were just calculating
+is equivalent to probability of Z, our standard normal variable,
+being less than 0.01 divided by the standard error of X-bar
+minus the probability of Z being less than negative 0.01
+divided by that standard error of X-bar.
+OK, now can we compute this probability?
+Not yet.
+Our problem is that we don't know p.
+So we can't actually compute the standard error of X-bar
+using just the data.
+But it turns out-- and this is something new we're showing you--
+that the CLT still works if we use an estimate of the standard error that,
+instead of p, uses X-bar in its place.
+We say this is a plug-in estimate.
+We call this a plug-in estimate.
+Our estimate of the standard error is therefore
+the square root of X-bar times 1 minus X-bar divided by N. Notice,
+we changed the p for the X-bar.
+In the mathematical formula we're showing you,
+you can see a hat on top of the SE.
+In statistics textbooks, we use a little hat like this to denote estimates.
+This is an estimate of the standard error, not the actual standard error.
+But like we said, the central limit theorem still works.
+Note that, importantly, that this estimate can actually
+be constructed using the observed data.
+Now, let's continue our calculations.
+But now instead of dividing by the standard error,
+we're going to divide by this estimate of the standard error.
+Let's compute this estimate of the standard error for the first sample
+that we took, in which we had 12 blue beads and 13 red beads.
+In that case, X-bar was 0.48.
+So to compute the standard error, we simply write this code.
+And we get that it's about 0.1.
+So now, we can answer the question.
+Now, we can compute the probability of being as close to p as we wanted.
+We wanted to be 1 percentage point away.
+The answer is simply pnorm of 0.01--
+that's 1 percentage point--
+divided by this estimated se minus pnorm of negative 0.01
+divided by the estimated se.
+We plug that into R, and we get the answer.
+The answer is that the probability of this happening is about 8%.
+So there is a very small chance that we'll be as close
+as this to the actual proportion.
+Now, that wasn't very useful, but what it's going to do,
+what we're going to be able to do with the central limit theorem
+is determine what sample sizes are better.
+And once we have those larger sample sizes,
+we'll be able to provide a very good estimate and some very informative
+probabilities.
+
+
+[][Textbook link]
+
+This video corresponds to the textbook section on the Central Limit Theorem in practice.
+https://rafalab.github.io/dsbook/inference.html#clt
+
+
+[][Key points]
+
+[][*    Because X_bar is the sum of random draws divided by a constant, the distribution of X_bar is approximately normal.*]
+    
+[][*    We can convert X_bar to a standard normal random variable Z: *]
+        Z = (X_bar - E(X_bar))/SE(X_bar)
+
+[][*    The probability that X_bar is within .01 of the actual value of p is: *]
+        Pr(Z<= 0.01/sqrt(p(1-p)/N)) - Pr(Z<= -0.01/sqrt(p*(1-p)/N))
+
+    The Central Limit Theorem (CLT) still works if X_bar is used in place of p. This is called a plug-in estimate. Hats over values denote estimates. Therefore:
+        SE_hat(X_bar) = sqrt(X_bar(1-X_bar)/N)
+
+    Using the CLT, the probability that X_bar is within .01 of the actual value of p is:
+        Pr(Z<= 0.01/sqrt(X_bar(1-X_bar)/N)) - Pr(X<= -o.o1/sqrt(x_bar(1-X_bar)/N))
+    
+
+Code: Computing the probability of X_bar being within .01 of
+
+X_hat <- 0.48
+se <- sqrt(X_hat*(1-X_hat)/25)
+pnorm(0.01/se) - pnorm(-0.01/se)
+
+
+
+
+![](C:/Users/qp/Pictures/the clt tells us that the distribution function of sum of draws is approximately normal.png)
+
+![](C:/Users/qp/Pictures/normal distributed random variable all we need is its mean and standard deviation.png)
+
+![](C:/Users/qp/Pictures/and we also knows when dividing a normal distributed random variable by a non-random constant the result is also normal distributed.png)
+
+![](C:/Users/qp/Pictures/this implies that the distribution of X-bar is approximately normal.png)
+
+# ===================================================================================================================
+![](C:/Users/qp/Pictures/in a previous video, we determined that the expected value is p.png)
+
+# ===================================================================================================================
+![](C:/Users/qp/Pictures/and the standard error is the square root of p times 1 minus p.png)
+
+![](C:/Users/qp/Pictures/suppose we are going to answering this question, whats the probability that we ar within 1 percentage point of p.png)
+
+![](C:/Users/qp/Pictures/with above question, we are really trying to get the distance between x_bar and p is less than 0.01.png)
+
+![](C:/Users/qp/Pictures/and this is the same asking what is the probability of x_bar being less than or equal to p pluss 0.01.png)
+
+![](C:/Users/qp/Pictures/and minus the probability of x_bar being less than or equal to p minus 0.01.png)
+
+![need to understand this one](C:/Users/qp/Pictures/we subtract the expected value and divide by the standard error.png)
+
+![](C:/Users/qp/Pictures/the equalation can be transfered to this one, replace with z.png)
+
+![the p is the expected value](C:/Users/qp/Pictures/the p is the expected value.png)
+
+![the standard error of x_bar equal to square root of p times 1 minus p divide by n](C:/Users/qp/Pictures/and the standard error of x_bar equal to square root of p times 1 minus p divide by n.png)
+
+![](C:/Users/qp/Pictures/so the probability we just calculated is equivalent to this equation.png)
+
+![](C:/Users/qp/Pictures/since we dno't know p, but clt still work if we use x_bar in its place.png)
+
+![](C:/Users/qp/Pictures/here is our standard error of x_bar is there fore replacing p with x_bar.png)
+
+# Notice that this estimate can actually be constructured using the observed data
+# ==================================================================================================================
+![in statistics textbooks, the hat represent teh estimate](C:/Users/qp/Pictures/now its our estimate of the standard error is square root of the x_bar times 1 minus x_bar divide by n.png)
+
+![](C:/Users/qp/Pictures/the first sample we took, in which we had 12 blue beads and 13 red beads.png)
+
+![](C:/Users/qp/Pictures/in that case the x_bar was 0.48.png)
+
+# =================================================================================================================
+# =================================================================================================================
+![](C:/Users/qp/Pictures/so to compute the first standard error, we simple write this code.png)
+
+![](C:/Users/qp/Pictures/now, we can compute the probability of being as close to p as we wanted.png)
 
 
 
@@ -668,6 +835,921 @@ We encourage you to use R to interactively test out your answers and further you
 
 
 
+
+# Margin of Error
+
+
+So a poll of only 25 people
+is not really very useful, at least for a close election.
+Earlier we mentioned the margin of error.
+Now we can define it because it is simply 2 times the standard error,
+which we can now estimate.
+In our case it was 2 times se, which is about 0.2.
+Why do we multiply by 2?
+This is because if you ask what is the probability that we're
+within 2 standard errors from p, using the same previous equations,
+we end up with an equation like this one.
+This one simplifies out, and we're simply
+asking what is the probability of the standard normal distribution that
+has the expected value 0 and standard error one is within two values from 0,
+and we know that this is about 95%.
+So there's a 95% chance that X-bar will be within 2 standard errors.
+That's the margin of error, in our case, to p.
+Now why do we use 95%?
+This is somewhat arbitrary.
+But traditionally, that's what's been used.
+It's the most common value that's used to define margins of errors.
+In summary, the central limit theorem tells us
+that our poll based on a sample of just 25 is not very useful.
+We don't really learn much when the margin of error is this large.
+All we can really say is that the popular vote will not
+be won by a large margin.
+This is why pollsters tend to use larger sample sizes.
+From the table that we showed earlier from RealClearPolitics,
+we saw that a typical sample size was between 700 and 3,500.
+To see how this gives us a much more practical result,
+note that if we had obtained an X-bar of 0.48, but with a sample size of 2,000,
+the estimated standard error would have been about 0.01.
+So our result is an estimate of 48% blue beads with a margin of error of 2%.
+In this case, the result is much more informative
+and would make us think that there are more red beads than blue beads.
+But keep in mind, this is just hypothetical.
+We did not take a poll of 2,000 beads since we
+don't want to ruin the competition.
+
+
+[][Textbook link]
+
+The margin of error is discussed within the textbook section on the Central Limit Theorem in practice.
+https://rafalab.github.io/dsbook/inference.html#clt
+
+
+[][Key points]
+
+    The margin of error is defined as 2 times the standard error of the estimate X_bar.
+
+[][*    There is about a 95% chance that X_bar will be within two standard errors of the actual parameter p. *]
+
+
+
+
+![](C:/Users/qp/Pictures/early we mentioned the margin of error.png)
+
+![](C:/Users/qp/Pictures/because it is simply 2 times the standard error.png)
+
+![](C:/Users/qp/Pictures/why 2 se, this is because when asking whats the probability we are in 2 standard errors from p, we end up with this equation.png)
+
+![](C:/Users/qp/Pictures/simplifies above equaltion, we are asking whats the probability of standard normal distribution tha has expected value 0 and standard error 1 is within 2 values from 0.png)
+
+![](C:/Users/qp/Pictures/note that if we had obtained an X-bar of 0.48, but with a sample size of 2,000, the estimated of standard error woule be this value.png)
+
+![](C:/Users/qp/Pictures/So our result is an estimate of 48% blue beads with a margin of error of 2% 1.png)
+
+![in this case, the result is much more informative](C:/Users/qp/Pictures/So our result is an estimate of 48% blue beads with a margin of error of 2% 2.png)
+
+
+
+
+
+
+
+
+
+
+# A Monte Carlo Simulation for the CLT
+
+
+Suppose we want to use a Monte Carlo simulation to corroborate
+that the tools that we've been using to build estimates and margins of errors
+using probability theory actually work.
+To create the simulation, we would need to write code like this.
+We would simply write the urn model, use replicate
+to construct a Monte Carlo simulation.
+The problem is, of course, that we don't know p.
+We can't run the code we just showed you because we don't know what p is.
+However, we could construct an urn like the one we showed in a previous video
+and actually run an analog simulation.
+It would take a long time because you would be picking beads and counting
+them, but you could take 10,000 samples, count the beads each time,
+and keep track of the proportions that you see.
+We can use the function take poll with n of 1,000
+instead of actually drawing from an urn, but it would still
+take time because you would have to count the beads
+and enter the results into R.
+So one thing we can do to corroborate theoretical results
+is to pick a value of p or several values of p
+and then run simulations using those.
+As an example, let's set p to 0.45.
+We can simulate one poll of 1,000 beads or people using this simple code.
+Now we can take that into a Monte Carlo simulation.
+Do it 10,000 times, each time returning the proportion of blue beads
+that we get in our sample.
+To review, the theory tells us that X-bar
+has an approximately normal distribution with expected value 0.45
+and a standard error of about 1.5%.
+The simulation confirms this.
+If we take the mean of the X-hats that we created,
+we indeed get a value of about 0.45.
+And if we compute the sd of the values that we just created,
+we get a value of about 1.5%.
+A histogram and a qq plot of this X-hat data
+confirms that the normal approximation is accurate as well.
+Again, note that in real life, we would never
+be able to run such an experiment because we don't know p.
+But we could run it for various values of p and sample sizes N
+and see that the theory does indeed work well for most values.
+You can easily do this yourself by rerunning the code we showed you
+after changing p and N.
+
+
+[][Textbook link]
+
+This video corresponds to the textbook section on a Monte Carlo simulation for the CLT.
+https://rafalab.github.io/dsbook/inference.html#a-monte-carlo-simulation
+
+
+
+[][Key points]
+
+     We can run Monte Carlo simulations to compare with theoretical results assuming a value of p.
+     
+     In practice, p is unknown. We can corroborate theoretical results by running Monte Carlo simulations with one or several values of p.
+     
+[][*     One practical choice for p when modeling is X_bar, the observed value of X_hat in a sample. *]
+
+
+Code: Monte Carlo simulation using a set value of p
+
+p <- 0.45    # unknown p to estimate
+N <- 1000
+
+# simulate one poll of size N and determine x_hat
+x <- sample(c(0,1), size = N, replace = TRUE, prob = c(1-p, p))
+x_hat <- mean(x)
+
+# simulate B polls of size N and determine average x_hat
+B <- 10000    # number of replicates
+N <- 1000    # sample size per replicate
+x_hat <- replicate(B, {
+    x <- sample(c(0,1), size = N, replace = TRUE, prob = c(1-p, p))
+    mean(x)
+})
+
+Code: Histogram and QQ-plot of Monte Carlo results
+
+library(tidyverse)
+library(gridExtra)
+p1 <- data.frame(x_hat = x_hat) %>%
+    ggplot(aes(x_hat)) +
+    geom_histogram(binwidth = 0.005, color = "black")
+p2 <- data.frame(x_hat = x_hat) %>%
+    ggplot(aes(sample = x_hat)) +
+    stat_qq(dparams = list(mean = mean(x_hat), sd = sd(x_hat))) +
+    geom_abline() +
+    ylab("X_hat") +
+    xlab("Theoretical normal")
+grid.arrange(p1, p2, nrow=1)
+
+
+
+```{r}
+B <- 10000
+N <- 1000
+p <- 0.48   # But since we do not know the p, the population parameter
+
+
+X_hat <- replicate(B, {
+  X <- sample(c(0, 1), size=N, replace=T, prob=c(1-p, p))
+  mean(X)
+})
+
+
+mean(X_hat)
+sd(X_hat)
+```
+
+# =======================================================================================================================
+```{r}
+library(gridExtra)
+library(tidyverse)
+
+
+p1 <- data.frame(X_hat=X_hat) %>%
+  ggplot(aes(X_hat)) +
+  geom_histogram(binds=30, color="black")
+
+p2 <- data.frame(X_hat=X_hat) %>%
+  ggplot(aes(sample=X_hat)) +
+  stat_qq(dparams=list(mean=mean(X_hat), sd=sd(X_hat))) +
+  geom_abline() +
+  ylab("X_hat") +
+  xlab("Theoretical normal")
+
+
+grid.arrange(p1, p2, nrow=1)  
+```
+
+
+
+
+![we write urn model and write replicate to constructure a monte carlo simulation](C:/Users/qp/Pictures/do you remember how we did a monte carlo simulation, we need to write code like this.png)
+
+![](C:/Users/qp/Pictures/we can use take_poll function to do a analog simulation.png)
+
+![](C:/Users/qp/Pictures/lets set p equal to 0.45, we can simulate one poll of 1,000 beads or people using this simple code.png)
+
+![](C:/Users/qp/Pictures/then we found out that the simulation comfirms this.png)
+
+![](C:/Users/qp/Pictures/we can visualize it with a histogram and a qq-plot of this X_hat data.png)
+
+
+
+
+
+
+
+
+
+
+
+# The Spread
+
+
+The competition is to predict the spread, not the proportion
+p.
+However, because we are assuming there are only two parties,
+we know that the spread is just p minus (1 minus p),
+which is equal to 2p minus 1.
+So everything we have done can easily be adapted to estimate to p minus 1.
+Once we have our estimate, X-bar, and our estimate of our standard error
+of X-bar, we estimate the spread by 2 times X-bar minus 1, just plugging
+in the X-bar where you should have a p.
+And, since we're multiplying a random variable by 2,
+we know that the standard error goes up by 2.
+So the standard error of this new random variable
+is 2 times the standard error of X-bar.
+Note that subtracting the 1 does not add any variability,
+so it does not affect the standard error.
+So, for our first example, with just the 25 beads, our estimate of p
+was 0.48 with a margin of error of 0.2.
+This means that our estimate of the spread
+is 4 percentage points, 0.04, with a margin of error of 40%, 0.4.
+Again, not a very useful sample size.
+But the point is that once we have an estimate and standard error for p,
+we have it for the spread 2p minus 1.
+
+
+[][Textbook link]
+
+This video corresponds to the textbook section on the spread.
+https://rafalab.github.io/dsbook/inference.html#the-spread
+
+
+
+[][Key points]
+
+[][*    The spread between two outcomes with probabilities  p and 1-p is 2p-1. *]
+    
+[][*    The expected value of the spread is 2X_bar-1. *]
+    
+[][*    The standard error of the spread is 2SE_hat(X_bar). *]
+    
+[][*    The margin of error of the spread is 2 times the margin of error of X_bar. *]
+
+
+
+
+![](C:/Users/qp/Pictures/because we are assuming there are just 2 parties, thus the spread is just this.png)
+
+![](C:/Users/qp/Pictures/once we have our estimate x_bar and estimate of standard error, we just plug in x_bar where we should have p.png)
+
+![](C:/Users/qp/Pictures/sincw we are multiple a random variable by 2, we know the standard error goes up by 2.png)
+
+![](C:/Users/qp/Pictures/so for our first example with just 25 beads, our estimate of p was 0.48.png)
+
+![](C:/Users/qp/Pictures/and the margin of error for our first example is 0.2.png)
+
+![](C:/Users/qp/Pictures/thus our estimate of the spread is 0.04.png)
+
+![](C:/Users/qp/Pictures/and our margin of error is 40% in this cases after we have the estimate and standard error of p.png)
+
+
+
+
+
+
+
+
+
+
+
+# Bias: Why Not Run a Very Large Poll?
+
+
+Note that for realistic values of p, say between 0.35 and 0.65
+for the popular vote, if we run a very large poll with say 100,000 people,
+theory would tell us that we would predict the election almost perfectly,
+since the largest possible margin of error is about 0.3%.
+Here are the calculations that were used to determine that.
+We can see a graph showing us the standard error for several values of p
+if we fix N to be 100,000.
+So why are there no pollsters that are conducting polls this large?
+One reason is that running polls with a sample size of 100,000
+is very expensive.
+But perhaps a more important reason is that theory has its limitations.
+Polling is much more complicated than picking beads from an urn.
+For example, while the beads are either red or blue,
+and you can see it with your eyes, people, when you ask them,
+might lie to you.
+Also, because you're conducting these polls usually by phone,
+you might miss people that don't have phones.
+And they might vote differently than those that do.
+But perhaps the most different way an actual poll is from our urn model
+is that we actually don't know for sure who is in our population
+and who is not.
+How do we know who is going to vote?
+Are we reaching all possible voters?
+So, even if our margin of error is very small,
+it may not be exactly right that our expected value is p.
+We call this bias.
+Historically, we observe that polls are, indeed, biased,
+although not by that much.
+The typical bias appears to be between 1% and 2%.
+This makes election forecasting a bit more interesting.
+And we'll talk about that in a later video.
+
+
+[][Textbook link]
+
+This video corresponds to the textbook section on bias.
+https://rafalab.github.io/dsbook/inference.html#bias-why-not-run-a-very-large-poll
+
+
+
+[][Key points]
+
+    An extremely large poll would theoretically be able to predict election results almost perfectly.
+    These sample sizes are not practical. In addition to cost concerns, polling doesn't reach everyone in the population (eventual voters) with equal probability, and it also may include data from outside our population (people who will not end up voting).
+    These systematic errors in polling are called bias. We will learn more about bias in the future.
+
+Code: Plotting margin of error in an extremely large poll over a range of values of p
+
+library(tidyverse)
+N <- 100000
+p <- seq(0.35, 0.65, length = 100)
+SE <- sapply(p, function(x) 2*sqrt(x*(1-x)/N))
+data.frame(p = p, SE = SE) %>%
+    ggplot(aes(p, SE)) +
+    geom_line()
+
+
+
+```{r}
+N <- 100000
+p <- seq(0.35, 0.65, length=100)
+
+
+SE <- sapply(p, function(x) 2*sqrt(x*(1-x)/N))
+
+data.frame(SE=SE) %>%
+  ggplot(aes(p, SE)) +
+  geom_line()
+```
+
+![](C:/Users/qp/Pictures/many concerns involved in poll, from population to realistic situations, we call this bias.png)
+
+![](C:/Users/qp/Pictures/the typical bias are between 1 to 2 percent in poll.png)
+
+
+
+![](C:/Users/qp/Pictures/for realistic value of p between this range for the popular vote.png)
+
+![](C:/Users/qp/Pictures/if we ran our poll woth very large sample say 100000 people.png)
+
+
+![](C:/Users/qp/Pictures/the throry tells us the largest possible margin of error is just 0.3% with this big sample size.png)
+
+![](C:/Users/qp/Pictures/here are the calculation we used to determining that with visualization.png)
+
+
+
+
+
+
+
+
+
+# Assessment 2.1: Introduction to Inference
+
+
+DataCamp due Jul 14, 2022 07:55 AWST
+
+In this assessment, you will learn about the central limit theorem in practice.
+
+By clicking OK, you agree to DataCamp's privacy policy: https://www.datacamp.com/privacy-policy. Note that you might need to disable your pop-up blocker, or allow "www.datacamp.com" in your pop-up blocker allowed list. When you have completed the exercises, return to edX to continue your learning.
+
+Assessment 2.1: Introduction to Inference (External resource) (12.5 points possible)
+By clicking OK, you agree to DataCamp's privacy policy: https://www.datacamp.com/privacy-policy.
+
+Ask your questions about the central limit theorem for inference or the related DataCamp assessment here. Remember to search the discussion board before posting to see if someone else has asked the same thing before asking a new question! You're also encouraged to answer each other's questions to help further your own learning.
+
+Some reminders:
+
+    Please be specific in the title and body of your post regarding which question you're asking about to facilitate answering your question.
+    Posting snippets of code is okay, but posting full code solutions is not.
+    If you do post snippets of code, please format it as code for readability. If you're not sure how to do this, there are instructions in a pinned post in the "general" discussion forum.
+
+
+## Exercise 1. Sample average
+
+Write function called take_sample that takes the proportion of Democrats p and the sample size N as arguments and returns the sample average of Democrats (1) and Republicans (0).
+
+Calculate the sample average if the proportion of Democrats equals 0.45 and the sample size is 100.
+Instructions
+100 XP
+
+    Define a function called take_sample that takes p and N as arguments.
+    Use the sample function as the first statement in your function to sample N elements from a vector of options where Democrats are assigned the value '1' and Republicans are assigned the value '0' in that order.
+    Use the mean function as the second statement in your function to find the average value of the random sample.
+
+
+```{r}
+# Write a function called `take_sample` that takes `p` and `N` as arguements and returns the average value of a randomly sampled population.
+take_sample <- function(p, N) mean(sample(c(1, 0), size=N, prob=c(p, 1-p), replace=T))
+
+
+
+
+# Use the `set.seed` function to make sure your answer matches the expected result after random sampling
+set.seed(1, sample.kind="Rounding")
+
+# Define `p` as the proportion of Democrats in the population being polled
+p <- 0.45
+
+# Define `N` as the number of people polled
+N <- 100
+
+# Call the `take_sample` function to determine the sample average of `N` randomly selected people from a population containing a proportion of Democrats equal to `p`. Print this value to the console.
+take_sample(p, N)
+
+```
+```{r}
+# Write a function called `take_sample` that takes `p` and `N` as arguements and returns the average value of a randomly sampled population.
+take_sample <- function(p, N) {
+    sample <- sample(c(1, 0), size=N, prob=c(p, 1-p), replace=T)
+    mean(sample)
+}
+
+
+
+
+# Use the `set.seed` function to make sure your answer matches the expected result after random sampling
+set.seed(1, sample.kind="Rounding")
+
+# Define `p` as the proportion of Democrats in the population being polled
+p <- 0.45
+
+# Define `N` as the number of people polled
+N <- 100
+
+# Call the `take_sample` function to determine the sample average of `N` randomly selected people from a population containing a proportion of Democrats equal to `p`. Print this value to the console.
+take_sample(p, N)
+
+```
+
+
+## Exercise 2. Distribution of errors - 1
+
+Assume the proportion of Democrats in the population p equals 0.45 and that your sample size N is 100 polled voters. The take_sample function you defined previously generates our estimate, X_bar.
+
+Replicate the random sampling 10,000 times and calculate p-X_bar for each random sample. Save these differences as a vector called errors. Find the average of errors and plot a histogram of the distribution.
+Instructions
+100 XP
+
+    The function take_sample that you defined in the previous exercise has already been run for you.
+    Use the replicate function to replicate subtracting the result of take_sample from the value of p 10,000 times.
+    Use the mean function to calculate the average of the differences between the sample average and actual value of p.
+
+```{r}
+# Define `p` as the proportion of Democrats in the population being polled
+p <- 0.45
+
+# Define `N` as the number of people polled
+N <- 100
+
+# The variable `B` specifies the number of times we want the sample to be replicated
+B <- 10000
+
+# Use the `set.seed` function to make sure your answer matches the expected result after random sampling
+set.seed(1, sample.kind="Rounding")
+
+# Create an objected called `errors` that replicates subtracting the result of the `take_sample` function from `p` for `B` replications
+errors <- p - replicate(B, take_sample(p, N))
+
+
+# Calculate the mean of the errors. Print this value to the console.
+mean(errors)
+
+```
+
+
+## Exercise 3. Distribution of errors - 2
+
+In the last exercise, you made a vector of differences between the actual value for
+and an estimate,
+
+. We called these differences between the actual and estimated values errors.
+
+The errors object has already been loaded for you. Use the hist function to plot a histogram of the values contained in the vector errors. Which statement best describes the distribution of the errors?
+Instructions
+50 XP
+Possible Answers
+
+    The errors are all about 0.05.
+    The error are all about -0.05.
+    The errors are symmetrically distributed around 0.
+    The errors range from -1 to 1.
+
+
+## Exercise 4. Average size of error
+
+The error p-X_bar is a random variable. In practice, the error is not observed because we do not know the actual proportion of Democratic voters, p. However, we can describe the size of the error by constructing a simulation.
+
+What is the average size of the error if we define the size by taking the absolute value |p-X_bar|?
+Instructions
+100 XP
+
+    Use the sample code to generate errors, a vector of |p-X_bar|.
+    Calculate the absolute value of errors using the abs function.
+    Calculate the average of these values using the mean function.
+
+```{r}
+# Define `p` as the proportion of Democrats in the population being polled
+p <- 0.45
+
+# Define `N` as the number of people polled
+N <- 100
+
+# The variable `B` specifies the number of times we want the sample to be replicated
+B <- 10000
+
+# Use the `set.seed` function to make sure your answer matches the expected result after random sampling
+set.seed(1, sample.kind="Rounding")
+
+# We generated `errors` by subtracting the estimate from the actual proportion of Democratic voters
+errors <- replicate(B, p - take_sample(p, N))
+
+# Calculate the mean of the absolute value of each simulated error. Print this value to the console.
+mean(abs(errors))
+
+```
+
+
+## Exercise 5. Standard deviation of the spread
+
+The standard error is related to the typical size of the error we make when predicting. We say size because, as we just saw, the errors are centered around 0. In that sense, the typical error is 0. For mathematical reasons related to the central limit theorem, we actually use the standard deviation of errors rather than the average of the absolute values.
+
+As we have discussed, the standard error is the square root of the average squared distance (X_bar-p)^2. The standard deviation is defined as the square root of the distance squared.
+
+Calculate the standard deviation of the spread.
+Instructions
+100 XP
+
+    Use the sample code to generate errors, a vector of |p-X_bar|.
+    Use ^2 to square the distances.
+    Calculate the average squared distance using the mean function.
+    Calculate the square root of these values using the sqrt function.
+
+```{r}
+# Define `p` as the proportion of Democrats in the population being polled
+p <- 0.45
+
+# Define `N` as the number of people polled
+N <- 100
+
+# The variable `B` specifies the number of times we want the sample to be replicated
+B <- 10000
+
+# Use the `set.seed` function to make sure your answer matches the expected result after random sampling
+set.seed(1, sample.kind="Rounding")
+
+# We generated `errors` by subtracting the estimate from the actual proportion of Democratic voters
+errors <- replicate(B, p - take_sample(p, N))
+
+# Calculate the standard deviation of `errors`
+sqrt(mean(errors^2))
+
+```
+
+
+## Exercise 6. Estimating the standard error
+
+The theory we just learned tells us what this standard deviation is going to be because it is the standard error of X_bar.
+
+Estimate the standard error given an expected value of 0.45 and a sample size of 100.
+Instructions
+100 XP
+
+    Calculate the standard error using the sqrt function
+
+```{r}
+# Define `p` as the expected value equal to 0.45
+p <- 0.45
+
+# Define `N` as the sample size
+N <- 100
+
+# Calculate the standard error
+sqrt(p*(1-p)/N)
+
+```
+
+
+## Exercise 7. Standard error of the estimate
+
+In practice, we don't know p, so we construct an estimate of the theoretical prediction based by plugging in X_bar for p. Calculate the standard error of the estimate: SE_har(X_bar)
+Instructions
+100 XP
+
+    Simulate a poll X using the sample function.
+    When using the sample function, create a vector using c() that contains all possible polling options where '1' indicates a Democratic voter and '0' indicates a Republican voter.
+    When using the sample function, use replace = TRUE within the sample function to indicate that sampling from the vector should occur with replacement.
+    When using the sample function, use prob = within the sample function to indicate the probabilities of selecting either element (0 or 1) within the vector of possibilities.
+    Use the mean function to calculate the average of the simulated poll, X_bar.
+    Calculate the standard error of the X_bar using the sqrt function and print the result.
+
+```{r}
+# Define `p` as a proportion of Democratic voters to simulate
+p <- 0.45
+
+# Define `N` as the sample size
+N <- 100
+
+# Use the `set.seed` function to make sure your answer matches the expected result after random sampling
+set.seed(1, sample.kind="Rounding")
+
+# Define `X` as a random sample of `N` voters with a probability of picking a Democrat ('1') equal to `p`
+X <- sample(c(1, 0), N, prob=c(p, 1-p), replace=T)
+
+# Define `X_bar` as the average sampled proportion
+X_bar <- mean(X)
+
+# Calculate the standard error of the estimate. Print the result to the console.
+sqrt(p*(1-p)/N)
+
+```
+Incorrect submission
+You are not providing a calculation that gives the correct answer. Make sure you are dividing by the sample size before taking the square root. 
+
+```{r}
+# Define `p` as a proportion of Democratic voters to simulate
+p <- 0.45
+
+# Define `N` as the sample size
+N <- 100
+
+# Use the `set.seed` function to make sure your answer matches the expected result after random sampling
+set.seed(1, sample.kind="Rounding")
+
+# Define `X` as a random sample of `N` voters with a probability of picking a Democrat ('1') equal to `p`
+X <- sample(c(1, 0), N, prob=c(p, 1-p), replace=T)
+
+# Define `X_bar` as the average sampled proportion
+X_bar <- mean(X)
+
+# Calculate the standard error of the estimate. Print the result to the console.
+sqrt(X_bar*(1-X_bar)/N)
+
+```
+
+
+## Exercise 8. Plotting the standard error
+
+The standard error estimates obtained from the Monte Carlo simulation, the theoretical prediction, and the estimate of the theoretical prediction are all very close, which tells us that the theory is working. This gives us a practical approach to knowing the typical error we will make if we predict p with X_hat. The theoretical result gives us an idea of how large a sample size is required to obtain the precision we need. Earlier we learned that the largest standard errors occur for p=0.5.
+
+Create a plot of the largest standard error for N ranging from 100 to 5,000. Based on this plot, how large does the sample size have to be to have a standard error of about 1%?
+
+N <- seq(100, 5000, len = 100)
+p <- 0.5
+se <- sqrt(p*(1-p)/N)
+
+Instructions
+50 XP
+Possible Answers
+
+    100
+    500
+    2,500
+    4,000
+
+```{r}
+library(tidyverse)
+
+
+N <- seq(100, 5000, len = 100)
+p <- 0.5
+se <- sqrt(p*(1-p)/N)
+
+
+data.frame(se=se) %>%
+  ggplot(aes(N, se)) +
+  geom_line()
+```
+
+
+## Exercise 9. Distribution of X-hat
+
+For N=100, the central limit theorem tells us that the distribution of X_hat is...
+Instructions
+50 XP
+Possible Answers
+
+    practically equal to p.
+    approximately normal with expected value p and standard error sqrt(p(1-p)/N).
+    approximately normal with expected value X_bar and standard error sqrt(p(1-p)/N).   ???
+    not a random variable.
+
+Incorrect submission
+Try again. The expected value is equal to the theoretical value. 
+
+
+## Exercise 10. Distribution of the errors
+
+We calculated a vector errors that contained, for each simulated sample, the difference between the actual value p and our estimate X_hat.
+
+The errors X_bar-p are:
+Instructions
+50 XP
+Possible Answers
+
+    practically equal to 0.
+    approximately normal with expected value 0 and standard error sqrt(p(1-p)/N).   ???
+    approximately normal with expected value p and standard error sqrt(p(1-p)/N).
+    not a random variable.
+
+
+## Exercise 11. Plotting the errors
+
+Make a qq-plot of the errors you generated previously to see if they follow a normal distribution.
+Instructions
+100 XP
+
+    Run the supplied code
+    Use the qqnorm function to produce a qq-plot of the errors.
+    Use the qqline function to plot a line showing a normal distribution.
+
+```{r}
+# Define `p` as the proportion of Democrats in the population being polled
+p <- 0.45
+
+# Define `N` as the number of people polled
+N <- 100
+
+# The variable `B` specifies the number of times we want the sample to be replicated
+B <- 10000
+
+# Use the `set.seed` function to make sure your answer matches the expected result after random sampling
+set.seed(1, sample.kind="Rounding")
+
+# Generate `errors` by subtracting the estimate from the actual proportion of Democratic voters
+errors <- replicate(B, p - take_sample(p, N))
+
+# Generate a qq-plot of `errors` with a qq-line showing a normal distribution
+qqnorm(errors)  
+qqline(errors)
+
+
+
+
+data.frame(errors=errors) %>%
+  ggplot(aes(sample=errors)) +
+  stat_qq(dparams=list(mean=mean(errors), sd=sd(errors))) +
+  geom_abline() 
+```
+
+
+## Exercise 12. Estimating the probability of a specific value of X-bar
+
+If p=0.45 and N=100, use the central limit theorem to estimate the probability that X_bar > 0.5.
+Instructions
+100 XP
+
+    Use pnorm to define the probability that a value will be greater than 0.5.
+
+```{r}
+# Define `p` as the proportion of Democrats in the population being polled
+p <- 0.45
+
+# Define `N` as the number of people polled
+N <- 100
+
+# Calculate the probability that the estimated proportion of Democrats in the population is greater than 0.5. Print this value to the console.
+1 - pnorm(0.5, mean=p, sd=sqrt(p*(1-p)/N))
+
+
+```
+
+
+## Exercise 13. Estimating the probability of a specific error size
+
+Assume you are in a practical situation and you don't know p. Take a sample of size N=100 and obtain a sample average of X_bar=0.51.
+
+What is the CLT approximation for the probability that your error size is equal or larger than 0.01?
+Instructions
+100 XP
+
+    Calculate the standard error of the sample average using the sqrt function.
+    Use pnorm twice to define the probabilities that a value will be less than -0.01 or greater than 0.01.
+    Combine these results to calculate the probability that the error size will be 0.01 or larger.
+
+```{r}
+# Define `N` as the number of people polled
+N <-100
+
+# Define `X_hat` as the sample average
+X_hat <- 0.51
+
+# Define `se_hat` as the standard error of the sample average
+se_hat <- sqrt(X_hat*(1-X_hat)/N)
+
+# Calculate the probability that the error is 0.01 or larger
+pnorm(0.01, mean=X_hat, sd=se_hat) - pnorm(-0.01, mean=X_hat, sd=se_hat)
+
+```
+Incorrect submission
+You are not providing a calculation that gives the correct answer. Make sure you account for the probability that the error is less than 0.01 or less than -0.01. 
+
+Hint
+
+    The standard error of X_hat = sqrt(X_hat*(1-X_hat)/N)
+
+[][*Recall that the expected value of the error is 0.  *]
+Remember to subtract the probability calculated using pnorm from 1 to determine the probability that a value will be 0.01 or higher.
+Don't forget to add the probability that the error will be less than -0.01.
+
+```{r}
+# Define `N` as the number of people polled
+N <-100
+
+# Define `X_hat` as the sample average
+X_hat <- 0.51
+
+# Define `se_hat` as the standard error of the sample average
+se_hat <- sqrt(X_hat*(1-X_hat)/N)
+
+# Calculate the probability that the error is 0.01 or larger
+1 - pnorm(.01, 0, se_hat) + pnorm(-0.01, 0, se_hat)
+
+```
+
+
+
+## End of Assessment
+
+This is the end of the programming assignment for this section. Please DO NOT click through to additional assessments from this page. If you do click through, your scores may NOT be recorded.
+
+Click "Got it!" and submit to get the "points" for this question.
+
+You can close this window and return to Data Science: Inference.
+Answer the question
+50XP
+Possible Answers
+
+    Got it!
+    press
+    1
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# Section 3 Overview
+
+
+In Section 3, you will look at confidence intervals and p-values.
+
+After completing Section 3, you will be able to:
+
+        Calculate confidence intervals of difference sizes around an estimate.
+        Understand that a confidence interval is a random interval with the given probability of falling on top of the parameter.
+        Explain the concept of "power" as it relates to inference.
+        Understand the relationship between p-values and confidence intervals and explain why reporting confidence intervals is often preferable.
+
+There is 1 assignment that uses the DataCamp platform for you to practice your coding skills.
+
+We encourage you to use R to interactively test out your answers and further your learning.
 
 
 
