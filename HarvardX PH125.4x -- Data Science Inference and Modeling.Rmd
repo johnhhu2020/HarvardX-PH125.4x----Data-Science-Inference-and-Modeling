@@ -1,6 +1,14 @@
 ---
 title: 'HarvardX PH125.4x Data Science: Inference and Modeling'
 author: "John HHU"
+date: "2022-08-15"
+output: html_document
+---
+
+
+---
+title: 'HarvardX PH125.4x Data Science: Inference and Modeling'
+author: "John HHU"
 date: '2022-07-02'
 output: html_document
 ---
@@ -17,15 +25,28 @@ output: html_document
 # Sampling Model Parameters and Estimates
 
 
-To help us understand the connection between polls and the probability theory that we have learned, let's construct a scenario that we can work through together and that is similar to the one that pollsters face.  We will use an urn instead of voters.  And because pollsters are competing with other pollsters for media attention, we will imitate that by having our competition with a $25 prize.  The challenge is to guess the spread between the proportion of blue and red balls in this urn.  Before making a prediction, you can take a sample, with replacement, from the urn.  To mimic the fact that running polls is expensive, it will cost you $0.10 per bead you sample.  So if your sample size is 250 and you win, you'll break even, as you'll have to pay me $25 to collect your $25.  Your entry into the competition can be an interval.  
+To help us understand the connection between polls and the probability theory that we have learned, let's construct a scenario that we can work through together and that is similar to the one that pollsters face.  We will use an urn instead of voters.  And because pollsters are competing with other pollsters for media attention, we will imitate that by having our competition with a $25 prize.  The challenge is to guess the spread between the proportion of blue and red balls in this urn.  Before making a prediction, you can take a sample, with replacement, from the urn.  
+![the challenge is to guess the spread between proportion of blue and red in this urn](C:/Users/qp/Pictures/to help us understand the connection between polls and probability theory.png)
+To mimic the fact that running polls is expensive, it will cost you $0.10 per bead you sample.  So if your sample size is 250 and you win, you'll break even, as you'll have to pay me $25 to collect your $25.  
+![](C:/Users/qp/Pictures/running poll is expansive.png)
+Your entry into the competition can be an interval.  If the interval you submit contains the true proportion, you get half what you paid and pass to the second phase of the competition.  In the second phase of the competition, the entry with the smallest interval is selected as the winner.  
+![](C:/Users/qp/Pictures/the take poll dataset.png)
+![](C:/Users/qp/Pictures/and here is the sample with 25 beads.png)
+The dslabs package includes a function that shows a random draw from the urn that we just saw.  Here's the code that you can write to see a sample.  And here is a sample with 25 beads.  OK, now that you know the rules, think about how you would construct your interval.  How many beads would you sample, et cetera?  Notice that we have just described a simple sampling model for opinion polls.  
 
-If the interval you submit contains the true proportion, you get half what you paid and pass to the second phase of the competition.  In the second phase of the competition, the entry with the smallest interval is selected as the winner.  The dslabs package includes a function that shows a random draw from the urn that we just saw.  Here's the code that you can write to see a sample.  And here is a sample with 25 beads.  OK, now that you know the rules, think about how you would construct your interval.  How many beads would you sample, et cetera?  Notice that we have just described a simple sampling model for opinion polls.  
-
-# ======================================================================================================================
-[][**The beads inside the urn represent the individuals that will vote on election day**].  Those that will vote Republican are represented with red beads and the Democrats with blue beads.  For simplicity, assume there are no other colors, that there are just two parties.  ***We want to predict the proportion of blue beads in the urn***.  Let's call this quantity p, which in turn tells us the proportion of red beads, 1 minus p, and the spread, p minus (1 minus p), which simplifies to 2p minus 1.  In statistical textbooks, the beads in the urn are called the population.  The proportion of blue beads in the population, p, is called a parameter.  The 25 beads that we saw in an earlier plot after we sampled, that's called a sample.  [][**The task of statistical inference is to predict the parameter, p, using the observed data in the sample**].  Now, can we do this with just the 25 observations we showed you?  
-
-Well, they are certainly informative.  For example, given that we see 13 red and 12 blue, it is unlikely that p is bigger than 0.9 or smaller than 0.1.  Because if they were, it would be un-probable to see 13 red and 12 blue.  But are we ready to predict with certainty that there are more red beads than blue?  OK, **what we want to do is construct an estimate of p using only the information we observe**.  An estimate can be thought of as a summary of the observed data that we think is informative about the parameter of interest.  It seems intuitive to think that the proportion of blue beads in the sample, which in this case is 0.48, must be at least related to the actual proportion p.  But do we simply predict p to be 0.48?   
-
+![](C:/Users/qp/Pictures/we want to predict the proportion of blue beads in the urn.png)
+![consider we have only two parties in the urn, then](C:/Users/qp/Pictures/assuming the quantity is p for blue beads, then we get the proportion of read bead too.png)
+![](C:/Users/qp/Pictures/and here is out sperad, can be simplifies as 2p-1.png)
+The beads inside the urn represent the individuals that will vote on election day.  Those that will vote Republican are represented with red beads and the Democrats with blue beads.  For simplicity, assume there are no other colors, that there are just two parties.  ***We want to predict the proportion of blue beads in the urn***.  Let's call this quantity p, which in turn tells us the proportion of red beads, 1 minus p, and the spread, p minus (1 minus p), which simplifies to 2p minus 1.  
+![](C:/Users/qp/Pictures/in statistical book, the beads in the urn are called the population.png)
+![](C:/Users/qp/Pictures/the proportion of blue beads in the population is called a parameter.png)
+![](C:/Users/qp/Pictures/the 25 beads we draw earlier is called a sample.png)
+In statistical textbooks, *the beads in the urn are called the population*.  *The proportion of blue beads in the population, p, is called a parameter*.  *The 25 beads that we saw in an earlier plot after we sampled, that's called a sample*.  [][**The task of statistical inference is to predict the parameter, p, using the observed data in the sample**].  
+![](C:/Users/qp/Pictures/the task of statistical inference is to predict the parameter p using the observed data in the sample.png)
+Now, can we do this with just the 25 observations we showed you?  Well, they are certainly informative.  For example, given that we see 13 red and 12 blue, it is unlikely that p is bigger than 0.9 or smaller than 0.1.  Because if they were, it would be un-probable to see 13 red and 12 blue.  But are we ready to predict with certainty that there are more red beads than blue?  
+![](C:/Users/qp/Pictures/the estimate is a summary of observed data that we think is informative about the parameter of interest.png)
+OK, **what we want to do is construct an estimate of p using only the information we observe**.  An estimate can be thought of as a summary of the observed data that we think is informative about the parameter of interest.  It seems intuitive to think that the proportion of blue beads in the sample, which in this case is 0.48, must be at least related to the actual proportion p.  But do we simply predict p to be 0.48?   
+![the sample proportion is a random variable](C:/Users/qp/Pictures/if we run the command take_poll 25 many times, each time, the sample proportion is different.png)
 [][**First, note that the sample proportion is a random variable**].  If we run the command take_poll(25), say four times, we get four different answers.  Each time the sample is different and the sample proportion is different.  The sample proportion is a random variable.  Note that in the four random samples we show, the sample proportion ranges from 0.44 to 0.6.  **By describing the distribution of this random variable, we'll be able to gain insights into how good this estimate is and how we can make it better**.  
 
 
@@ -66,36 +87,6 @@ take_poll(25)      # draw 25 beads
 
 
 
-![the challenge is to guess the spread between proportion of blue and red in this urn](C:/Users/qp/Pictures/to help us understand the connection between polls and probability theory.png)
-
-![](C:/Users/qp/Pictures/running poll is expansive.png)
-
-![](C:/Users/qp/Pictures/the take poll dataset.png)
-
-![](C:/Users/qp/Pictures/and here is the sample with 25 beads.png)
-
-![](C:/Users/qp/Pictures/we want to predict the proportion of blue beads in the urn.png)
-
-![consider we have only two parties in the urn, then](C:/Users/qp/Pictures/assuming the quantity is p for blue beads, then we get the proportion of read bead too.png)
-
-![](C:/Users/qp/Pictures/and here is out sperad, can be simplifies as 2p-1.png)
-
-![](C:/Users/qp/Pictures/in statistical book, the beads in the urn are called the population.png)
-
-![](C:/Users/qp/Pictures/the proportion of blue beads in the population is called a parameter.png)
-
-![](C:/Users/qp/Pictures/the 25 beads we draw earlier is called a sample.png)
-
-![](C:/Users/qp/Pictures/the task of statistical inference is to predict the parameter p using the observed data in the sample.png)
-
-![](C:/Users/qp/Pictures/can we do this statistical inference with just 25 observations, with 12 blue and 13 read, they unlikelly that p is 90% of extreme value.png)
-
-![](C:/Users/qp/Pictures/the estimate is a summary of observed data that we think is informative about the parameter of interest.png)
-
-![the sample proportion is a random variable](C:/Users/qp/Pictures/if we run the command take_poll 25 many times, each time, the sample proportion is different.png)
-
-
-
 
 
 
@@ -108,18 +99,23 @@ take_poll(25)      # draw 25 beads
 # The Sample Average
 
 
-[][*Taking an opinion poll is being modeled as taking a random sample from an urn*].  **We are proposing the use of the proportion of blue beads in our sample as an estimate of the parameter p**.  Once we have this estimate, we can easily report an estimate of the spread, 2p minus 1.  But for simplicity, we will illustrate the concept of statistical inference for estimating p.  We will use our knowledge of probability to defend our use of the sample proportion, and quantify how close we think it is from the population proportion p.  We start by defining the random variable X.  X is going to be 1 if we pick a blue bead at random, and 0 if it's red.  
+[][*Taking an opinion poll is being modeled as taking a random sample from an urn*].  **We are proposing the use of the proportion of blue beads in our sample as an estimate of the parameter p**.  Once we have this estimate, we can easily report an estimate of the spread, 2p minus 1.  
+![](C:/Users/qp/Pictures/the spread id 2p-1.png)
 
-# =======================================================================================================================
-[][*This implies that we're assuming that the population, the beads in the urn, are a list of 0s and 1s*](*I assume we can use a, b, c or any kind to represent the outcomes, then use list comprehension and len to get the proportion*).  If we sample N beads, then the average of the draws X_1 through X_N is equivalent to the proportion of blue beads in our sample.  *This is because adding the Xs is equivalent to counting the blue beads*, and dividing by the total N turns this into a proportion.  We use the symbol X-bar to represent this average(*I assume measuring occurrence of one outcome from 2 or many*).  In general, in statistics textbooks, a bar on top of a symbol means the average.  
-# ========================================================================================================================
-
-# ========================================================================================================================
-[][***The theory we just learned about the sum of draws becomes useful(*CLT normal distribution*), because we know the distribution of the sum N times X-bar.  We know the distribution of the average X-bar, because N is a non random constant***].  For simplicity, let's assume that the draws are independent.  After we see each sample bead, we return it to the urn.  It's a sample with replacement.  
-
-[][*In this case, what do we know about the distribution of the sum of draws*]?  First, we know that the expected value of the sum of draws is N times the average of the values in the urn.  We know that the average of the 0s and 1s in the urn must be the proportion p, the value we want to estimate.  Here, we encounter an important difference with what we did in the probability module.  We don't know what is in the urn.  We know there are blue and red beads, but we don't know how many of each.  This is what we're trying to find out.  We're trying to estimate p.  Just like we use variables to define unknowns in systems of equations, in statistical inference, we define parameters to define unknown parts of our models.  In the urn model we are using to mimic an opinion poll, we do not know the proportion of blue beads in the urn.  We define the parameter p to represent this quantity.  We are going to estimate this parameter.  
-
+But for simplicity, we will illustrate the concept of statistical inference for estimating p.  [][We will use our knowledge of probability to defend our use of the sample proportion, and quantify how close we think it is from the population proportion p].  *We start by defining the random variable X*.  X is going to be 1 if we pick a blue bead at random, and 0 if it's red.  
+![](C:/Users/qp/Pictures/we start by definding a random variable X, with each value represent each outcome from the urn.png)
+![](C:/Users/qp/Pictures/if we sample N beads, then the average of draw x1 through xn is equivalent to the population of the bead we use 1 to represent.png)
+[][*This implies that we're assuming that the population, the beads in the urn, are a list of 0s and 1s*].  If we sample N beads, then the average of the draws X_1 through X_N is equivalent to the proportion of blue beads in our sample.  *This is because adding the Xs is equivalent to counting the blue beads, and dividing by the total N turns this into a proportion*.  We use the symbol X-bar to represent this average.  In general, in statistics textbooks, a bar on top of a symbol means the average.  
+![](C:/Users/qp/Pictures/adding the Xs is equivalent to counting blue beads, divide by the total n turns this into proportion.png)
+![assuming throw die 100 tmes, how do you think it, X_1 through X_n and whats X_bar](C:/Users/qp/Pictures/now the distribution of the sum N times X bar.png)
+[][***The theory we just learned about the sum of draws becomes useful, because we know the distribution of the sum N times X-bar.  We know the distribution of the average X-bar, because N is a non random constant***].  For simplicity, let's assume that the draws are independent.  After we see each sample bead, we return it to the urn.  It's a sample with replacement.  *In this case, what do we know about the distribution of the sum of draws*?  First, we know that the expected value of the sum of draws is N times the average of the values in the urn.  We know that the average of the 0s and 1s in the urn must be the proportion p, the value we want to estimate.  
+![](C:/Users/qp/Pictures/we dont know what is in the urn.png)
+Here, we encounter an important difference with what we did in the probability module.  We don't know what is in the urn.  We know there are blue and red beads, but we don't know how many of each.  This is what we're trying to find out.  We're trying to estimate p.  *Just like we use variables to define unknowns in systems of equations, in statistical inference, we define parameters to define unknown parts of our models*.  In the urn model we are using to mimic an opinion poll, we do not know the proportion of blue beads in the urn.  We define the parameter p to represent this quantity.  We are going to estimate this parameter.  
+![](C:/Users/qp/Pictures/in statistical inference we define parameters to define the unknow part of our models.png)
 Note that the ideas presented here, on how we estimate parameters and provide insights into how good these estimates are, extrapolate to many data science tasks.  For example, we may ask, [][what is the difference in health improvement between patients receiving treatment and a control group]?  We may ask, what are the health effects of smoking on a population?  What are the differences in racial groups of fatal shootings by police?  What is the rate of change in life expectancy in the US during the last 10 years?  All these questions can be framed as a task of estimating a parameter from a sample.  
+![](C:/Users/qp/Pictures/we may ask this question with a statistical solution.png)
+![](C:/Users/qp/Pictures/or this similar question with same goal which is to estimate the population.png)
+![](C:/Users/qp/Pictures/or this question, think about them.png)
 
 
 
@@ -132,13 +128,13 @@ https://rafalab.github.io/dsbook/inference.html#parameters
 
 [][Key points]
 
-    Many common data science tasks can be framed as estimating a parameter from a sample.  
+[][    Many common data science tasks can be framed as estimating a parameter from a sample.  ]
     
     We illustrate statistical inference by walking through the process to estimate p.  From the estimate of p, we can easily calculate an estimate of the spread, 2p-1. 
 
 [][*    Consider the random variable X that is 1 if a blue bead is chosen and 0 if a red bead is chosen.  The proportion of blue beads in draws is the average of the draws X_1,,,,X_n. *] 
 
-    X_bar is the sample average. In statistics, a bar on top of a symbol denotes the average. X_bar is a random variable because it is the average of random draws - each time we take a sample, X_bar is different.
+    X_bar is the sample average. In statistics, a bar on top of a symbol denotes the average. X_bar is a random variable because it is the average of random draws - each time we take a sample, X_bar is different. (X_1, X_2,,, are individual 1 or 0)
         X_bar = (X_1 + X_2 + ... + X_n)/N
         
 [][*    The number of blue beads drawn in N draws, NX_bar, is N times the proportion of values in the urn. However, we do not know the true proportion: we are trying to estimate this parameter p.]
@@ -158,30 +154,6 @@ https://rafalab.github.io/dsbook/inference.html#parameters
 
 
 
-![](C:/Users/qp/Pictures/the spread id 2p-1.png)
-
-![this implies that we' 're assuming that the population are a list of 0s and 1s](C:/Users/qp/Pictures/we start by definding a random variable X, with each value represent each outcome from the urn.png)
-
-![](C:/Users/qp/Pictures/if we sample N beads, then the average of draw x1 through xn is equivalent to the population of the bead we use 1 to represent.png)
-
-# =================================================================================================================
-![adding the Xs is equivalent to counting blue beads, divide by the total n turns this into proportion](C:/Users/qp/Pictures/adding the Xs is equivalent to counting blue beads, divide by the total n turns this into proportion.png)
-
-![assuming throw die 100 tmes, how do you think it, X_1 through X_n and whats X_bar](C:/Users/qp/Pictures/now the distribution of the sum N times X bar.png)
-
-![](C:/Users/qp/Pictures/we dont know what is in the urn.png)
-
-![](C:/Users/qp/Pictures/in statistical inference we define parameters to define the unknow part of our models.png)
-
-![](C:/Users/qp/Pictures/we may ask this question with a statistical solution.png)
-
-![](C:/Users/qp/Pictures/or this similar question with same goal which is to estimate the population.png)
-
-![](C:/Users/qp/Pictures/or this question, think about them.png)
-
-
-
-
 
 
 
@@ -193,7 +165,10 @@ https://rafalab.github.io/dsbook/inference.html#parameters
 # Polling versus Forecasting
 
 
-Before we continue, let's make an important clarification related to the practical problem of forecasting the election.  If a poll is conducted 4 months before the election, it is estimating the p for that moment, not for election day.  But, note that the p for election night might be different since people's opinions fluctuate through time.  The polls provided the night before the election tend to be the most accurate  since opinions don't change that much in a couple of days.  [][*However, forecasters try to build tools that model how opinions vary across time and try to predict the election day result, taking into consideration the fact that opinions fluctuate*].  We'll describe some approaches for doing this in a later section.  
+Before we continue, let's make an important clarification related to the practical problem of forecasting the election.  If a poll is conducted 4 months before the election, it is estimating the p for that moment, not for election day.  
+![](C:/Users/qp/Pictures/if a poll is conducted 4 months ago before the election day, it is estimating p for that moment not for the election day outcome.png)
+![](C:/Users/qp/Pictures/however forecasters try to build tools that model how opinion vary across time and try to predict the election day result, taking into consideration the opinion fluctute.png)
+But, note that the p for election night might be different since people's opinions fluctuate through time.  The polls provided the night before the election tend to be the most accurate  since opinions don't change that much in a couple of days.  *However, forecasters try to build tools that model how opinions vary across time and try to predict the election day result, taking into consideration the fact that opinions fluctuate*.  We'll describe some approaches for doing this in a later section.  
 
 
 
@@ -209,11 +184,6 @@ https://rafalab.github.io/dsbook/inference.html#polling-versus-forecasting
     In order to predict election results, forecasters try to use early estimates of p to predict p on election day. We discuss some approaches in later sections.
 
 
-![](C:/Users/qp/Pictures/if a poll is conducted 4 months ago before the election day, it is estimating p for that moment not for the election day outcome.png)
-
-![](C:/Users/qp/Pictures/however forecasters try to build tools that model how opinion vary across time and try to predict the election day result, taking into consideration the opinion fluctute.png)
-
-
 
 
 
@@ -227,12 +197,23 @@ https://rafalab.github.io/dsbook/inference.html#polling-versus-forecasting
 # Properties of Our Estimate
 
 
-[][*To understand how good our estimate is, we'll describe the statistical properties of the random variable we just defined, the sample proportion*].  Note that if we multiply by N, **N times X bar is the sum of independent draws.  So the rules we cover in the probability module apply**.  Using what we have learned, the expected value of the sum N times X bar is N times the average of the urn, p.  So dividing by the non-random constant N gives us that the expected value of the average X bar is p.  We can write it using our mathematical notation like this.  We also can use what we learned to figure out the standard error.  [][***We know that the standard error of the sum is square root of N times a standard deviation of the values in the urn***](I forgot where did we learned that, its probability lesson, go back to re-view it again).  
-
-# =======================================================================================================================
-***Can we compute the standard error of the urn?  We learn a formula that tells us that it's 1 minus 0 times the square root of p times 1 minus p, which is the square root of p times 1 minus p***.  Because we are dividing by the sum N, we arrive at the following formula for the standard error of the average.  [][***The standard error of the average is square root of p times 1 minus p divided by the square root of N***].  This result reveals the power of polls.  The expected value of the sample proportion X bar is the parameter of interest p, and we can make the standard error as small as we want by increasing the sample size N.  The law of large numbers tells us that with a large enough poll, our estimate converges to p.  
-
-If we take a large enough poll to make our standard error, say, about 0.01, we'll be quite certain about who will win.  But how large does the poll have to be for the standard error to be this small?  One problem is that we do not know p, so we can't actually compute the standard error.  For illustrative purposes, let's assume that p is 0.51 and make a plot of the standard error versus a sample size N. Here it is.  We can see that, obviously, it's dropping.  From the plot we also see that we would need a poll of over 10,000 people to get the standard error as low as we want it to be.  We rarely see polls of this size, due in part to cost.  We'll give other reasons later.  From the RealClearPolitics table we saw earlier, we learn that the sample sizes in opinion polls range from 500 to 3,500.  For a sample size of 1,000, if we set p to be 0.51, the standard error is about 0.15, or 1.5 percentage points.  So even with large polls for close elections, X bar can lead us astray if we don't realize it's a random variable.  But we can actually say more about how close we can get to the parameter p.  We'll do that in the next video.  
+*To understand how good our estimate is, we'll describe the statistical properties of the random variable we just defined, the sample proportion*.  
+![](C:/Users/qp/Pictures/do you remember the statistical probabilities of random variable we defined earlier.png)
+Note that if we multiply by N, [][**N times X bar is the sum of independent draws.  So the rules we cover in the probability module apply**].  Using what we have learned, the expected value of the sum N times X bar is N times the average of the urn, p.  So dividing by the non-random constant N gives us that the expected value of the average X bar is p.  {*thus p is now a normal distributed random variable*}
+![](C:/Users/qp/Pictures/note that if we multiply by n, n times x_bar gives us the sun of independent draws.png)
+![](C:/Users/qp/Pictures/N times the average of the urn.png)
+![](C:/Users/qp/Pictures/so dividing by the non-random constant is p.png)
+We can write it using our mathematical notation like this.  We also can use what we learned to figure out the standard error.  [][***We know that the standard error of the sum is square root of N times a standard deviation of the values in the urn***]???.  Can we compute the standard error of the urn?  We learn a formula that tells us that it's 1 minus 0 times the square root of p times 1 minus p, which is the square root of p times 1 minus p.  ??????
+![the standard error of the urn](C:/Users/qp/Pictures/can we compute the standard error of the urn.png)
+Because we are dividing by the sum N, we arrive at the following formula for the standard error of the average.  [][***The standard error of the average is square root of p times 1 minus p divided by the square root of N***].  {*because we are multiple by squart root of N and then divide by N, this will end up with divide by squart root N*}
+![standard error of thr average](C:/Users/qp/Pictures/the standard error of the average is this one, squart root of p times 1 minus p devided by square root of N.png)
+This result reveals the power of polls.  *The expected value of the sample proportion X bar is the parameter of interest p*, and we can make the standard error as small as we want by increasing the sample size N.  The law of large numbers tells us that with a large enough poll, our estimate converges to p.  If we take a large enough poll to make our standard error, say, about 0.01, we'll be quite certain about who will win.  But how large does the poll have to be for the standard error to be this small?  One problem is that we do not know p, so we can't actually compute the standard error.  
+![](C:/Users/qp/Pictures/and here is our problem, although we can increase the sample size N, but p is unknow.png)
+For illustrative purposes, let's assume that p is 0.51 and make a plot of the standard error versus a sample size N. Here it is.  We can see that, obviously, it's dropping.  From the plot we also see that we would need a poll of over 10,000 people to get the standard error as low as we want it to be.  
+![](C:/Users/qp/Pictures/assuming the p is given, we can see the standard error decrease when sample size N increase.png)
+We rarely see polls of this size, due in part to cost.  We'll give other reasons later.  From the RealClearPolitics table we saw earlier, we learn that the sample sizes in opinion polls range from 500 to 3,500.  For a sample size of 1,000, if we set p to be 0.51, the standard error is about 0.15, or 1.5 percentage points.  
+![](C:/Users/qp/Pictures/for a sample size of 1000, if we set p to 0.51, then the standard error is about 0.015.png)
+So even with large polls for close elections, X bar can lead us astray if we don't realize it's a random variable.  But we can actually say more about how close we can get to the parameter p.  We'll do that in the next video.  
 
 
 
@@ -244,45 +225,19 @@ https://rafalab.github.io/dsbook/inference.html#properties-of-our-estimate-expec
 
 [][Key points]
 
-[][*    When interpreting values of X_bar, it is important to remember that X_bar is a random variable with an expected value and standard error that represents the sample proportion of positive events.*]
+[][*    When interpreting values of X_bar, it is important to remember that X_bar is a random variable with an expected value and standard error that represents the sample proportion of positive events. *]
     
     The expected value of X_bar is the parameter of interest p. This follows from the fact that X_bar is the sum of independent draws of a random variable times a constant 1/N.
         E(X_bar) = p
         
-[][*    As the number of draws N increases, the standard error of our estimate X_bar decreases. The standard error of the average of X_bar over N draws is: *]
+    As the number of draws N increases, the standard error of our estimate X_bar decreases. The standard error of the average of X_bar over N draws is: 
         SE(X_bar) = sqrt(p(1-p)/N)
 
     In theory, we can get more accurate estimates of p by increasing N. In practice, there are limits on the size of N due to costs, as well as other factors we discuss later.
         
 [][*    We can also use other random variable equations to determine the expected value of the sum of draws E(S) and standard error of the sum of draws SE(S). *]
         E(X) = Np
-[][        SE(S) = sqrt(Np(1-p)) ]
-
-
-
-
-![](C:/Users/qp/Pictures/do you remember the statistical probabilities of random variable we defined earlier.png)
-
-![so teh rules we cover in the probability module apply](C:/Users/qp/Pictures/note that if we multiply by n, n times x_bar gives us the sun of independent draws.png)
-
-![](C:/Users/qp/Pictures/N times the average of the urn.png)
-
-![](C:/Users/qp/Pictures/so dividing by the non-random constant is p.png)
-
-# ==========================================================================================================
-![compute the standard error of the urn](C:/Users/qp/Pictures/can we compute the standard error of the urn.png)
-
-# =============================================================================================================
-![](C:/Users/qp/Pictures/the standard error of the average is this one, squart root of p times 1 minus p devided by square root of N.png)
-
-![](C:/Users/qp/Pictures/and here is our problem, although we can increase the sample size N, but p is unknow.png)
-
-![](C:/Users/qp/Pictures/assuming the p is given, we can see the standard error decrease when sample size N increase.png)
-
-![](C:/Users/qp/Pictures/sample poll size were from 500 to 3500.png)
-
-![](C:/Users/qp/Pictures/for a sample size of 1000, if we set p to 0.51, then the standard error is about 0.015.png)
-
+        SE(S) = sqrt(Np(1-p)) 
 
 
 
@@ -366,6 +321,7 @@ E(S) = sqrt(25p(1-p))
 E(S) = p
 
 
+
 ## Exercise 2. Polling - standard error of S
 
 # ======================================================================================================================
@@ -380,6 +336,7 @@ SE(S) = 25p(1-p)
 SE(S) = sqrt(25p)
 SE(S) = 25(1-p)
 SE(S) = sqrt(25*p(1-p))
+
 
 
 ## Exercise 3. Polling - expected value of X-bar
@@ -398,6 +355,7 @@ E(X_bar) = N(1-p)
 E(X_bar) = 1-p
 
 
+
 ## Exercise 4. Polling - standard error of X-bar
 
 # ========================================================================================================================
@@ -412,6 +370,7 @@ SE(X_bar) = sqrt(Np(1-p))
 SE(X_bar) = sqrt(p(1-p)/N)
 SE(X_bar) = sqrt(p(1-p))
 SE(X_bar) = sqrt(N)
+
 
 
 ## Exercise 5. se versus p
@@ -435,6 +394,7 @@ N <- 25
 p <- seq(0, 1, 1/100)
 p
 
+# ==============================================================================================================
 # Create a variable `se` that contains the standard error of each sample average
 se <- sqrt(N*p*(1-p))
 
@@ -461,6 +421,7 @@ plot(p, se)
 ```
 
 
+
 ## Exercise 6. Multiple plots of se versus p
 
 Using the same code as in the previous exercise, create a for-loop that generates three plots of p versus se when the sample sizes equal N = 25, N = 100, N = 1000.
@@ -479,6 +440,7 @@ p <- seq(0, 1, length = 100)
 # The vector `sample_sizes` contains the three sample sizes
 sample_sizes <- c(25, 100, 1000)
 
+# =======================================================================================================
 # Write a for-loop that calculates the standard error `se` for every value of `p` for each of the three samples sizes `N` in the vector `sample_sizes`. Plot the three graphs, using the `ylim` argument to standardize the y-axis across all three plots.
 se <- sqrt(p*(1-p))
 plot(p, se, ylim=c(0, 0.1))
@@ -512,7 +474,9 @@ for (N in sample_sizes) {
   se <- sqrt(p*(1-p)/N)
   plot(p, se, ylim=c(0, 0.1))
 }
+# for loop in R script ========================================================================
 ```
+
 
 
 ## Exercise 7. Expected value of d
@@ -528,7 +492,8 @@ Possible Answers
 E[X_bar-(1-X_bar)] = E[2X_bar-1] = 2E[X_bar]-1 = N(2p-1) = Np-N(1-p)
 E[X_bar-(1-X_bar)] = E[X_bar-1] = E[X_bar]-1 = p-1
 E[X_bar-(1-X_bar)] = E[2X_bar-1] = 2sqrt(p(1-p))-1 = p-(1-p)
-E[X_bar-(1-X_bar)] = E[2X_bar-1] = 2p-1 = p-(1-p)   O
+E[X_bar-(1-X_bar)] = E[2X_bar-1] = 2p-1 = p-(1-p)       O
+
 
 
 ## Exercise 8. Standard error of d
@@ -548,6 +513,7 @@ SE[X_bar-(1-X_bar)] = SE[X_bar-1] = SE[X_bar] = sqrt(p(1-p)/N)
 
 Incorrect submission
 [][Try again. Subtracting 1 does not affect the standard error. ]
+
 
 
 ## Exercise 9. Standard error of the spread
@@ -648,13 +614,25 @@ We encourage you to use R to interactively test out your answers and further you
 
 # The Central Limit Theorem in Practice
 
-
-**The central limit theorem tells us that the distribution function for a sum of draws is approximately normal.  We also learned that when dividing a normally distributed random variable by a nonrandom constant, the resulting random variable is also normally distributed.  This implies that the distribution of X-bar is approximately normal**.  So in summary, we have that X-bar has an approximately normal distribution.  
-
-# ===========================================================================================================================
-And in a previous video, we determined that the expected value is p, and the standard error is the square root of p times 1 minus p divided by the sample size N.  Now, how does this help us?  Let's ask an example question.  [][***Suppose we want to know what is the probability that we are within one percentage point from p--that we made a very, very good estimate***](dont over think it with jumping brain)?  So we're basically asking, what's the probability that the distance between X-bar and p, the absolute value of X-bar minus p, is less than 0.01, 1 percentage point.  We can use what we've learned to see that this is the same as asking, what is the probability of X-bar being less than or equal to p plus 0.01 minus the probability of X-bar being less than or equal to p minus 0.01.  Now, can we answer the question now?  Can we compute that probability?  
-
-Note that we can use the mathematical trick that we learned in the previous module.  What was that trick?  [][*We subtract the expected value and divide by the standard error on both sides of the equation*].  What this does is it gives us a standard normal variable, which we have been calling capital Z, on the left side.  And we know how to make calculations for that.  Since p is the expected value, and the standard error of X-bar is the square root of p times 1 minus p divided by N, we get that the probability that we were just calculating is equivalent to probability of Z, our standard normal variable, being less than 0.01 divided by the standard error of X-bar minus the probability of Z being less than negative 0.01 divided by that standard error of X-bar.  
+![](C:/Users/qp/Pictures/the clt tells us that the distribution function of sum of draws is approximately normal.png)
+![](C:/Users/qp/Pictures/normal distributed random variable all we need is its mean and standard deviation.png)
+![](C:/Users/qp/Pictures/and we also knows when dividing a normal distributed random variable by a non-random constant the result is also normal distributed.png)
+![](C:/Users/qp/Pictures/this implies that the distribution of X-bar is approximately normal.png)
+**The central limit theorem tells us that the distribution function for a sum of draws is approximately normal.  We also learned that when dividing a normally distributed random variable by a nonrandom constant, the resulting random variable is also normally distributed.  This implies that the distribution of X-bar is approximately normal**.  
+![](C:/Users/qp/Pictures/in a previous video, we determined that the expected value is p.png)
+![](C:/Users/qp/Pictures/and the standard error is the square root of p times 1 minus p.png)
+So in summary, we have that X-bar has an approximately normal distribution.  And in a previous video, we determined that the expected value is p, and the standard error is the square root of p times 1 minus p divided by the sample size N.  Now, how does this help us?  Let's ask an example question.  
+![](C:/Users/qp/Pictures/suppose we are going to answering this question, whats the probability that we ar within 1 percentage point of p.png)
+![you have to do the trick now, as using X_bar to plug in p will ruin the equation](C:/Users/qp/Pictures/with above question, we are really trying to get the distance between x_bar and p is less than 0.01.png)
+![](C:/Users/qp/Pictures/and this is the same asking what is the probability of x_bar being less than or equal to p pluss 0.01.png)
+![](C:/Users/qp/Pictures/and minus the probability of x_bar being less than or equal to p minus 0.01.png)
+*Suppose we want to know what is the probability that we are within one percentage point from p--that we made a very, very good estimate*?  So we're basically asking, what's the probability that the distance between X-bar and p, the absolute value of X-bar minus p, is less than 0.01, 1 percentage point.  We can use what we've learned to see that this is the same as asking, what is the probability of X-bar being less than or equal to p plus 0.01 minus the probability of X-bar being less than or equal to p minus 0.01.  Now, can we answer the question now?  Can we compute that probability?  
+![](C:/Users/qp/Pictures/we subtract the expected value and divide by the standard error.png)
+![](C:/Users/qp/Pictures/the equalation can be transfered to this one, replace with z.png)
+Note that we can use the mathematical trick that we learned in the previous module.  What was that trick?  [][*We subtract the expected value and divide by the standard error on both sides of the equation*].  What this does is it gives us a standard normal variable, which we have been calling capital Z, on the left side.  And we know how to make calculations for that.  
+![](C:/Users/qp/Pictures/and the standard error of x_bar equal to square root of p times 1 minus p divide by n.png)
+![important knowledge, think about it](C:/Users/qp/Pictures/so the probability we just calculated is equivalent to this equation.png)
+Since p is the expected value, and the standard error of X-bar is the square root of p times 1 minus p divided by N, we get that the probability that we were just calculating is equivalent to probability of Z, our standard normal variable, being less than 0.01 divided by the standard error of X-bar minus the probability of Z being less than negative 0.01 divided by that standard error of X-bar.  
 
 # =======================================================================================================================
 *OK, now can we compute this probability?*  Not yet.  Our problem is that we don't know p.  So we can't actually compute the standard error of X-bar using just the data.  But it turns out--and this is something new we're showing you--that the CLT still works if we use an estimate of the standard error that, instead of p, uses X-bar in its place.  We say this is a plug-in estimate.  We call this a [][*plug-in estimate*].  Our estimate of the standard error is therefore the square root of X-bar times 1 minus X-bar divided by N. Notice, we changed the p for the X-bar.  In the mathematical formula we're showing you, you can see a hat on top of the SE.  
@@ -700,42 +678,28 @@ pnorm(0.01/se) - pnorm(-0.01/se)
 
 
 
-![](C:/Users/qp/Pictures/the clt tells us that the distribution function of sum of draws is approximately normal.png)
 
-![](C:/Users/qp/Pictures/normal distributed random variable all we need is its mean and standard deviation.png)
 
-![](C:/Users/qp/Pictures/and we also knows when dividing a normal distributed random variable by a non-random constant the result is also normal distributed.png)
 
-![](C:/Users/qp/Pictures/this implies that the distribution of X-bar is approximately normal.png)
 
-# ===================================================================================================================
-![](C:/Users/qp/Pictures/in a previous video, we determined that the expected value is p.png)
 
-# ===================================================================================================================
-![](C:/Users/qp/Pictures/and the standard error is the square root of p times 1 minus p.png)
 
-![](C:/Users/qp/Pictures/suppose we are going to answering this question, whats the probability that we ar within 1 percentage point of p.png)
 
-[][# =====================================================================================================================]
-![you have to do the trick now, as using X_bar to plug in p will ruin the equation](C:/Users/qp/Pictures/with above question, we are really trying to get the distance between x_bar and p is less than 0.01.png)
 
-![](C:/Users/qp/Pictures/and this is the same asking what is the probability of x_bar being less than or equal to p pluss 0.01.png)
 
-# =========================================================================================================
-![](C:/Users/qp/Pictures/and minus the probability of x_bar being less than or equal to p minus 0.01.png)
 
-![need to understand this one](C:/Users/qp/Pictures/we subtract the expected value and divide by the standard error.png)
 
-# =========================================================================================================================
-![](C:/Users/qp/Pictures/the equalation can be transfered to this one, replace with z.png)
 
-![the p is the expected value](C:/Users/qp/Pictures/the p is the expected value.png)
 
-# ==============================================================================================================
-![the standard error of x_bar equal to square root of p times 1 minus p divide by n](C:/Users/qp/Pictures/and the standard error of x_bar equal to square root of p times 1 minus p divide by n.png)
 
-[][# ====================================================================================================================]
-![](C:/Users/qp/Pictures/so the probability we just calculated is equivalent to this equation.png)
+
+
+
+
+
+
+
+
 
 ![](C:/Users/qp/Pictures/since we dno't know p, but clt still work if we use x_bar in its place.png)
 
@@ -1877,7 +1841,7 @@ mean(inside)
 B <- 10000
 N <- 1000
 p <- 0.45
-
+library(tidyverse)
 
 inside <- replicate(B, {
   X <- sample(c(0, 1), size=N, replace=T, prob=c(1-p, p))
@@ -2089,8 +2053,7 @@ z <- sqrt(N) * 0.02/0.5    # spread of 0.02
 [][# ======================================================================================================================]
 ![](C:/Users/qp/Pictures/and then we can use the code to compute the probability, which is about 69%.png)
 
-[][Can you image that, can you explain that to others]
-![can you image that](C:/Users/qp/Pictures/If a 95% confidence interval of the spread does not include 0, the p-value must smaller than 0.05.png)
+![can you explain that](C:/Users/qp/Pictures/If a 95% confidence interval of the spread does not include 0, the p-value must smaller than 0.05.png)
 
 
 
@@ -2107,7 +2070,7 @@ z <- sqrt(N) * 0.02/0.5    # spread of 0.02
 # Another Explanation of p-Values
 
 
-*The p-value is the probability of observing a value as extreme or more extreme than the result given that the null hypothesis is true.*
+[][*The p-value is the probability of observing a value as extreme or more extreme than the result given that the null hypothesis is true.*]
 
 **In the context of the normal distribution, this refers to the probability of observing a Z-score whose absolute value is as high or higher than the Z-score of interest.**
 
@@ -6183,4 +6146,689 @@ Possible Answers
     Got it!
     press
     1
+
+
+
+
+
+
+
+
+
+
+
+## Course  /  Section 7: Association Tests  /  Section 7 Overview
+
+
+# Section 7 Overview
+
+In Section 7, you will learn how to use association and chi-squared tests to perform inference for binary, categorical, and ordinal data through an example looking at research funding rates.
+
+After completing Section 7, you will be able to:
+
+        Use association and chi-squared tests to perform inference on binary, categorical, and ordinal data.
+[][        Calculate an odds ratio to get an idea of the magnitude of an observed effect. ]
+
+There is 1 assignment that uses the DataCamp platform for you to practice your coding skills.
+
+We encourage you to use R to interactively test out your answers and further your learning.
+
+
+
+
+
+
+
+
+
+
+## Course  /  Section 7: Association Tests  /  Association Tests
+
+
+# Association Tests
+
+The statistical tests we have covered up to now leave out a substantial portion of data types.  Specifically, we have not discussed inference for *binary*, *categorical*, or *ordinal data*.  To give a very specific example, consider the following case study.  A 2014 PNAS paper analyzed success rates from funding agencies in the Netherlands and concluded that their "results reveal gender bias favoring male applicants over female applicants in the prioritization of their quality of research."  
+![](C:/Users/qp/Pictures/A 2014 PNAS paper analyzed success rates from funding agencies.png)
+The main evidence for this conclusion comes down to a comparison of the percentages.  The first table in the supplement of the paper includes the information we need.  We have included it in the dslabs package.  And here it is.  
+![](C:/Users/qp/Pictures/The first table in the supplement of the paper includes the information we need..png)
+We can compute the differences in percentages for men and women.  To do this, we'll compute the totals that were successful and the totals that were not using this code.  So we see that a larger percent of men received awards than women.  
+![](C:/Users/qp/Pictures/We can compute the differences in percentages for men and women..png)
+![](C:/Users/qp/Pictures/So we see that a larger percent of men received awards than women.png)
+The percent for men was about 18%.  The percent for women was about 15%.  [][But could this be due just to random variability?]  Here in this video, we learn how to perform inference for this type of data.  R.A. Fisher was one of the first to formalize hypothesis testing.  *The Lady Tasting Tea* is one of the most famous examples.  The story goes like this.  Muriel Bristol, a colleague of Fisher's, claimed that she could tell if milk was added before or after tea was poured.  Fisher was skeptical.  He designed an experiment to test this claim.  *He gave her 4 pairs of cups of tea, 1 with milk poured first, the other after*.  The order of the two was randomized.  The null hypothesis here is that she was just guessing.  
+
+Fisher derived the distribution of the number of correct picks on the assumption that the choices were random and independent.  As an example, suppose she picked 3 out of 4 correctly.  Do we believe she has a special ability based on this?  The basic question we ask is, if the tester is actually guessing, what are the chances that she gets 3 or more correct?  
+![](C:/Users/qp/Pictures/The basic question we ask is, if the tester is actually guessing,.png)
+Just as we have done before, we can compute a probability under the null hypothesis that she's guessing four of each.  Under this null hypothesis, [][we can think of this particular example as picking 4 beads out of an urn where 4 are blue.  Those are the correct answers.  And 4 are red.  Those are the incorrect answers].  
+![](C:/Users/qp/Pictures/Under this null hypothesis, we can think of this particular example.png)
+*Remember that she knows that there are 4 before tea and 4 after*.  Under the null hypothesis that she's simply guessing, each bead has the same chance of being picked.  We can then use combinatorics to figure out each probability.  
+![](C:/Users/qp/Pictures/We can then use combinatorics to figure out each probability..png)
+![](C:/Users/qp/Pictures/The probability of picking 3 can be derived.png)
+![](C:/Users/qp/Pictures/The probability of picking 4 correct is given by this formula,.png)
+The probability of picking 3 can be derived using this mathematical formula that tells you that it's 16/70.  The probability of picking 4 correct is given by this formula, and the answer is 1/70.  Thus the chance of observing 3 correct answers or more under the null hypothesis is approximately 0.24 (17/70).  [][This is the p-value]??????.  The procedure that produces p-value is called Fisher's exact test.  *And it uses the hypergeometric distribution to compute the probabilities*.  
+![](C:/Users/qp/Pictures/And it uses the hypergeometric distribution.png)
+One quick note.  In the real story, it turns out Muriel could tell if the milk was poured before or after every single time.  So the p-value was 1/70.  The data from this type of experiment is usually summarized by a table like this.  
+![](C:/Users/qp/Pictures/The data from this type of experiment is usually summarized by a table like this.png)
+These are referred to as [][two-by-two tables].  They show, for each of the 4 combinations one can get with a pair of binary variables, the observed counts for each of these pairs.  The function fisher.test performs the inference calculations and can be applied to the two-by-two table using this simple piece of code.  
+![](C:/Users/qp/Pictures/The function fisher.test performs the inference calculations.png)
+Here we can see that the p-value is what we previously calculated.  
+
+
+Statistics and tea
+Main article: Lady tasting tea
+
+One day at Rothamsted, Ronald Fisher offered Bristol a cup of hot tea that he had just drawn from an urn. Bristol declined it, saying that she preferred the flavour when the milk was poured into the cup before the tea. Fisher scoffed that the order of pouring could not affect the flavour. Bristol insisted that it did and that she could tell the difference. Overhearing this debate, William Roach said, "Let's test her."[3]
+
+Fisher and Roach hastily put together an experiment to test Bristol's ability to identify the order in which the two liquids were poured into several cups. At the conclusion of this experiment in which she correctly identified all eight, Roach proclaimed that "Bristol divined correctly more than enough of those cups into which tea had been poured first to prove her case".[3]
+
+This incident led Fisher to do important work in the design of statistically valid experiments based on the statistical significance of experimental results.[3] He developed Fisher's exact test to assess the probabilities and statistical significance of experiments. 
+
+![](C:/Users/qp/Pictures/lady testing tea supplement material.png)
+![](C:/Users/qp/Pictures/Youngronaldfisher2.png)
+
+
+
+
+[][Textbook link]
+
+This video corresponds to the textbook section introducing association tests External link up to and including the textbook section on two-by-two tables External link.
+https://rafalab.github.io/dsbook/inference.html#association-tests
+https://rafalab.github.io/dsbook/inference.html#two-by-two-tables
+
+
+[][Key points]
+
+    We learn how to determine the probability that an observation is due to random variability given categorical, binary or ordinal data.
+    Fisher's exact test determines the p-value as the probability of observing an outcome as extreme or more extreme than the observed outcome given the null distribution.
+    Data from a binary experiment are often summarized in two-by-two tables.
+    The p-value can be calculated from a two-by-two table using Fisher's exact test with the function fisher.test().
+
+Code: Research funding rates example
+
+# load and inspect research funding rates object
+library(tidyverse)
+library(dslabs)
+data(research_funding_rates)
+research_funding_rates
+
+# compute totals that were successful or not successful
+totals <- research_funding_rates %>%
+    select(-discipline) %>%
+    summarize_all(funs(sum)) %>%
+    summarize(yes_men = awards_men,
+                         no_men = applications_men - awards_men,
+                         yes_women = awards_women,
+                         no_women = applications_women - awards_women)
+
+# compare percentage of men/women with awards
+totals %>% summarize(percent_men = yes_men/(yes_men + no_men),
+                                          percent_women = yes_women/(yes_women + no_women))
+
+Code: Two-by-two table and p-value for the Lady Tasting Tea problem
+
+tab <- matrix(c(3,1,1,3), 2, 2)
+rownames(tab) <- c("Poured Before", "Poured After")
+colnames(tab) <- c("Guessed Before", "Guessed After")
+tab
+
+# p-value calculation with Fisher's Exact Test
+fisher.test(tab, alternative = "greater")
+
+
+
+
+
+
+
+
+
+
+
+
+# Chi-Squared Tests
+
+Note that, in a way, our funding rates case study is similar to the lady tasting tea example.  However, in the tasting tea example, the number of blue and red beads is experimentally fixed.  And the number of answers given for each category is also fixed.  This is because Fischer made sure there were 4 before tea and 4 after tea.  And the lady knew this so the answer is would also have 4 and 4.  If this is the case, the sums of the rows and the sum of the columns of the 2 by 2 table are fixed.  This defines a constraint on the possible ways we can fill the 2 by 2 table and also permits us to use the hypergeometric distribution.  In general, this is not the case.  
+![](C:/Users/qp/Pictures/the chi-squared test.png)
+Nonetheless, there's another approach that's very similar, the chi-squared test, which we will now describe.  Imagine we have 2,823 individuals.  Some are men, and some are women.  Some get funded; others don't.  There you have two binary variables.  We saw that the success rate for men and women were the following: about 18% for men, about 15% for women.  
+![](C:/Users/qp/Pictures/We saw that the success rate for men and women were the following about 0.18 and 0.15 for women.png)
+![](C:/Users/qp/Pictures/We can compute the overall funding rate using the following code..png)
+We can compute the overall funding rate using the following code.  It's between 16% and 17%.  [][So now the question is will we see a difference between men and women as big as the one we see if funding was assigned at random using this rate?]  *The chi-squared test answers this question.  *
+![](C:/Users/qp/Pictures/In our case, we can use this code and construct the following 2.png)
+![](C:/Users/qp/Pictures/to what you expect to see at the overall funding rate, which.png)
+The first step is to create a 2 by 2 table just like before.  In our case, we can use this code and construct the following 2 by 2 table for the research funding data.  The general idea of a chi-squared test is to compare this 2 by 2 table, the observed 2 by 2 table, to what you expect to see at the overall funding rate, which we can compute using this code.  And here is the table.  We can see that more men than expected and less women than expected received funding.  However, under the null hypothesis, this observation is a random variable.  
+![](C:/Users/qp/Pictures/The chi-squared test tells us how likely it is to see a deviation this larger.png)
+The chi-squared test tells us how likely it is to see a deviation like this, or larger, by chance.  *This test uses an asymptotic result, similar to the central limit theorem, related to the sums of independent binary outcomes in a context like this*.  The R function chisq.test takes a 2 by 2 table and returns the results from this test.  Here's the simple code.  
+![](C:/Users/qp/Pictures/The R function chisq.test takes a 2 by 2 table.png)
+![](C:/Users/qp/Pictures/Here's the simple code. to use chi-square test.png)
+*We see that the p-value is 0.051.  this means that the probability of seeing a deviation like the one we see or bigger under the null that funding is assigned at random is 0.051*.  
+![](C:/Users/qp/Pictures/We talked about how to obtain p-value, But now let's talk about summary statistics..png)
+All right.  So we described how to obtain p-values.  But now let's talk about summary statistics.  An informative summary statistic associated with 2 by 2 tables is the odds ratio.  *Define the two variables X=1 if you are male or 0 otherwise and Y=1 if you're funded and 0 otherwise*.  The [][odds of getting funded if you're a man] is defined as follows and can be computed using the simple code.  
+![](C:/Users/qp/Pictures/The odds of getting funded if you're a man is defined as this.png)
+![](C:/Users/qp/Pictures/is defined as follows and can be computed using the simple code..png)
+The odds of being funded if you're a woman is given by this simple formula and can be computed like this.  [][The odds ratio is the ratio of these two odds.  ]
+![](C:/Users/qp/Pictures/The odds of being funded if you're a woman is given by this simple formula.png)
+![](C:/Users/qp/Pictures/the odds of being funded if you are women is and can be computed like this..png) 
+![](C:/Users/qp/Pictures/The odds ratio is the ratio of these two odds..png)
+*How many times larger are the odds for men than for women?  In this case, we get that is 1.23*.  A quick note of caution regarding p-values from 2 by 2 tables.  As mentioned earlier, reporting only p-values is not an appropriate way to report the results of data analysis.  In scientific journals, for example, some studies seem to overemphasize p-values.  Some of these studies have large sample size and report impressively small p-values.  *Yet when one looks closely at the results, we realize that the odds ratios are quite modest, barely bigger than 1*.  In this case, the difference may not be [][practically significant] or [][scientifically significant].  
+![](C:/Users/qp/Pictures/practically significant or scientifically significant..png)
+[][Note that the relationship between odds ratios and p-values is not one to one].  It depends on the sample size.  So a very small p-value does not necessarily mean a very large odds ratio.  Look at what happens to the p-value if we multiply our 2 by 2 table by 10.  We multiply each cell by 10; the odds ratio remains the same.  But look at how small the p-value becomes.  
+![](C:/Users/qp/Pictures/Look at what happens to the p-value if we multiply our 2 by 2 table by 10..png)
+[][Earlier we mention that instead of p-values, it's more appropriate to report confidence intervals].  However, computing confidence intervals for odds ratio is not mathematically straightforward.  Unlike other statistics for which you can derive useful approximations for the distribution, *the odds ratio is not only a ratio, but a ratio of ratios*.  Therefore, there's no simple way of using, for example, the central limit theorem.  
+![](C:/Users/qp/Pictures/Therefore, there's no simple way of using, for example, the central limit.png)
+![](C:/Users/qp/Pictures/But you can learn more about it in this book..png)
+One approach is to use the theory of generalized linear models, which is too advanced for this course.  But you can learn more about it in this book.  
+
+
+
+[][Textbook links]
+
+This video corresponds to the textbook section on the chi-square test External link and the textbook section on the odds ratio External link.
+https://rafalab.github.io/dsbook/inference.html#chi-square-test
+https://rafalab.github.io/dsbook/inference.html#odds-ratio
+
+
+[][Key points]
+
+    If the sums of the rows and the sums of the columns in the two-by-two table are fixed, then the hypergeometric distribution and  Fisher's exact test can be used. Otherwise, we must use the chi-squared test.
+    The chi-squared test compares the observed two-by-two table to the two-by-two table expected by the null hypothesis and asks how likely it is that we see a deviation as large as observed or larger by chance.
+    The function chisq.test() takes a two-by-two table and returns the p-value from the chi-squared test.
+    The odds ratio states how many times larger the odds of an outcome are for one group relative to another group.
+    A small p-value does not imply a large odds ratio. If a finding has a small p-value but also a small odds ratio, it may not be a practically significant or scientifically significant finding. 
+    Because the odds ratio is a ratio of ratios, there is no simple way to use the Central Limit Theorem to compute confidence intervals. There are advanced methods for computing confidence intervals for odds ratios that we do not discuss here.
+
+Code: Chi-squared test
+
+# compute overall funding rate
+funding_rate <- totals %>%
+    summarize(percent_total = (yes_men + yes_women) / (yes_men + no_men + yes_women + no_women)) %>%
+    .$percent_total
+funding_rate
+
+# construct two-by-two table for observed data
+two_by_two <- tibble(awarded = c("no", "yes"),
+                    men = c(totals$no_men, totals$yes_men),
+                     women = c(totals$no_women, totals$yes_women))
+two_by_two
+
+# compute null hypothesis two-by-two table
+tibble(awarded = c("no", "yes"),
+           men = (totals$no_men + totals$yes_men) * c(1-funding_rate, funding_rate),
+           women = (totals$no_women + totals$yes_women) * c(1-funding_rate, funding_rate))
+
+# chi-squared test
+chisq_test <- two_by_two %>%
+    select(-awarded) %>%
+nbsp;   chisq.test()
+chisq_test$p.value
+
+Code: Odds ratio
+
+# odds of getting funding for men
+odds_men <- (two_by_two$men[2] / sum(two_by_two$men)) /
+        (two_by_two$men[1] / sum(two_by_two$men))
+
+# odds of getting funding for women
+odds_women <- (two_by_two$women[2] / sum(two_by_two$women)) /
+        (two_by_two$women[1] / sum(two_by_two$women))
+
+# odds ratio - how many times larger odds are for men than women
+odds_men/odds_women
+
+Code: p-value and odds ratio responses to increasing sample size
+
+# multiplying all observations by 10 decreases p-value without changing odds ratio
+two_by_two %>%
+  select(-awarded) %>%
+  mutate(men = men*10, women = women*10) %>%
+  chisq.test()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# Assessment 7.1: Association and Chi-Squared Tests
+
+
+
+DataCamp due Aug 14, 2022 10:35 AWST
+
+In this assessment, you will learn about association tests and the chi-squared test.
+
+By clicking OK, you agree to DataCamp's privacy policy: https://www.datacamp.com/privacy-policy. Note that you might need to disable your pop-up blocker, or allow "www.datacamp.com" in your pop-up blocker allowed list. When you have completed the exercises, return to edX to continue your learning.
+
+Assessment 7.1: Association and Chi-Squared Tests (External resource) (4.0 points possible)
+By clicking OK, you agree to DataCamp's privacy policy: https://www.datacamp.com/privacy-policy.
+
+ 
+
+Ask your questions about association and chi-squared tests or the related DataCamp assessment here. Remember to search the discussion board before posting to see if someone else has asked the same thing before asking a new question! You're also encouraged to answer each other's questions to help further your own learning.
+
+Some reminders:
+
+    Please be specific in the title and body of your post regarding which question you're asking about to facilitate answering your question.
+    Posting snippets of code is okay, but posting full code solutions is not.
+    If you do post snippets of code, please format it as code for readability. If you're not sure how to do this, there are instructions in a pinned post in the "general" discussion forum.
+
+Discussion: Assessment 7.1
+Topic: Section 7 / Assessment 7.1: Association and Chi-Squared Tests
+
+
+
+## Exercise 1 - Comparing Proportions of Hits
+
+In a previous exercise, we determined whether or not each poll predicted the correct winner for their state in the 2016 U.S. presidential election. Each poll was also assigned a grade by the poll aggregator. Now we're going to determine if polls rated A- made better predictions than polls rated C-.
+
+In this exercise, filter the errors data for just polls with grades A- and C-. Calculate the proportion of times each grade of poll predicted the correct winner.
+Instructions
+100 XP
+
+    Filter errors for grades A- and C-.
+    Group the data by grade and hit.
+    Summarize the number of hits for each grade.
+    Generate a two-by-two table containing the number of hits and misses for each grade. Try using the spread function to generate this table.
+    Calculate the proportion of times each grade was correct.
+
+```{r}
+# Find the previous code to generate the data first
+
+
+
+library(tidyverse)
+
+
+# The 'errors' data have already been loaded. Examine them using the `head` function.
+head(errors)
+
+# Generate an object called 'totals' that contains the numbers of good and bad predictions for polls rated A- and C-
+totals <- errors %>%
+  filter(grade %in% c("A-", "C-")) %>%
+  group_by(grade, hit) %>%
+  summarize(value = n()) %>%
+  spread(., key=hit, value=value)
+totals
+
+
+# Print the proportion of hits for grade A- polls to the console
+totals$'TRUE'[2]/
+(totals$'TRUE'[2] + totals$'FALSE'[2])
+
+# Print the proportion of hits for grade C- polls to the console
+totals$'TRUE'[1]/
+(totals$'TRUE'[1] + totals$'FALSE'[1])
+```
+
+try generate this table, if you can
+# A tibble: 2 x 3
+  hit    `C-`  `A-`
+  <lgl> <int> <int>
+1 FALSE    50    26
+2 TRUE    311   106
+
+Hint
+
+    After grouping by grade and hit, you can use the summarize function to tally up the columns. Then you can use the spread function to generate the two-by-two table.
+
+summarize(num = n()) %>%
+  spread(grade, num)
+  
+# Solution is this one
+```{r}
+# The 'errors' data have already been loaded. Examine them using the `head` function.
+head(errors)
+
+# Generate an object called 'totals' that contains the numbers of good and bad predictions for polls rated A- and C-
+totals <- errors %>%
+  filter(grade %in% c("A-", "C-")) %>%
+  group_by(grade,hit) %>%
+  summarize(num = n()) %>%
+  spread(grade, num)
+
+# Print the proportion of hits for grade A- polls to the console
+totals[[2,3]]/sum(totals[[3]])
+
+# Print the proportion of hits for grade C- polls to the console
+totals[[2,2]]/sum(totals[[2]])
+```
+
+
+
+
+## Exercise 2 - Chi-squared Test
+
+We found that the A- polls predicted the correct winner about 80% of the time in their states and C- polls predicted the correct winner about 86% of the time.
+
+Use a chi-squared test to determine if these proportions are different.
+Instructions
+100 XP
+
+    Use the chisq.test function to perform the chi-squared test. Save the results to an object called chisq_test.
+    Print the p-value of the test to the console.
+
+```{r}
+# The 'totals' data have already been loaded. Examine them using the `head` function.
+head(totals)
+
+# Perform a chi-squared test on the hit data. Save the results as an object called 'chisq_test'.
+chisq_test <- totals %>%
+  select(-hit) %>%
+  chisq.test()
+chisq_test
+
+
+# Print the p-value of the chi-squared test to the console
+chisq_test[3]
+```
+
+Hint
+
+    Remember to remove the hit column from the totals data so that your data are in the two-by-two form going into the chi-squared test. You can remove the column using the select function as in the sample code below.
+
+totals %>% select(-hit)
+
+$p.value
+[1] 0.1467902
+
+
+
+## Exercise 3 - Odds Ratio Calculation
+
+*It doesn't look like the grade A- polls performed significantly differently than the grade C- polls in their states.*
+
+Calculate the odds ratio to determine the magnitude of the difference in performance between these two grades of polls.
+Instructions
+100 XP
+
+    Calculate the odds that a grade C- poll predicts the correct winner. Save this result to a variable called odds_C.
+    Calculate the odds that a grade A- poll predicts the correct winner. Save this result to a variable called odds_A.
+    Calculate the odds ratio that tells us how many times larger the odds of a grade A- poll is at predicting the winner than a grade C- poll.
+
+```{r}
+# The 'totals' data have already been loaded. Examine them using the `head` function.
+head(totals)
+
+# Generate a variable called `odds_C` that contains the odds of getting the prediction right for grade C- polls
+odds_C <- totals$'C-'[2]/totals$'C-'[1]
+#odds_C
+#311/50
+
+
+# Generate a variable called `odds_A` that contains the odds of getting the prediction right for grade A- polls
+odds_A <- totals$'A-'[2]/totals$'A-'[1]
+
+
+# Calculate the odds ratio to determine how many times larger the odds ratio is for grade A- polls than grade C- polls
+odds_A/odds_C
+```
+
+Hint
+
+    It write too complicated, just go above and check what the instructor talked about.  
+
+# And here is the solution
+```{r}
+# The 'totals' data have already been loaded. Examine them using the `head` function.
+head(totals)
+
+# Generate a variable called `odds_C` that contains the odds of getting the prediction right for grade C- polls
+odds_C <- (totals[[2,2]] / sum(totals[[2]])) / 
+  (totals[[1,2]] / sum(totals[[2]]))
+
+# Generate a variable called `odds_A` that contains the odds of getting the prediction right for grade A- polls
+odds_A <- (totals[[2,3]] / sum(totals[[3]])) / 
+  (totals[[1,3]] / sum(totals[[3]]))
+
+# Calculate the odds ratio to determine how many times larger the odds ratio is for grade A- polls than grade C- polls
+odds_A/odds_C
+```
+
+
+
+
+## Exercise 4 - Significance
+
+[][We did not find meaningful differences between the poll results from grade A- and grade C- polls in this subset of the data, which only contains polls for about a week before the election. Imagine we expanded our analysis to include all election polls and we repeat our analysis. In this hypothetical scenario, we get that the p-value for the difference in prediction success if 0.0015 and the odds ratio describing the effect size of the performance of grade A- over grade B- polls is 1.07.]
+
+Based on what we learned in the last section, which statement reflects the best interpretation of this result?
+Instructions
+50 XP
+Possible Answers
+
+    The p-value is below 0.05, so there is a significant difference. Grade A- polls are significantly better at predicting winners.
+    The p-value is too close to 0.05 to call this a significant difference. We do not observe a difference in performance.
+[][    The p-value is below 0.05, but the odds ratio is very close to 1. There is not a scientifically significant difference in performance.]    0
+    The p-value is below 0.05 and the odds ratio indicates that grade A- polls perform significantly better than grade C- polls.
+
+
+
+
+## End of Assessment
+
+This is the end of the programming assignment for this section. Please DO NOT click through to additional assessments from this page. If you do click through, your scores may NOT be recorded.
+
+Click "Got it!" and submit to get the "points" for this question.
+
+You can close this window and return to Data Science: Inference.
+Answer the question
+50XP
+Possible Answers
+
+    Got it!
+    press
+
+
+
+
+
+
+
+
+
+
+## Course  /  Course Wrap-up and Comprehensive Assessment: Brexit  /  Comprehensive Assessment: Brexit
+
+Brexit poll analysis - Part 1
+Level 2 headings may be created by course providers in the future.
+Graded assignments are locked
+Upgrade to gain access to locked features like this one and get the most out of your course.
+Example Certificate
+When you upgrade, you:
+
+Earn a verified certificate of completion to showcase on your resumé
+Unlock your access to all course activities, including graded assignments
+Full access to course content and materials, even after the course ends
+
+    Support our mission at edX
+
+
+Final Assessment due Aug 20, 2022 15:55 AWST
+Assessment for verified learners
+
+Test your inference and modeling skills with this case study analyzing polls from the Brexit referendum! This assessment is available to verified learners only.
+Directions
+
+There are 12 multi-part problems in this comprehensive assessment that review concepts from the entire course. The problems are split over 3 pages. Make sure you read the instructions carefully and run all pre-exercise code.
+
+For numeric entry problems, you have 10 attempts to input the correct answer. For true/false problems, you have 2 attempts.
+
+If you have questions, visit the "Brexit poll analysis" discussion forum that follows the assessment.
+
+IMPORTANT: Some of these exercises use dslabs datasets that were added in a July 2019 update. Make sure your package is up to date with the command install.packages("dslabs").
+Overview
+
+In June 2016, the United Kingdom (UK) held a referendum to determine whether the country would "Remain" in the European Union (EU) or "Leave" the EU. This referendum is commonly known as Brexit. Although the media and others interpreted poll results as forecasting "Remain" (\(p > 0.5)\), the actual proportion that voted "Remain" was only 48.1% \((p = 0.481)\) and the UK thus voted to leave the EU. Pollsters in the UK were criticized for overestimating support for "Remain". 
+
+In this project, you will analyze real Brexit polling data to develop polling models to forecast Brexit results. You will write your own code in R and enter the answers on the edX platform.
+Important definitions
+Data Import
+
+Import the brexit_polls polling data from the dslabs package and set options for the analysis:
+
+# suggested libraries and options
+library(tidyverse)
+options(digits = 3)
+
+# load brexit_polls object
+library(dslabs)
+data(brexit_polls)
+
+Final Brexit parameters
+
+Define \(p=0.481\) as the actual percent voting "Remain" on the Brexit referendum and \(d=2p-1=-0.038\) as the actual spread of the Brexit referendum with "Remain" defined as the positive outcome:
+
+p <- 0.481    # official proportion voting "Remain"
+d <- 2*p-1    # official spread
+
+
+
+
+
+
+
+# Brexit poll analysis - Part 2
+Level 2 headings may be created by course providers in the future.
+Graded assignments are locked
+Upgrade to gain access to locked features like this one and get the most out of your course.
+Example Certificate
+When you upgrade, you:
+
+Earn a verified certificate of completion to showcase on your resumé
+Unlock your access to all course activities, including graded assignments
+Full access to course content and materials, even after the course ends
+Support our mission at edX
+
+
+Final Assessment due Aug 20, 2022 15:55 AWST
+
+This problem set is continued from the previous page. Make sure you have run the following code:
+
+# suggested libraries
+library(tidyverse)
+
+# load brexit_polls object and add x_hat column
+library(dslabs)
+data(brexit_polls)
+brexit_polls <- brexit_polls %>%
+    mutate(x_hat = (spread + 1)/2)
+
+# final proportion voting "Remain"
+p <- 0.481
+
+Continue the comprehensive assessment on the next page.
+
+
+
+
+
+
+
+
+# Brexit poll analysis - Part 3
+Level 2 headings may be created by course providers in the future.
+Graded assignments are locked
+Upgrade to gain access to locked features like this one and get the most out of your course.
+Example Certificate
+When you upgrade, you:
+
+Earn a verified certificate of completion to showcase on your resumé
+Unlock your access to all course activities, including graded assignments
+Full access to course content and materials, even after the course ends
+Support our mission at edX
+
+
+
+Final Assessment due Aug 20, 2022 15:55 AWST
+
+This problem set is continued from the previous page. Make sure you have run the following code:
+
+# suggested libraries
+library(tidyverse)
+
+# load brexit_polls object and add x_hat column
+library(dslabs)
+data(brexit_polls)
+brexit_polls <- brexit_polls %>%
+    mutate(x_hat = (spread + 1)/2)
+
+# final proportion voting "Remain"
+p <- 0.481
+
+
+
+
+
+
+
+
+
+
+# Discussion: Brexit poll analysis
+
+
+
+Ask your questions about this assessment here. Remember to search the discussion board before posting to see if someone else has asked the same thing before asking a new question! You're also encouraged to answer each other's questions to help further your own learning.
+
+Some reminders:
+
+        Please be specific in the title and body of your post regarding which question you're asking about to facilitate answering your question.
+        Posting snippets of code is okay, but posting full code solutions is not.
+        If you do post snippets of code, please format it as code for readability. If you're not sure how to do this, there are instructions in a pinned post in the "general" discussion forum.
+
+Discussion: Brexit poll analysis
+Topic: Brexit poll analysis / Assessment: Brexit poll analysis
+Filter:
+Sort:
+
+    discussion
+    Course 4 on Inference and Modeling
+    This is by far the most challenging course in this professional certification program. Five more courses to go!
+    1 comments
+    discussion
+    Acquired
+    I have learned so much,thank you!
+    1 comments
+    discussion
+    Thank you!
+    Very impressive!
+    1 comments
+    discussion
+    very detailed
+    Thank you, very detailed
+    1 comments
+    unanswered question
+    What proportion of polls having a confidence interval 0
+    1 comments
+    discussion
+    Textbook
+    Some contents are not in the textbook. I have to go and find additionnal contents in other books to complete my code
+    1 comments
+    discussion
+    Association tests in the textbook
+    I couldn't find the content of the section 7 (Association tests) in the textbook. Could someone please indicate where it is? Thanks
+    1 comments
+    discussion
+    I satisfied with the course
+    Thank you
+    1 comments
+    discussion
+    Note
+    The lectures are very detailed
+    1 comments
+    discussion
+    Nice Course
+    Good Assesment
+    1 comments
+    discussion
+    Brexit - Wow
+    Very comprehensive exercise indeed!
+
+
+
 
