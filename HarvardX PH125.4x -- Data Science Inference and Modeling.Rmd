@@ -1,14 +1,6 @@
 ---
 title: 'HarvardX PH125.4x Data Science: Inference and Modeling'
 author: "John HHU"
-date: "2022-08-15"
-output: html_document
----
-
-
----
-title: 'HarvardX PH125.4x Data Science: Inference and Modeling'
-author: "John HHU"
 date: '2022-07-02'
 output: html_document
 ---
@@ -632,16 +624,15 @@ So in summary, we have that X-bar has an approximately normal distribution.  And
 Note that we can use the mathematical trick that we learned in the previous module.  What was that trick?  [][*We subtract the expected value and divide by the standard error on both sides of the equation*].  What this does is it gives us a standard normal variable, which we have been calling capital Z, on the left side.  And we know how to make calculations for that.  
 ![](C:/Users/qp/Pictures/and the standard error of x_bar equal to square root of p times 1 minus p divide by n.png)
 ![important knowledge, think about it](C:/Users/qp/Pictures/so the probability we just calculated is equivalent to this equation.png)
-Since p is the expected value, and the standard error of X-bar is the square root of p times 1 minus p divided by N, we get that the probability that we were just calculating is equivalent to probability of Z, our standard normal variable, being less than 0.01 divided by the standard error of X-bar minus the probability of Z being less than negative 0.01 divided by that standard error of X-bar.  
-
-# =======================================================================================================================
-*OK, now can we compute this probability?*  Not yet.  Our problem is that we don't know p.  So we can't actually compute the standard error of X-bar using just the data.  But it turns out--and this is something new we're showing you--that the CLT still works if we use an estimate of the standard error that, instead of p, uses X-bar in its place.  We say this is a plug-in estimate.  We call this a [][*plug-in estimate*].  Our estimate of the standard error is therefore the square root of X-bar times 1 minus X-bar divided by N. Notice, we changed the p for the X-bar.  In the mathematical formula we're showing you, you can see a hat on top of the SE.  
-# =======================================================================================================================
-
-[][**In statistics textbooks, we use a little hat like this to denote estimates**].  This is an estimate of the standard error, not the actual standard error.  But like we said, the central limit theorem still works.  Note that, importantly, that this estimate can actually  be constructed using the observed data.  Now, let's continue our calculations.  But now *instead of dividing by the standard error, we're going to divide by this estimate of the standard error*.  Let's compute this estimate of the standard error for the first sample that we took, in which we had 12 blue beads and 13 red beads.  In that case, X-bar was 0.48.  
-
-So to compute the standard error(*can you recall what standard error we are going to calculate???*), we simply write this code.  And we get that it's about 0.1.  So now, we can answer the question.  Now, we can compute the probability of being as close to p as we wanted.  We wanted to be 1 percentage point away.  The answer is simply pnorm of 0.01--that's 1 percentage point--divided by this estimated se minus pnorm of negative 0.01 divided by the estimated se.  We plug that into R, and we get the answer.  [][***The answer is that the probability of this happening is about 8%.  So there is a very small chance that we'll be as close as this to the actual proportion.  ***]
-
+![](C:/Users/qp/Pictures/20220815_234216[1].jpg)
+Since p is the expected value, and the standard error of X-bar is the square root of p times 1 minus p divided by N, we get that the probability that we were just calculating is equivalent to probability of Z, our standard normal variable, being less than 0.01 divided by the standard error of X-bar minus the probability of Z being less than negative 0.01 divided by that standard error of X-bar.  *OK, now can we compute this probability?*  Not yet.  Our problem is that we don't know p.  So we can't actually compute the standard error of X-bar using just the data.  **But it turns out--and this is something new we're showing you--that the CLT still works if we use an estimate of the standard error that, instead of p, uses X-bar in its place**.  We say this is a plug-in estimate.  We call this a [][*plug-in estimate*].  Our estimate of the standard error is therefore the square root of X-bar times 1 minus X-bar divided by N. Notice, we changed the p for the X-bar.  In the mathematical formula we're showing you, you can see a hat on top of the SE.  
+![](C:/Users/qp/Pictures/since we dno't know p, but clt still work if we use x_bar in its place.png)
+![Notice that this estimate can actually be constructured using the observed data](C:/Users/qp/Pictures/now its our estimate of the standard error is square root of the x_bar times 1 minus x_bar divide by n.png)
+**In statistics textbooks, we use a little hat like this to denote estimates**.  This is an estimate of the standard error, not the actual standard error.  But like we said, the central limit theorem still works.  Note that, importantly, that this estimate can actually  be constructed using the observed data.  Now, let's continue our calculations.  But now [][*instead of dividing by the standard error, we're going to divide by this estimate of the standard error*].  Let's compute this estimate of the standard error for the first sample that we took, in which we had 12 blue beads and 13 red beads.  In that case, X-bar was 0.48.  
+![compute this estimate of the standard error for the first sample that we took, in which we had 12 blue beads and 13 red beads](C:/Users/qp/Pictures/in that case the x_bar was 0.48.png)
+![](C:/Users/qp/Pictures/so to compute the first standard error, we simple write this code.png)
+So to compute the standard error(*so how do we calculate standard error of the population???*), we simply write this code.  And we get that it's about 0.1.  So now, we can answer the question.  Now, we can compute the probability of being as close to p as we wanted.  We wanted to be 1 percentage point away.  The answer is simply pnorm of 0.01--that's 1 percentage point--divided by this estimated se minus pnorm of negative 0.01 divided by the estimated se.  We plug that into R, and we get the answer.  The answer is that the probability of this happening is about 8%.  So there is a very small chance that we'll be as close as this to the actual proportion.  
+![so where does that Z goes??? thaink about it](C:/Users/qp/Pictures/now, we can compute the probability of being as close to p as we wanted.png)
 Now, that wasn't very useful, but what it's going to do, what we're going to be able to do with the central limit theorem is determine what sample sizes are better.  And once we have those larger sample sizes, we'll be able to provide a very good estimate and some very informative probabilities.  
 
 
@@ -654,7 +645,7 @@ https://rafalab.github.io/dsbook/inference.html#clt
 
 [][Key points]
 
-[][*    Because X_bar is the sum of random draws divided by a constant, the distribution of X_bar is approximately normal. *] (*we'll have n X_bar in N random replacement draws*)
+[][*    Because X_bar is the sum of random draws divided by a constant, the distribution of X_bar is approximately normal. *] 
     
     We can convert X_bar to a standard normal random variable Z:     ???Why doing this???
         Z = (X_bar - E(X_bar))/SE(X_bar)
@@ -674,53 +665,6 @@ Code: Computing the probability of X_bar being within .01 of
 X_hat <- 0.48
 se <- sqrt(X_hat*(1-X_hat)/25)
 pnorm(0.01/se) - pnorm(-0.01/se)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-![](C:/Users/qp/Pictures/since we dno't know p, but clt still work if we use x_bar in its place.png)
-
-![](C:/Users/qp/Pictures/here is our standard error of x_bar is there fore replacing p with x_bar.png)
-
-![](C:/Users/qp/Pictures/standard deviation of the population.png)
-
-# Notice that this estimate can actually be constructured using the observed data
-# ==================================================================================================================
-![in statistics textbooks, the hat represent teh estimate](C:/Users/qp/Pictures/now its our estimate of the standard error is square root of the x_bar times 1 minus x_bar divide by n.png)
-
-![](C:/Users/qp/Pictures/the first sample we took, in which we had 12 blue beads and 13 red beads.png)
-
-![](C:/Users/qp/Pictures/in that case the x_bar was 0.48.png)
-
-# =================================================================================================================
-# =================================================================================================================
-![](C:/Users/qp/Pictures/so to compute the first standard error, we simple write this code.png)
-
-![](C:/Users/qp/Pictures/now, we can compute the probability of being as close to p as we wanted.png)
-
 
 
 
