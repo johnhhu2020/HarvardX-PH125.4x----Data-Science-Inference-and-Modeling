@@ -860,10 +860,10 @@ So everything we have done can easily be adapted to estimate to p minus 1.  Once
 ![plug in X_bar as the p](C:/Users/qp/Pictures/once we have our estimate x_bar and estimate of standard error, we just plug in x_bar where we should have p.png)
 ![](C:/Users/qp/Pictures/sincw we are multiple a random variable by 2, we know the standard error goes up by 2.png)
 ***And, since we're multiplying a random variable by 2, we know that the standard error goes up by 2***.  So the standard error of this new random variable is 2 times the standard error of X-bar [][sqrt(2p*(1-2p)/N)].  Note that subtracting the 1 does not add any variability, so it does not affect the standard error.  
-![](C:/Users/qp/Pictures/so for our first example with just 25 beads, our estimate of p was 0.48.png)
+![12/25](C:/Users/qp/Pictures/so for our first example with just 25 beads, our estimate of p was 0.48.png)
  [][*Earlier we mentioned the margin of error.  Now we can define it because it is simply 2 times the standard error*]
 ![2*sqrt(p*(1-p)/N) or 2*sqrt(0.48*(1-0.48)/25)](C:/Users/qp/Pictures/and the margin of error for our first example is 0.2.png)
-![2p-1 or 2*0.48-1](C:/Users/qp/Pictures/thus our estimate of the spread is 0.04.png)
+![2*p-1 or 2*0.48-1](C:/Users/qp/Pictures/thus our estimate of the spread is 0.04.png)
 ![margin of the error of the spread](C:/Users/qp/Pictures/and our margin of error is 40% in this cases after we have the estimate and standard error of p.png)
 So, for our first example, with just the 25 beads, our estimate of p was 0.48 with a margin of error of 0.2.  *This means that our estimate of the spread is 4 percentage points, 0.04, with a margin of error of 40%, 0.4*.  Again, not a very useful sample size.  But the point is that once we have an estimate and standard error for p, we have it for the spread 2p minus 1.  
 
