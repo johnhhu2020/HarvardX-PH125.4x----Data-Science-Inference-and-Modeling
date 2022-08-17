@@ -856,7 +856,7 @@ grid.arrange(p1, p2, nrow=1)
 
 [][*The competition is to predict the spread, not the proportion p*].  However, because we are assuming there are only two parties, we know that the spread is just p minus (1 minus p), which is equal to 2p minus 1.  
 ![the spread](C:/Users/qp/Pictures/because we are assuming there are just 2 parties, thus the spread is just this.png)
-So everything we have done can easily be adapted to estimate to p minus 1.  Once we have our estimate, X-bar, and our estimate of our standard error of X-bar, we estimate the spread by 2 times X-bar minus 1, *just plugging in the X-bar where you should have a p*.  
+So everything we have done can easily be adapted to estimate to 2p minus 1.  Once we have our estimate, X-bar, and our estimate of our standard error of X-bar, we estimate the spread by 2 times X-bar minus 1, *just plugging in the X-bar where you should have a p*.  
 ![plug in X_bar as the p](C:/Users/qp/Pictures/once we have our estimate x_bar and estimate of standard error, we just plug in x_bar where we should have p.png)
 ![](C:/Users/qp/Pictures/sincw we are multiple a random variable by 2, we know the standard error goes up by 2.png)
 ***And, since we're multiplying a random variable by 2, we know that the standard error goes up by 2***.  So the standard error of this new random variable is 2 times the standard error of X-bar [][sqrt(2p*(1-2p)/N)].  Note that subtracting the 1 does not add any variability, so it does not affect the standard error.  
@@ -900,25 +900,12 @@ https://rafalab.github.io/dsbook/inference.html#the-spread
 # Bias: Why Not Run a Very Large Poll?
 
 
-Note that for realistic values of p, say between 0.35 and 0.65 for the popular vote, if we run a very large poll with say 100,000 people, theory would tell us that we would predict the election almost perfectly, since the largest possible margin of error is about 0.3%.  Here are the calculations that were used to determine that.  We can see a graph showing us the standard error for several values of p if we fix N to be 100,000.  
-
-So why are there no pollsters that are conducting polls this large?  One reason is that running polls with a sample size of 100,000 is very expensive.  But [][***perhaps a more important reason is that theory has its limitations***].  Polling is much more complicated than picking beads from an urn.  For example, while the beads are either red or blue, and you can see it with your eyes, people, when you ask them, might lie to you.  Also, because you're conducting these polls usually by phone, you might miss people that don't have phones.  And they might vote differently than those that do.  But [][*perhaps the most different way an actual poll is from our urn model is that we actually don't know for sure who is in our population and who is not*].  
+Note that for realistic values of p, say between 0.35 and 0.65 for the popular vote, if we run a very large poll with say 100,000 people, theory would tell us that we would predict the election almost perfectly, since *the largest possible margin of error is about 0.3%*.  Here are the calculations that were used to determine that.  We can see a graph showing us the standard error for several values of p if we fix N to be 100,000.  
+![](C:/Users/qp/Pictures/the throry tells us the largest possible margin of error is just 0.3% with this big sample size.png)
+![](C:/Users/qp/Pictures/here are the calculation we used to determining that with visualization.png)
+So why are there no pollsters that are conducting polls this large?  One reason is that running polls with a sample size of 100,000 is very expensive.  But [][***perhaps a more important reason is that theory has its limitations***].  Polling is much more complicated than picking beads from an urn.  For example, while the beads are either red or blue, and you can see it with your eyes, people, when you ask them, might lie to you.  Also, because you're conducting these polls usually by phone, you might miss people that don't have phones.  And they might vote differently than those that do.  But *perhaps the most different way an actual poll is from our urn model is that we actually don't know for sure who is in our population and who is not*.  
 
 How do we know who is going to vote?  Are we reaching all possible voters?  So, even if our margin of error is very small, it may not be exactly right that our expected value is p.  [][*We call this bias*].  Historically, we observe that polls are, indeed, biased, although not by that much.  The typical bias appears to be between 1% and 2%.  This makes election forecasting a bit more interesting.  And we'll talk about that in a later video.  
-
-
->>> spread = 0.65-0.35
->>> spread
-0.30000000000000004
->>> spread2 = 2*0.35-1
->>> spread2
--0.30000000000000004
->>> sd = math.sqrt(0.35*0.65/100000)
->>> sd
-0.0015083103128998355
->>> spread_sd = sd*2
->>> spread_sd
-0.003016620625799671
 
 
 
@@ -947,6 +934,9 @@ data.frame(p = p, SE = SE) %>%
 
 
 ```{r}
+library(tidyverse)
+
+
 N <- 100000
 p <- seq(0.35, 0.65, length=100)
 
@@ -958,20 +948,8 @@ data.frame(SE=SE) %>%
   geom_line()
 ```
 
-![](C:/Users/qp/Pictures/many concerns involved in poll, from population to realistic situations, we call this bias.png)
-
-![](C:/Users/qp/Pictures/the typical bias are between 1 to 2 percent in poll.png)
 
 
-
-![](C:/Users/qp/Pictures/for realistic value of p between this range for the popular vote.png)
-
-![](C:/Users/qp/Pictures/if we ran our poll woth very large sample say 100000 people.png)
-
-
-![](C:/Users/qp/Pictures/the throry tells us the largest possible margin of error is just 0.3% with this big sample size.png)
-
-![](C:/Users/qp/Pictures/here are the calculation we used to determining that with visualization.png)
 
 
 
@@ -1022,9 +1000,8 @@ Instructions
 ```{r}
 # Write a function called `take_sample` that takes `p` and `N` as arguements and returns the average value of a randomly sampled population.
 take_sample <- function(p, N) mean(sample(c(1, 0), size=N, prob=c(p, 1-p), replace=T))
-# =======================================================================================================================
-# Does this means I can't handle limited instruction tasks? How can I overcome it???
-
+# ===========================================================================================================================
+# Does this means I can't handle limited instruction tasks? How can I overcome it??? ++++++++++++++++++++++++++++++++++++++++
 
 
 
@@ -1047,8 +1024,6 @@ take_sample <- function(p, N) {
     sample <- sample(c(1, 0), size=N, prob=c(p, 1-p), replace=T)
     mean(sample)
 }
-
-
 
 
 # Use the `set.seed` function to make sure your answer matches the expected result after random sampling
@@ -1161,7 +1136,7 @@ mean(abs(errors))
 
 The standard error is related to the typical size of the error we make when predicting. We say size because, as we just saw, the errors are centered around 0. In that sense, the typical error is 0. For mathematical reasons related to the central limit theorem, we actually use the standard deviation of errors rather than the average of the absolute values.
 
-As we have discussed, the standard error is the square root of the average squared distance (X_bar-p)^2. The standard deviation is defined as the square root of the distance squared.
+[][As we have discussed, the standard error is the square root of the average squared distance (X_bar-p)^2. The standard deviation is defined as the square root of the distance squared.]  {I assume that is when we know the population p or sample p?}
 
 Calculate the standard deviation of the spread.
 Instructions
@@ -1173,7 +1148,7 @@ Instructions
     Calculate the square root of these values using the sqrt function.
 
 ```{r}
-# Define `p` as the proportion of Democrats in the population being polled
+# Define `p` as the proportion of Democrats in the population being polled  ++++++++++++++++++++++
 p <- 0.45
 
 # Define `N` as the number of people polled
@@ -1197,9 +1172,18 @@ sqrt(mean(errors^2))     # ====================== why not calculate a series of 
 
 ## Exercise 6. Estimating the standard error
 
-The theory we just learned tells us what this standard deviation is going to be because it is the standard error of X_bar.
+[][The theory we just learned tells us what this standard deviation is going to be because it is the standard error of X_bar.]
 
-[][Estimate the standard error given an expected value of 0.45 and a sample size of 100.]
+[][Estimate the standard error given an expected value of 0.45 and a sample size of 100.] +++++++++++++++++++++++++++++
+
+**************************************************************************************************************************
+Standard error and standard deviation are both measures of variability. The standard deviation reflects variability within a sample, while the standard error estimates the variability across samples of a population.11 Dec 2020
+
+or
+
+How Are Standard Deviation and Standard Error of the Mean Different? Standard deviation measures the variability from specific data points to the mean. Standard error of the mean measures the precision of the sample mean to the population mean that it is meant to estimate.
+**************************************************************************************************************************
+
 Instructions
 100 XP
 
