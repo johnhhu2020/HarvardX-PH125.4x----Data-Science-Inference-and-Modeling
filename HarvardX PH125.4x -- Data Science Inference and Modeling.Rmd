@@ -660,7 +660,7 @@ https://rafalab.github.io/dsbook/inference.html#clt
         SE_hat(X_bar) = sqrt(X_bar(1-X_bar)/N)
 
     Using the CLT, the probability that X_bar is within .01 of the actual value of p is:
-        Pr(Z<= 0.01/sqrt(X_bar(1-X_bar)/N)) - Pr(X<= -o.o1/sqrt(x_bar(1-X_bar)/N))
+[][        Pr(Z<= 0.01/sqrt(X_bar(1-X_bar)/N)) - Pr(X<= -o.o1/sqrt(x_bar(1-X_bar)/N)) ]
     
 
 Code: Computing the probability of X_bar being within .01 of
@@ -898,7 +898,6 @@ https://rafalab.github.io/dsbook/inference.html#the-spread
 
 # Bias: Why Not Run a Very Large Poll?
 
-
 Note that for realistic values of p, say between 0.35 and 0.65 for the popular vote, if we run a very large poll with say 100,000 people, theory would tell us that we would predict the election almost perfectly, since *the largest possible margin of error is about 0.3%*.  Here are the calculations that were used to determine that.  We can see a graph showing us the standard error for several values of p if we fix N to be 100,000.  
 ![](C:/Users/qp/Pictures/the throry tells us the largest possible margin of error is just 0.3% with this big sample size.png)
 ![](C:/Users/qp/Pictures/here are the calculation we used to determining that with visualization.png)
@@ -934,7 +933,6 @@ data.frame(p = p, SE = SE) %>%
 
 ```{r}
 library(tidyverse)
-
 
 N <- 100000
 p <- seq(0.35, 0.65, length=100)
@@ -1015,7 +1013,6 @@ N <- 100
 
 # Call the `take_sample` function to determine the sample average of `N` randomly selected people from a population containing a proportion of Democrats equal to `p`. Print this value to the console.
 take_sample(p, N)
-
 ```
 ```{r}
 # Write a function called `take_sample` that takes `p` and `N` as arguements and returns the average value of a randomly sampled population.
@@ -1036,7 +1033,6 @@ N <- 100
 
 # Call the `take_sample` function to determine the sample average of `N` randomly selected people from a population containing a proportion of Democrats equal to `p`. Print this value to the console.
 take_sample(p, N)
-
 ```
 
 
@@ -1073,7 +1069,6 @@ errors <- p - replicate(B, take_sample(p, N))
 
 # Calculate the mean of the errors. Print this value to the console.
 mean(errors)
-
 ```
 
 
@@ -1133,7 +1128,7 @@ mean(abs(errors))
 
 ## Exercise 5. Standard deviation of the spread
 
-The standard error is related to the typical size of the error we make when predicting. We say size because, as we just saw, the errors are centered around 0. In that sense, the typical error is 0. For mathematical reasons related to the central limit theorem, we actually use the standard deviation of errors rather than the average of the absolute values.
+The standard error is related to the typical size of the error we make when predicting. We say size because, as we just saw, the errors are centered around 0. In that sense, the typical error is 0. For mathematical reasons related to the central limit theorem, we actually use the [][standard deviation] of errors rather than the average of the absolute values.
 
 [][As we have discussed, the standard error is the square root of the average squared distance (X_bar-p)^2. The standard deviation is defined as the square root of the distance squared.]  {I assume that is when we know the population p or sample p?}
 
@@ -1163,15 +1158,14 @@ set.seed(1, sample.kind="Rounding")
 errors <- replicate(B, p - take_sample(p, N))
 
 # Calculate the standard deviation of `errors`
-sqrt(mean(errors^2))     # ====================== why not calculate a series of values ???
-#####################################################################################
+sqrt(mean(errors^2))     # ====================================================== why not calculate a series of values ???
 ```
 
 
 
 ## Exercise 6. Estimating the standard error
 
-[][The theory we just learned tells us what this standard deviation is going to be because it is the standard error of X_bar.]
+The theory we just learned tells us what this standard deviation is going to be because it is the standard error of X_bar. 
 
 [][Estimate the standard error given an expected value of 0.45 and a sample size of 100.] +++++++++++++++++++++++++++++
 
@@ -1197,7 +1191,6 @@ N <- 100
 
 # Calculate the standard error   ======================================================================
 sqrt(p*(1-p)/N)
-#####################################################################################
 ```
 
 
@@ -1233,7 +1226,6 @@ X_bar <- mean(X)
 
 # Calculate the standard error of the estimate. Print the result to the console.
 sqrt(p*(1-p)/N)
-
 # We are simulate one poll here, thus the result can be different each time +++++++++++++++++++++++++++++++++++++++++++
 ```
 Incorrect submission
@@ -1265,7 +1257,7 @@ sqrt(X_bar*(1-X_bar)/N)
 ## Exercise 8. Plotting the standard error
 
 # =====================================================================================================================
-[][The standard error estimates obtained from the Monte Carlo simulation(sqrt(mean(errors^2))), the theoretical prediction(sqrt(p*(1-p)/N)), and the estimate of the theoretical prediction are all very close](*Think, think*), which tells us that the theory is working. This gives us a practical approach to knowing the typical error we will make if we predict p with X_hat. The theoretical result gives us an idea of how large a sample size is required to obtain the precision we need. Earlier we learned that the largest standard errors occur for p=0.5.
+[][The standard error estimates obtained from the Monte Carlo simulation(sqrt(mean(errors^2))), the theoretical prediction(sqrt(p*(1-p)/N)), and the estimate of the theoretical prediction are all very close](*THINK, Think, think*), which tells us that the theory is working. This gives us a practical approach to knowing the typical error we will make if we predict p with X_hat. The theoretical result gives us an idea of how large a sample size is required to obtain the precision we need. Earlier we learned that the largest standard errors occur for p=0.5.
 
 Create a plot of the largest standard error for N ranging from 100 to 5,000. Based on this plot, how large does the sample size have to be to have a standard error of about 1%?
 
@@ -1391,7 +1383,7 @@ p <- 0.45
 # Define `N` as the number of people polled
 N <- 100
 
-# Calculate the probability that the estimated proportion of Democrats in the population is greater than 0.5. Print this value to the console.
+# Calculate the probability that the estimated proportion of Democrats in the population is greater than 0.5. Print this value to the console.  ========================================================================================================
 1 - pnorm(0.5, mean=p, sd=sqrt(p*(1-p)/N))
 ```
 
@@ -1424,7 +1416,7 @@ se_hat <- sqrt(X_hat*(1-X_hat)/N)
 # ==========================================================================================================================
 # Calculate the probability that the error is 0.01 or larger
 pnorm(0.01, mean=X_hat, sd=se_hat) - pnorm(-0.01, mean=X_hat, sd=se_hat)
-
+# Pr(Z<= 0.01/sqrt(X_bar(1-X_bar)/N)) - Pr(X<= -o.o1/sqrt(x_bar(1-X_bar)/N))  ###############################################
 ```
 Incorrect submission
 You are not providing a calculation that gives the correct answer. Make sure you account for the probability that the error is less than 0.01 or less than -0.01. 
@@ -1449,7 +1441,6 @@ se_hat <- sqrt(X_hat*(1-X_hat)/N)
 
 # Calculate the probability that the error is 0.01 or larger   ==============================================================
 1 - pnorm(.01, 0, se_hat) + pnorm(-0.01, 0, se_hat)
-
 ```
 
 
@@ -1468,6 +1459,8 @@ Possible Answers
     Got it!
     press
     1
+
+
 
 
 
@@ -1508,24 +1501,38 @@ We encourage you to use R to interactively test out your answers and further you
 
 
 
+
 ## Course  /  Section 3: Confidence Intervals and p-Values  /  Confidence Intervals and p-Values
 
 
 # Confidence Intervals
 
-
-We are ready to learn about confidence intervals.  Confidence intervals are a very useful concept that are widely used by data scientists.  A version of these that are very commonly seen come from the ggplot geometry geom_smooth().  Here's an example using some weather data.  We write the code like this and we get a picture that looks like this.  We will later learn how this curve is formed, but note the shaded area around the curve.  This shaded area is created using the concept of confidence intervals.  
-
-In our competition, we were asked to give an interval.  If the interval you submit includes the actual proportion p, you get half the money you spent on your poll back and pass to the next stage of the competition.  One way to pass to the second round of the competition to report a very large interval--for example, the interval 0 to 1.  This is guaranteed to include p.  However, with an interval this big, we have no chance of winning the competition.  Similarly, if you are an election forecaster and predict the spread will be between negative 100 and 100, you'll be ridiculed for stating the obvious.  Even a smaller interval such as saying that the spread will be between minus 10% and 10% will not be considered serious.  On the other hand, the smaller the interval we report, the smaller our chance of passing to the second round.  Similarly, a bold pollster that reports very small intervals and misses the mark most of the time will not be considered a good pollster.  We want to be somewhere in between.  
-
+![](C:/Users/qp/Pictures/we are ready to learn about confidence intervals.png)
+We are ready to learn about confidence intervals.  Confidence intervals are a very useful concept that are widely used by data scientists.  A version of these that are very commonly seen come from the ggplot geometry *geom_smooth()*.  Here's an example using some weather data.  We write the code like this and we get a picture that looks like this.  We will later learn how this curve is formed, but note the shaded area around the curve.  This shaded area is created using the concept of confidence intervals.  
+![](C:/Users/qp/Pictures/here is an example using geom_smooth with some dataset.png)
+![](C:/Users/qp/Pictures/this shaded ares is created using the concept of confidence interval.png)
+*In our competition, we were asked to give an interval*.  If the interval you submit includes the actual proportion p, you get half the money you spent on your poll back and pass to the next stage of the competition.  One way to pass to the second round of the competition to report a very large interval--for example, the interval 0 to 1.  This is guaranteed to include p.  However, with an interval this big, we have no chance of winning the competition.  Similarly, if you are an election forecaster and predict the spread will be between negative 100 and 100, you'll be ridiculed for stating the obvious.  Even a smaller interval such as saying that the spread will be between minus 10% and 10% will not be considered serious.  On the other hand, the smaller the interval we report, the smaller our chance of passing to the second round.  Similarly, a bold pollster that reports very small intervals and misses the mark most of the time will not be considered a good pollster.  We want to be somewhere in between.  
+![](C:/Users/qp/Pictures/the 95% chance including p are called 95% confidence intervals.png)
 [][Confidence intervals will help us get there].  We can use the statistical theory we have learned to compute, for any given interval, the probability that it includes p.  Similarly if we are asked to create an interval with, say, a 95% chance of including p, we can do that as well.  These are called 95% confidence intervals.  Note that when pollsters report an estimate and a margin of error, they are, in a way, reporting a 95% confidence interval.  Let's show how this works mathematically.  
-
+![](C:/Users/qp/Pictures/we want to know the probability that the interval X_bar minus or plus 2 times extimated standard error.png)
+![](C:/Users/qp/Pictures/to determine the probability that the interval includes p, we need to compute this probability.png)
 ***We want to know the probability that the interval X-bar minus 2 times the estimated standard error to X-bar plus 2 times its estimated standard error contains the actual proportion p***.  First, note that the start and end of this interval are random variables.  Every time that we take a sample, they change.  To illustrate this, we're going to run a Monte Carlo simulation.  We're going to do it just twice first.  So we're going to use these parameters.  We're going to make p 0.45 and N 1,000.  Note that the interval we get when we write this code is different from what we get if we run that same code again.  If we keep sampling and creating intervals, we will see that this is due to random variation.  
-
-# ===========================================================================================================================
+![](C:/Users/qp/Pictures/note that the start and end of this interval are random variables.  Every time that we take a sample, they change.png)
+![](C:/Users/qp/Pictures/the term in the middle is an approximately normal random variable with expected value 0 and standard error 1.png)
+![](C:/Users/qp/Pictures/which we have been denoting with capital Z.png)
 [][*To determine the probability that the interval includes p, we need to compute this probability*].  By subtracting and dividing the same quantities in all parts of the equation, we get that the equation is equivalent to this.  The term in the middle is an approximately normal random variable with expected value 0 and standard error 1, which we have been denoting with capital Z.  *So what we have is, what is the probability of a standard normal variable being between minus 2 and 2*?  And this is, we know, about 95%.  So we have a 95% confidence interval.  
+![](C:/Users/qp/Pictures/we can have any confidence interval by multiply by whatever z satisfies the following equation.png)
+![](C:/Users/qp/Pictures/using the quantity that we get by typing this code, which is about 2.576, will do.png)
+Note that if we want to have a larger probability, say 99%, a 99% confidence interval, we need to multiply by whatever z satisfies the following equation.  Note that by using the quantity that we get by typing this code, which is about 2.576, will do it, because by definition the pnorm of what we get when we type qnorm(0.995) is by definition 0.995.  And by symmetry, pnorm of 1 minus qnorm(0.995) is 1 minus 0.995.  So now we compute pnorm minus pnorm minus z, we get 99%.  
+![](C:/Users/qp/Pictures/so not we compute pnorm z minus pnorm minus z is 0.99.png)
+This is what we wanted.  We can use this approach for any percentile q.  We use 1 minus (1 minus q) divided by 2.  Why this number-- because of what we just saw, 1 minus (1 minus q) divided by 2 plus(less) (1 minus q) divided by 2 equals q.  And we get what we want.  Also note that to get exactly 0.95, we actually use a slightly smaller number than 2.  How do we know?  We type qnorm of 0.975 and we see that the value that we should be using to get exactly a 95% confidence interval is 1.96.  
+![??????](C:/Users/qp/Pictures/we use 1 minus 1 minus q divide by 2, and where does this equation comes from.png)
 
-Note that if we want to have a larger probability, say 99%, a 99% confidence interval, we need to multiply by whatever z satisfies the following equation.  Note that by using the quantity that we get by typing this code, which is about 2.576, will do it, because by definition the pnorm of what we get when we type qnorm(0.995) is by definition 0.995.  And by symmetry, pnorm of 1 minus qnorm(0.995) is 1 minus 0.995.  So now we compute pnorm minus pnorm minus z, we get 99%.  This is what we wanted.  We can use this approach for any percentile q.  We use 1 minus (1 minus q) divided by 2.  Why this number-- because of what we just saw, 1 minus (1 minus q) divided by 2 plus(less) (1 minus q) divided by 2 equals q.  And we get what we want.  Also note that to get exactly 0.95, we actually use a slightly smaller number than 2.  How do we know?  We type qnorm of 0.975 and we see that the value that we should be using to get exactly a 95% confidence interval is 1.96.  
+
+> pnorm(qnorm(0.95))
+[1] 0.95
+> pnorm(qnorm(1-0.995))
+[1] 0.005
 
 
 
@@ -1550,11 +1557,11 @@ https://rafalab.github.io/dsbook/inference.html#confidence-intervals
     
     95% confidence intervals are intervals constructed to have a 95% chance of including p. The margin of error is approximately a 95% confidence interval.
     
-[][*    The start and end of these confidence intervals are random variables.*]
+    The start and end of these confidence intervals are random variables.
 
 [][*    To calculate any size confidence interval, we need to calculate the value z for which Pr(-z <= Z <= z) equals the desired confidence.  For example, a 99% confidence interval requires calculating z for Pr(-z <= Z <= z) = 0.99. *]
     
-[][*    For a confidence interval of size q, we solve for z = 1 - (1-q)/2 *].
+[][*    For a confidence interval of size q, we solve for z = 1 - (1-q)/2 *]. ?????? Think about this equation
     
     To determine a 95% confidence interval, use z <- qnorm(0.975). This value is slightly smaller than 2 times the standard error.
 
@@ -1595,8 +1602,6 @@ pnorm(z) - pnorm(-z)    # demonstrating that this z value gives correct probabil
 ```{r}
 library(tidyverse)
 library(ggplot2)
-
-
 data("nhtemp")
 
 
@@ -1605,7 +1610,6 @@ data.frame(year=as.numeric(time(nhtemp)), temperature=as.numeric(nhtemp)) %>%
   geom_point() +
   geom_smooth() +
   ggtitle("Average Yearly Temperatures in New Haven")
-  
 ```
 
 ```{r}
@@ -1624,42 +1628,7 @@ print(c(X_hat-2*SE_hat, X_hat+2*SE_hat))
 
 
 
-![](C:/Users/qp/Pictures/we are ready to learn about confidence intervals.png)
 
-![](C:/Users/qp/Pictures/as a very useful concept widely used by data scientist, a version of these that very commonly see from ggplot geom_smooth.png)
-
-![](C:/Users/qp/Pictures/here is an example using geom_smooth with some dataset.png)
-
-![](C:/Users/qp/Pictures/this shaded ares is created using the concept of confidence interval.png)
-
-![](C:/Users/qp/Pictures/as if your interval include the actual proportion p, you'll get half the money you spend on your poll back and pass to the second round of competition, so one way to pass is report interval 0 to 1.png)
-
-![](C:/Users/qp/Pictures/the 95% chance including p are called 95% confidence intervals.png)
-
-![](C:/Users/qp/Pictures/we want to know the probability that the interval X_bar minus or plus 2 times extimated standard error.png)
-
-![to determine the probability that the interval includes p, we need to compute this probability.png](C:/Users/qp/Pictures/to determine the probability that the interval includes p, we need to compute this probability.png)
-
-![by subtracting and dividing the same quantities in all part of the equation, we get the equation equavalent to this.png](C:/Users/qp/Pictures/by subtracting and dividing the same quantities in all part of the equation, we get the equation equavalent to this.png)
-You minus X_bar on every element, then divide by SE[X_bar], and you'll get above equation transaction.  
-
-![and the term in the middle is an approximately normal random variable with expected value 0 and standard error 1.png](C:/Users/qp/Pictures/and the term in the middle is an approximately normal random variable with expected value 0 and standard error 1.png)
-
-![](C:/Users/qp/Pictures/which we have been denoting capital Z.png)
-
-![](C:/Users/qp/Pictures/so what we have is what is the probability of a standard normal variable being between minus 2 and 2.png)
-
-![](C:/Users/qp/Pictures/we can have any confidence interval by multiply by whatever z satisfies the following equation.png)
-
-![](C:/Users/qp/Pictures/then by using the quantity we want by typing this code, we get the z which is about 1.57.png)
-
-![](C:/Users/qp/Pictures/because by definition, when we type pnorm qnorm with 0.995 is the 0.995.png)
-
-![Mistake, this should be pnorm(qnorm(1-0.995))](C:/Users/qp/Pictures/and by symmetry pnorm of 1 minus qnorm 0.995 is 0.05.png)
-
-![](C:/Users/qp/Pictures/so not we compute pnorm z minus pnorm minus z is 0.99.png)
-
-![](C:/Users/qp/Pictures/we use 1 minus 1 minus q divide by 2, and where does this equation comes from.png)
 
 
 
