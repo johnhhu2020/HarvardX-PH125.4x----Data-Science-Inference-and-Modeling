@@ -601,6 +601,9 @@ We encourage you to use R to interactively test out your answers and further you
 
 
 
+
+
+
 ## Course  /  Section 2: The Central Limit Theorem in Practice  /  Central Limit Theorem in Practice
 
 
@@ -628,10 +631,10 @@ Note that we can use the mathematical trick that we learned in the previous modu
 Since p is the expected value, and the standard error of X-bar is the square root of p times 1 minus p divided by N, we get that the probability that we were just calculating is equivalent to probability of Z, our standard normal variable, being less than 0.01 divided by the standard error of X-bar minus the probability of Z being less than negative 0.01 divided by that standard error of X-bar.  *OK, now can we compute this probability?*  Not yet.  Our problem is that we don't know p.  So we can't actually compute the standard error of X-bar using just the data.  **But it turns out--and this is something new we're showing you--that the CLT still works if we use an estimate of the standard error that, instead of p, uses X-bar in its place**.  We say this is a plug-in estimate.  We call this a [][*plug-in estimate*].  Our estimate of the standard error is therefore the square root of X-bar times 1 minus X-bar divided by N. Notice, we changed the p for the X-bar.  In the mathematical formula we're showing you, you can see a hat on top of the SE.  
 ![](C:/Users/qp/Pictures/since we dno't know p, but clt still work if we use x_bar in its place.png)
 ![Notice that this estimate can actually be constructured using the observed data](C:/Users/qp/Pictures/now its our estimate of the standard error is square root of the x_bar times 1 minus x_bar divide by n.png)
-**In statistics textbooks, we use a little hat like this to denote estimates**.  This is an estimate of the standard error, not the actual standard error.  But like we said, the central limit theorem still works.  Note that, importantly, that this estimate can actually  be constructed using the observed data.  Now, let's continue our calculations.  But now [][*instead of dividing by the standard error, we're going to divide by this estimate of the standard error*].  Let's compute this estimate of the standard error for the first sample that we took, in which we had 12 blue beads and 13 red beads.  In that case, X-bar was 0.48.  
-![compute this estimate of the standard error for the first sample that we took, in which we had 12 blue beads and 13 red beads](C:/Users/qp/Pictures/in that case the x_bar was 0.48.png)
+[][**In statistics textbooks, we use a little hat like this to denote estimates**].  This is an estimate of the standard error, not the actual standard error.  But like we said, the central limit theorem still works.  Note that, importantly, that this estimate can actually  be constructed using the observed data.  Now, let's continue our calculations.  But now *instead of dividing by the standard error, we're going to divide by this estimate of the standard error*.  Let's compute this estimate of the standard error for the first sample that we took, in which we had 12 blue beads and 13 red beads.  In that case, X-bar was 0.48.  
+![](C:/Users/qp/Pictures/in that case the x_bar was 0.48.png)
 ![](C:/Users/qp/Pictures/so to compute the first standard error, we simple write this code.png)
-So to compute the standard error(*so how do we calculate standard error of the population???*), we simply write this code.  And we get that it's about 0.1.  So now, we can answer the question.  Now, we can compute the probability of being as close to p as we wanted.  We wanted to be 1 percentage point away.  The answer is simply pnorm of 0.01--that's 1 percentage point--divided by this estimated se minus pnorm of negative 0.01 divided by the estimated se.  We plug that into R, and we get the answer.  The answer is that the probability of this happening is about 8%.  So there is a very small chance that we'll be as close as this to the actual proportion.  
+So to compute the standard error, we simply write this code.  And we get that it's about 0.1.  So now, we can answer the question.  Now, we can compute the probability of being as close to p as we wanted.  We wanted to be 1 percentage point away.  The answer is simply pnorm of 0.01--that's 1 percentage point--divided by this estimated se minus pnorm of negative 0.01 divided by the estimated se.  We plug that into R, and we get the answer.  The answer is that the probability of this happening is about 8%.  So there is a very small chance that we'll be as close as this to the actual proportion.  
 ![so where does that Z goes??? thaink about it](C:/Users/qp/Pictures/now, we can compute the probability of being as close to p as we wanted.png)
 Now, that wasn't very useful, but what it's going to do, what we're going to be able to do with the central limit theorem is determine what sample sizes are better.  And once we have those larger sample sizes, we'll be able to provide a very good estimate and some very informative probabilities.  
 
@@ -684,10 +687,10 @@ pnorm(0.01/se) - pnorm(-0.01/se)
 ![](C:/Users/qp/Pictures/early we mentioned the margin of error.png)
 So a poll of only 25 people is not really very useful, at least for a close election.  *Earlier we mentioned the margin of error.  Now we can define it because it is simply 2 times the standard error, which we can now estimate*.  In our case it was 2 times se, which is about 0.2.  [][Why do we multiply by 2]?  
 ![](C:/Users/qp/Pictures/why 2 se, this is because when asking whats the probability we are in 2 standard errors from p, we end up with this equation.png)
-This is because if you ask what is the probability that we're within 2 standard errors from p, using the same previous equations, we end up with an equation like this one.  This one simplifies out, and **we're simply asking what is the probability of the standard normal distribution that has the expected value 0 and standard error one is within two values from 0, and we know that this is about 95%**.  So there's a 95% chance that X-bar will be within 2 standard errors.  That's the margin of error, in our case, to p.  
+This is because if you ask what is the probability that we're within 2 standard errors from p, using the same previous equations, we end up with an equation like this one.  This one simplifies out, and [][**we're simply asking what is the probability of the standard normal distribution that has the expected value 0 and standard error one is within two values from 0, and we know that this is about 95%**].  So there's a 95% chance that X-bar will be within 2 standard errors.  That's the margin of error, in our case, to p.  
 ![](C:/Users/qp/Pictures/simplifies above equaltion, we are asking whats the probability of standard normal distribution tha has expected value 0 and standard error 1 is within 2 values from 0.png)
 Now why do we use 95%?  This is somewhat arbitrary.  But traditionally, that's what's been used.  It's the most common value that's used to define margins of errors.  In summary, the central limit theorem tells us that our poll based on a sample of just 25 is not very useful.  *We don't really learn much when the margin of error is this large* {Think, we have to [][compare the margin of errors with the expected value], and recall the lm() model output, do you remember something???}.  All we can really say is that the popular vote will not be won by a large margin.  
-![you have to keep interested, otherwise](C:/Users/qp/Pictures/From the table that we showed earlier from RealClearPolitics, we saw.png)
+![keep interest yourself](C:/Users/qp/Pictures/From the table that we showed earlier from RealClearPolitics, we saw.png)
 This is why pollsters tend to use larger sample sizes.  From the table that we showed earlier from RealClearPolitics, we saw that a typical sample size was between 700 and 3,500.  
 ![](C:/Users/qp/Pictures/note that if we had obtained an X-bar of 0.48, but with a sample size of 2,000, the estimated of standard error woule be this value.png)
 To see how this gives us a much more practical result, note that *if we had obtained an X-bar of 0.48, but with a sample size of 2,000, the estimated standard error would have been about 0.01* (sqrt(0.48*(1-0.48)/2000)).  So our result is an estimate of 48% blue beads with a margin of error of 2%.  In this case, the result is much more informative and would make us think that there are more red beads than blue beads.  But keep in mind, this is just hypothetical.  We did not take a poll of 2,000 beads since we don't want to ruin the competition.  
@@ -736,18 +739,14 @@ Suppose we want to use a Monte Carlo simulation to corroborate that the tools th
 However, we could construct an urn like the one we showed in a previous video and actually run an analog simulation.  It would take a long time because you would be picking beads and counting them, but you could take 10,000 samples, count the beads each time, and keep track of the proportions that you see.  We can use the function take poll with n of 1,000 instead of actually drawing from an urn, but it would still take time because you would have to count the beads and enter the results into R.  So one thing we can do to corroborate theoretical results is to pick a value of p or several values of p and then run simulations using those.   
 ![](C:/Users/qp/Pictures/lets set p equal to 0.45, we can simulate one poll of 1,000 beads or people using this simple code.png)
 As an example, let's set p to 0.45.  *We can simulate one poll of 1,000 beads or people using this simple code*.  Now we can take that into a Monte Carlo simulation.  Do it 10,000 times, each time returning the proportion of blue beads that we get in our sample.  
-![I assume the sd func is used for population](C:/Users/qp/Pictures/then we found out that the simulation comfirms this.png)
+![I assume the sd func is used for population?](C:/Users/qp/Pictures/then we found out that the simulation comfirms this.png)
+>>> math.sqrt(0.45*(1-0.45)/1000)
+0.015732132722552274
+
 To review, the theory tells us that X-bar has an approximately normal distribution with expected value 0.45  and a standard error of about 1.5%.  The simulation confirms this.  If we take the mean of the X-hats that we created, we indeed get a value of about 0.45.  And if we compute the sd of the values that we just created, we get a value of about 1.5%.  
 ![](C:/Users/qp/Pictures/we can visualize it with a histogram and a qq-plot of this X_hat data.png)
 ![](C:/Users/qp/Pictures/A histogram and a qq plot of this X-hat data confirms that the normal approximation is accurate.png)
 A histogram and a qq plot of this X-hat data confirms that the normal approximation is accurate as well.  Again, note that in real life, we would never be able to run such an experiment because we don't know p.  But we could run it for various values of p and sample sizes N and see that the theory does indeed work well for most values.  You can easily do this yourself by rerunning the code we showed you after changing p and N.  
-
-
->>> N = 1000
->>> p = 0.45
->>> se = math.sqrt(p*(1-p)/N)
->>> se
-0.015732132722552274
 
 
 
@@ -857,7 +856,7 @@ grid.arrange(p1, p2, nrow=1)
 [][*The competition is to predict the spread, not the proportion p*].  However, because we are assuming there are only two parties, we know that the spread is just p minus (1 minus p), which is equal to 2p minus 1.  
 ![the spread](C:/Users/qp/Pictures/because we are assuming there are just 2 parties, thus the spread is just this.png)
 So everything we have done can easily be adapted to estimate to 2p minus 1.  Once we have our estimate, X-bar, and our estimate of our standard error of X-bar, we estimate the spread by 2 times X-bar minus 1, *just plugging in the X-bar where you should have a p*.  
-![plug in X_bar as the p](C:/Users/qp/Pictures/once we have our estimate x_bar and estimate of standard error, we just plug in x_bar where we should have p.png)
+![](C:/Users/qp/Pictures/once we have our estimate x_bar and estimate of standard error, we just plug in x_bar where we should have p.png)
 ![](C:/Users/qp/Pictures/sincw we are multiple a random variable by 2, we know the standard error goes up by 2.png)
 ***And, since we're multiplying a random variable by 2, we know that the standard error goes up by 2***.  So the standard error of this new random variable is 2 times the standard error of X-bar [][sqrt(2p*(1-2p)/N)].  Note that subtracting the 1 does not add any variability, so it does not affect the standard error.  
 ![12/25](C:/Users/qp/Pictures/so for our first example with just 25 beads, our estimate of p was 0.48.png)
@@ -1179,7 +1178,7 @@ sqrt(mean(errors^2))     # ====================== why not calculate a series of 
 **************************************************************************************************************************
 Standard error and standard deviation are both measures of variability. The standard deviation reflects variability within a sample, while the standard error estimates the variability across samples of a population.11 Dec 2020
 
-or
+or 
 
 How Are Standard Deviation and Standard Error of the Mean Different? Standard deviation measures the variability from specific data points to the mean. Standard error of the mean measures the precision of the sample mean to the population mean that it is meant to estimate.
 **************************************************************************************************************************
@@ -1234,6 +1233,8 @@ X_bar <- mean(X)
 
 # Calculate the standard error of the estimate. Print the result to the console.
 sqrt(p*(1-p)/N)
+
+# We are simulate one poll here, thus the result can be different each time +++++++++++++++++++++++++++++++++++++++++++
 ```
 Incorrect submission
 You are not providing a calculation that gives the correct answer. Make sure you are dividing by the sample size before taking the square root. 
@@ -1256,7 +1257,7 @@ X_bar <- mean(X)
 
 # Calculate the standard error of the estimate. Print the result to the console.
 sqrt(X_bar*(1-X_bar)/N)
-#####################################################################################
+#####################################################################################################################
 ```
 
 
@@ -1310,7 +1311,7 @@ Possible Answers
     not a random variable.
 
 Incorrect submission
-Try again. The expected value is equal to the theoretical value. 
+[][Try again. The expected value is equal to the theoretical value. ]
 
 
 
@@ -1341,6 +1342,8 @@ Instructions
 [][    Use the qqline function to plot a line showing a normal distribution. ]
 
 ```{r}
+library(tidyverse)
+
 # Define `p` as the proportion of Democrats in the population being polled
 p <- 0.45
 
@@ -1359,10 +1362,11 @@ errors <- replicate(B, p - take_sample(p, N))
 # Generate a qq-plot of `errors` with a qq-line showing a normal distribution
 qqnorm(errors)  
 qqline(errors)
+# ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 
 
-
+# ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 data.frame(errors=errors) %>%
   ggplot(aes(sample=errors)) +
   stat_qq(dparams=list(mean=mean(errors), sd=sd(errors))) +
@@ -1413,7 +1417,7 @@ N <-100
 # Define `X_hat` as the sample average
 X_hat <- 0.51
 
-# Define `se_hat` as the standard error of the sample average
+# Define `se_hat` as the standard error of the sample average +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 se_hat <- sqrt(X_hat*(1-X_hat)/N)
 
 
