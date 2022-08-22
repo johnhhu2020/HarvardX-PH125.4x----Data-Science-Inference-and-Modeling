@@ -1642,11 +1642,15 @@ print(c(X_hat-2*SE_hat, X_hat+2*SE_hat))
 
 # A Visual Clarification of Confidence Intervals
 
-Recall that to define a confidence interval of size q, we solve for z = 1 - (1-q)/2. For example, to find a 95% confidence interval, we solve for z = qnorm(.975).
+Recall that to define a confidence interval of size q, we solve for [][z = 1 - (1-q)/2]. For example, to find a 95% confidence interval, we solve for z = qnorm(.975).  
+>>> q = 0.95
+>>> z = 1 - (1-q)/2
+>>> z
+0.975
 
 A common source of confusion is why qnorm(.975) is used rather than qnorm(.95) to find the 95% confidence interval. This is because the normal distribution is symmetric and our confidence interval should cover the middle 95% of the distribution:
 
-![the 95% confidence interval visualization with 0.025.png](C:/Users/qp/Pictures/the 95% confidence interval visualization with 0.025.png)
+![](C:/Users/qp/Pictures/the 95% confidence interval visualization with 0.025.png)
 
 Normal distribution with middle 95% shaded. The left and right tail each represent 2.5% of the most extreme observations..
 
@@ -1668,11 +1672,13 @@ The lower limit of this 95% confidence interval will be X_bar + qnorm(.975)*\{SE
 # A Monte Carlo Simulation for Confidence Intervals
 
 
-We can run a Monte Carlo simulation to confirm that, [][in fact, a 95% confidence interval includes p(I suppose its X_bar) 95% of the time].  We write the simulation like this.  We're going to write the simulation we've been writing.  But now, we're going to actually construct the confidence interval inside the call to replicate.  And in the very final line, we're going to ask, is p included in the interval.  We're going to return either true or false.  To compute how often it happened, we compute the mean of that vector of true and false.  We run a simulation and we get 0.9522.  
-
+We can run a Monte Carlo simulation to confirm that, [][in fact, a 95% confidence interval includes p 95% of the time].  We write the simulation like this.  
+![](C:/Users/qp/Pictures/we can do a monte carlo simulation to confirm that the 95% confidence interval includes p 95% of time.png)
+We're going to write the simulation we've been writing.  But now, we're going to actually construct the confidence interval inside the call to replicate.  And in the very final line, we're going to ask, is p included in the interval.  We're going to return either true or false.  To compute how often it happened, we compute the mean of that vector of true and false.  We run a simulation and we get 0.9522.  
+![](C:/Users/qp/Pictures/this plot shows you the first few confidence intervals that were generated in our monte carlo simulation.png)
 This plot shows you the first few confidence intervals that were generated in our Monte Carlo simulation.  In this case, we created simulations so we know what p is.  In the plot, it's represented with a vertical black line.  Notice that you can see the confidence intervals varying.  Each time, they fall in slightly different places.  This is because they're random variables.  We also know that most of the times, p is included inside the confidence interval. p is not moving, of course, because p is not a random variable.  
 
-We also see that, every once in a while, we actually miss p.  These confidence intervals are shown in red.  We should only see about 5% of the intervals in red because they're 95% confidence intervals.  This plot should help you understand what confidence intervals are and what they mean.  
+We also see that, every once in a while, we actually miss p.  These confidence intervals are shown in red.  [][We should only see about 5% of the intervals in red because they're 95% confidence intervals].  This plot should help you understand what confidence intervals are and what they mean.  
 
 
 
@@ -1702,7 +1708,7 @@ inside <- replicate(B, {
 mean(inside)
 
 
-
+***************************************************************************************************************************
 ```{r}
 B <- 10000
 N <- 1000
@@ -1719,12 +1725,10 @@ inside <- replicate(B, {
 
 mean(inside)
 ```
+***************************************************************************************************************************
 
 
 
-![](C:/Users/qp/Pictures/we can do a monte carlo simulation to confirm that the 95% confidence interval includes p 95% of time.png)
-
-![](C:/Users/qp/Pictures/this plot shows you the first few confidence intervals that were generated in our monte carlo simulation.png)
 
 
 
@@ -1741,7 +1745,13 @@ mean(inside)
 # The Correct Language
 
 
-When using the theory we just described, it is important to remember that it is the intervals that are at random, not p.  We showed a plot where we could see the random intervals that were moving around.  And we also saw p. p was not moving around.  It was fixed, and it was represented with a vertical line.  It was staying in the same place.  So the 95% relates to the probability that the random interval falls on top of p.  Saying that p has a 95% chance of being between this and that is technically an incorrect statement-- again, [][because p is not random.  ]
+When using the theory we just described, it is important to remember that it is the intervals that are at random, not p.  
+![](C:/Users/qp/Pictures/it is important to remember that it is the intervals that are random, not the p.png)
+![](C:/Users/qp/Pictures/we show the plot where we can see the random intervals that are moving up and down of p.png)
+We showed a plot where we could see *the random intervals that were moving around.  And we also saw p. p was not moving around*.  It was fixed, and it was represented with a vertical line.  It was staying in the same place.  
+![](C:/Users/qp/Pictures/so that the 95% relates to the probability that the random interval falls on top of p.png)
+So the 95% relates to the probability that the random interval falls on top of p.  Saying that p has a 95% chance of being between this and that is technically an incorrect statement-- again, [][because p is not random.  ]
+![](C:/Users/qp/Pictures/that is saying that p has a 95% of chance of being between this and that is totally incorrect.png)
 
 
 
@@ -1762,14 +1772,6 @@ https://rafalab.github.io/dsbook/inference.html#the-correct-language
 
 
 
-![](C:/Users/qp/Pictures/it is important to remember that it is the intervals that are random, not the p.png)
-
-![](C:/Users/qp/Pictures/we show the plot where we can see the random intervals that are moving up and down of p.png)
-
-![](C:/Users/qp/Pictures/so that the 95% relates to the probability that the random interval falls on top of p.png)
-
-![because p is not random](C:/Users/qp/Pictures/that is saying that p has a 95% of chance of being between this and that is totally incorrect.png)
-
 
 
 
@@ -1788,8 +1790,10 @@ https://rafalab.github.io/dsbook/inference.html#the-correct-language
 Note: There is an error in the code in the video at 0:10. Use the code below the video instead.
 
 # =========================================================================================================================
-[][Pollsters do not become successful for providing correct confidence intervals, but rather for predicting who will win].  When we took a sample of size 25, the confidence interval for the spread was-- and we can reconstruct it here--from negative 0.93 to 0.85.  This includes 0.  If we were pollsters and we were forced to make a declaration about the election, we would have no choice but to say it's a tossup.  
-
+[][Pollsters do not become successful for providing correct confidence intervals, but rather for predicting who will win].  
+![](C:/Users/qp/Pictures/when we took a sample size of 25, the confidence interval for the spread was from negative 0.93 to 0.85.png)
+When we took a sample of size 25, the confidence interval for the spread was-- and we can reconstruct it here--from negative 0.93 to 0.85.  [][This includes 0].  If we were pollsters and we were forced to make a declaration about the election, we would have no choice but to say it's a tossup.  
+![](C:/Users/qp/Pictures/and this interval constructed from 25 samples includes 0.png)
 A problem with our poll results is that given the sample size and the value of p, we would have to sacrifice on the probability of an incorrect call to create an interval that does not include 0, an interval that makes a call of who's going to win.  *The fact that our interval includes 0, it does not mean that this election is close*.  It only means that we have a small sample size.  In statistical textbooks, this is called lack of power.  In the context of polls, power can be thought of as the probability of detecting a spread different from 0.  By increasing our sample size, we lower our standard error, and therefore have a much better chance of detecting the direction of the spread.  
 
 
@@ -1820,11 +1824,8 @@ X_hat <- 0.48
 
 
 
-# =================================================================================================================
-![](C:/Users/qp/Pictures/when we took a sample size of 25, the confidence interval for the spread was from negative 0.93 to 0.85.png)
 
-# =================================================================================================================
-![](C:/Users/qp/Pictures/and this interval constructed from 25 samples includes 0.png)
+
 
 ![](C:/Users/qp/Pictures/in statistical book, this is called lack of power.png)
 
