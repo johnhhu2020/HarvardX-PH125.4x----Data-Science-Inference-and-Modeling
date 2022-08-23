@@ -1794,7 +1794,9 @@ Note: There is an error in the code in the video at 0:10. Use the code below the
 ![](C:/Users/qp/Pictures/when we took a sample size of 25, the confidence interval for the spread was from negative 0.93 to 0.85.png)
 When we took a sample of size 25, the confidence interval for the spread was-- and we can reconstruct it here--from negative 0.93 to 0.85.  [][This includes 0].  If we were pollsters and we were forced to make a declaration about the election, we would have no choice but to say it's a tossup.  
 ![](C:/Users/qp/Pictures/and this interval constructed from 25 samples includes 0.png)
-A problem with our poll results is that given the sample size and the value of p, we would have to sacrifice on the probability of an incorrect call to create an interval that does not include 0, an interval that makes a call of who's going to win.  *The fact that our interval includes 0, it does not mean that this election is close*.  It only means that we have a small sample size.  In statistical textbooks, this is called lack of power.  In the context of polls, power can be thought of as the probability of detecting a spread different from 0.  By increasing our sample size, we lower our standard error, and therefore have a much better chance of detecting the direction of the spread.  
+A problem with our poll results is that given the sample size and the value of p, we would have to sacrifice on the probability of an incorrect call to create an interval that does not include 0, an interval that makes a call of who's going to win.  *The fact that our interval includes 0, it does not mean that this election is close*.  It only means that we have a small sample size.  In statistical textbooks, this is [][called lack of power].  
+![](C:/Users/qp/Pictures/in polls, power can be thought of as the probability of detecting a spread different from 0.png)
+In the context of polls, power can be thought of as the probability of detecting a spread different from 0.  By increasing our sample size, we lower our standard error, and therefore have a much better chance of detecting the direction of the spread.  
 
 
 
@@ -1806,7 +1808,7 @@ https://rafalab.github.io/dsbook/inference.html#power
 
 [][Key points]
 
-[][*    If we are trying to predict the result of an election, then a confidence interval that includes a spread of 0 (a tie) is not helpful. *]
+    If we are trying to predict the result of an election, then a confidence interval that includes a spread of 0 (a tie) is not helpful. 
     
 [][*    A confidence interval that includes a spread of 0 does not imply a close election, it means the sample size is too small. *]
     
@@ -1827,12 +1829,6 @@ X_hat <- 0.48
 
 
 
-![](C:/Users/qp/Pictures/in statistical book, this is called lack of power.png)
-
-![](C:/Users/qp/Pictures/in the context of poll, the power can be thought of as the probability of detecting a spread different from 0.png)
-
-
-
 
 
 
@@ -1845,12 +1841,24 @@ X_hat <- 0.48
 # p-Values
 
 
-p-values are very common in, for example, the scientific literature.  They are related to confidence intervals, so we introduce the concept here.  Let's consider the blue and red bead example again.  Suppose that rather than wanting to estimate the spread or the proportion of blue, [][I'm interested only in the question, are there more blue beads than red beads](does that means we want 95% interval of spread not including 0)?  Another way to ask that is, *is 2p minus 1 bigger than 0*?  Is the spread bigger than 0?  So suppose we take a random sample of, say, 100 beads, and we observe 52 blue beads.  This gives us a spread of 4%.  This seems to be pointing to there being more blue beads than red beads, because 4% is larger than 0.  52% is larger than 48%.  *?????*
-
-However, as data scientists, we need to be skeptical.  We know there is chance involved in this process, and we can get a 52 even when the actual spread is 0.  The null hypothesis is the skeptic's hypothesis.  In this case, it would be the spread is 0.  We have observed a random variable 2 times X-bar minus 1, which in this case is 4%, and the p-value is the answer to the question, [][how likely is it to see a value this large when the null hypothesis is true]?  So we write, what's the probability of X-bar minus 0.5 being bigger than 2%?  That's the same as asking, what's the chance that the spread is 4 or more?  The null hypothesis is that the spread is 0 or that p is a half.  
-
-*Under the null hypothesis, we know that this quantity here, the square root of n times X-bar minus 0.5 divided by the square root of 0.5 times 1 minus 0.5, is a standard normal.  We've taken a random variable and divided it by its standard error after subtracting its expected value.  So we can compute the probability, which is a p-value, using this equation, which reduces to this equation, where z is a standard normal.  And now we can use code to compute this.  We compute the probability, which is equal to 69% in this case.  This is the p-value.  *
-
+p-values are very common in, for example, the scientific literature.  They are related to confidence intervals, so we introduce the concept here.  Let's consider the blue and red bead example again.  
+![](C:/Users/qp/Pictures/lets consider a blue and red bead example again.png)
+![](C:/Users/qp/Pictures/say now we are interest in question are there more blue beads than red beads.png)
+Suppose that rather than wanting to estimate the spread or the proportion of blue, [][I'm interested only in the question, are there more blue beads than red beads]?  Another way to ask that is, *is 2p minus 1 bigger than 0*?  
+![](C:/Users/qp/Pictures/another way to asking this question would be is 2p minus 1 bigger than 0.png)
+Is the spread bigger than 0?  So [][suppose we take a random sample of, say, 100 beads, and we observe 52 blue beads].  This gives us a spread of 4% {52/100 - (1 - 52/100) = 104/100 - 100/100 = 4/100}.  This seems to be pointing to there being more blue beads than red beads, because 4% is larger than 0.  52% is larger than 48%.  {but we all know its just one sample}
+![](C:/Users/qp/Pictures/there is chance involved, so we can get a 52 even when the actual spread is 0.png)
+However, [][as data scientists, we need to be skeptical].  We know there is chance involved in this process, and we can get a 52 even when the actual spread is 0.  
+![](C:/Users/qp/Pictures/the null hypothesis is skeptic's hypothesis, in this case, that the spread is 0.png)
+![](C:/Users/qp/Pictures/and we have observed a random variable 2 times X_bar  minus 1 which equal to 0.04.png)
+![](C:/Users/qp/Pictures/and the p-value is the answer to the question, how likely is it to see a value this large when the null hypothesis is true.png)
+The null hypothesis is the skeptic's hypothesis.  In this case, it would be the spread is 0.  We have observed a random variable 2 times X-bar minus 1, which in this case is 4%, and the p-value is the answer to the question, [][how likely is it to see a value this large when the null hypothesis is true]?  So we write, what's the probability of X-bar minus 0.5 being bigger than 2%?  **That's the same as asking, what's the chance that the spread is 4 or more*?  [][The null hypothesis is that the spread is 0 or that p is a half].  
+![](C:/Users/qp/Pictures/so we write whats the probability of X_bar  minus 0.5 being bigger than 2%.png)
+![Where does that sqrt(N) comes form???](C:/Users/qp/Pictures/under the null hypothesis, we know that the quantity here is tandard normal.png)
+Under the null hypothesis, we know that this quantity here, the square root of n times X-bar minus 0.5 divided by the square root of 0.5 times 1 minus 0.5, is a standard normal.  We've taken a random variable and divided it by its standard error after subtracting its expected value.  
+![](C:/Users/qp/Pictures/So we can compute the probability, which is a p-value, using this equation.png)
+*So we can compute the probability, which is a p-value, using this equation*, which reduces to this equation, where z is a standard normal.  And now we can use code to compute this.  We compute the probability, which is equal to 69% in this case.  This is the p-value.  
+![????????????](C:/Users/qp/Pictures/and then we can use the code to compute the probability, which is about 69%.png)
 In this case, there's actually a large chance of seeing 52 blue beads or more under the null hypothesis that there is the same amount of blue beads as red beads.  So the 52 blue beads are not very strong evidence, are not very convincing, if we want to make the case that there's more blue beads than red beads.  [][Note that there's a close connection between p-values and confidence intervals].  If a 95% confidence interval of the spread does not include 0, we can do a little bit of math to see that this implies that the p-value must be smaller than 1 minus 95%, or 0.05.  
 
 To learn more about p-values, you can consult any statistics textbook.  However, **in general, we prefer reporting confidence intervals over p-values, since it gives us an idea of the size of the estimate**.  The p-value simply reports a probability and says nothing about the significance of the finding in the context of the problem.  
@@ -1884,41 +1892,11 @@ z <- sqrt(N) * 0.02/0.5    # spread of 0.02
 
 
 
-![](C:/Users/qp/Pictures/p-value are very common in scientific literature.png)
 
-![](C:/Users/qp/Pictures/lets consider a blue and red bead example again.png)
 
-![](C:/Users/qp/Pictures/say now we are interest in question are there more blue beads than red beads.png)
 
-![](C:/Users/qp/Pictures/another way to asking this question would be is 2p minus 1 bigger than 0.png)
 
-![](C:/Users/qp/Pictures/suppose we take a random sample say 100 beads from the urn.png)
 
-![](C:/Users/qp/Pictures/and we observed 52 blue beads form the sample.png)
-
-![](C:/Users/qp/Pictures/that gives us the spread of 4%.png)
-
-# 2p - 1 = 0.04, thus p = 0.52
-![](C:/Users/qp/Pictures/there is chance involved, so we can get a 52 even when the actual spread is 0.png)
-
-![](C:/Users/qp/Pictures/the null hypothesis, in this case, that the spread is 0.png)
-
-![](C:/Users/qp/Pictures/and we have observed a random variable 2 times X_bar  minus 1 which equal to 0.04.png)
-
-# ====================================================================================================================
-![and the p-value is the answer to the question, how likely is it to see a value this large when the null hypothesis is true.png](C:/Users/qp/Pictures/and the p-value is the answer to the question, how likely is it to see a value this large when the null hypothesis is true.png)
-
-# ===========================================================================================================
-![](C:/Users/qp/Pictures/so we write whats the probability of X_bar  minus 0.5 being bigger than 2%.png)
-
-[][# =================================================================================????????????????????????????????]
-![](C:/Users/qp/Pictures/under the null hypothesis, we know that the quantity here is tandard normal.png)
-
-[][# ===================================================================???????????????????????????????????????????????]
-![I suppose we did some changes just like what we did before](C:/Users/qp/Pictures/so we can compute the probability of null hypothesis, which is this equation.png)
-
-[][# ======================================================================================================================]
-![](C:/Users/qp/Pictures/and then we can use the code to compute the probability, which is about 69%.png)
 
 ![can you explain that](C:/Users/qp/Pictures/If a 95% confidence interval of the spread does not include 0, the p-value must smaller than 0.05.png)
 
