@@ -1858,10 +1858,10 @@ The null hypothesis is the skeptic's hypothesis.  In this case, it would be the 
 Under the null hypothesis, we know that this quantity here, the square root of n times X-bar minus 0.5 divided by the square root of 0.5 times 1 minus 0.5, is a standard normal.  We've taken a random variable and divided it by its standard error after subtracting its expected value.  
 ![](C:/Users/qp/Pictures/So we can compute the probability, which is a p-value, using this equation.png)
 *So we can compute the probability, which is a p-value, using this equation*, which reduces to this equation, where z is a standard normal.  And now we can use code to compute this.  We compute the probability, which is equal to 69% in this case.  This is the p-value.  
-![????????????](C:/Users/qp/Pictures/and then we can use the code to compute the probability, which is about 69%.png)
-In this case, there's actually a large chance of seeing 52 blue beads or more under the null hypothesis that there is the same amount of blue beads as red beads.  So the 52 blue beads are not very strong evidence, are not very convincing, if we want to make the case that there's more blue beads than red beads.  [][Note that there's a close connection between p-values and confidence intervals].  If a 95% confidence interval of the spread does not include 0, we can do a little bit of math to see that this implies that the p-value must be smaller than 1 minus 95%, or 0.05.  
-
-To learn more about p-values, you can consult any statistics textbook.  However, **in general, we prefer reporting confidence intervals over p-values, since it gives us an idea of the size of the estimate**.  The p-value simply reports a probability and says nothing about the significance of the finding in the context of the problem.  
+![??????!!!!!!](C:/Users/qp/Pictures/and then we can use the code to compute the probability, which is about 69%.png)
+*In this case, there's actually a large chance of seeing 52 blue beads or more under the null hypothesis that there is the same amount of blue beads as red beads.  So the 52 blue beads are not very strong evidence, are not very convincing, if we want to make the case that there's more blue beads than red beads*.  [][Note that there's a close connection between p-values and confidence intervals].  If a 95% confidence interval of the spread does not include 0, we can do a little bit of math to see that this implies that the p-value must be smaller than 1 minus 95%, or 0.05.  
+![can you explain that](C:/Users/qp/Pictures/If a 95% confidence interval of the spread does not include 0, the p-value must smaller than 0.05.png)
+To learn more about p-values, you can consult any statistics textbook.  However, [][**in general, we prefer reporting confidence intervals over p-values, since it gives us an idea of the size of the estimate.  The p-value simply reports a probability and says nothing about the significance of the finding in the context of the problem**] {Think, think about this, use your gray cells}.  
 
 
 
@@ -1898,14 +1898,6 @@ z <- sqrt(N) * 0.02/0.5    # spread of 0.02
 
 
 
-![can you explain that](C:/Users/qp/Pictures/If a 95% confidence interval of the spread does not include 0, the p-value must smaller than 0.05.png)
-
-
-
-
-
-
-
 
 
 
@@ -1919,7 +1911,7 @@ z <- sqrt(N) * 0.02/0.5    # spread of 0.02
 
 **In the context of the normal distribution, this refers to the probability of observing a Z-score whose absolute value is as high or higher than the Z-score of interest.**
 
-Suppose we want to find the p-value of an observation 2 standard deviations larger than the mean. This means we are looking for anything with |z| >= 2.
+Suppose we want to find the p-value of an observation 2 standard deviations larger than the mean. This means we are looking for anything with |z| >= 2.  
 
 Graphically, the p-value gives the probability of an observation that's at least as far away from the mean or further. This plot shows a standard normal distribution (centered at z=0 with a standard deviation of 1). The shaded tails are the region of the graph that are 2 standard deviations or more away from the mean.
 
@@ -1943,8 +1935,10 @@ Recall that, by default, pnorm() gives the CDF for a normal distribution with a 
 
 
 
-# Assessment 3.1: Confidence Intervals and p-Values
 
+
+
+# Assessment 3.1: Confidence Intervals and p-Values
 
 
 DataCamp due Jul 20, 2022 13:15 AWST
@@ -2148,6 +2142,8 @@ Hint
 [][*The upper bound of the 95% confidence interval is equal to X_bar + qnorm(0.0975)*SE[X_bar].*]
 
 ```{r}
+library(tidyverse)
+
 # Load the data
 data("polls_us_election_2016")
 
@@ -2172,6 +2168,7 @@ se_hat
 
 # Use `qnorm` to calculate the 95% confidence interval for the proportion of Clinton voters. Save the lower and then the upper confidence interval to a variable called `ci`.
 ci<- c(X_hat - qnorm(0.975)*se_hat, X_hat + qnorm(0.975)*se_hat)  
+ci
 # ====================================================================================================================
 # What the hell, you didn't mentioned to save the value in a list, did you ???
 ```
