@@ -1841,14 +1841,13 @@ X_hat <- 0.48
 # p-Values
 
 
-p-values are very common in, for example, the scientific literature.  They are related to confidence intervals, so we introduce the concept here.  Let's consider the blue and red bead example again.  
-![](C:/Users/qp/Pictures/lets consider a blue and red bead example again.png)
+p-values are very common in, for example, the [][scientific literature].  They are related to confidence intervals, so we introduce the concept here.  Let's consider the blue and red bead example again.  
 ![](C:/Users/qp/Pictures/say now we are interest in question are there more blue beads than red beads.png)
 Suppose that rather than wanting to estimate the spread or the proportion of blue, [][I'm interested only in the question, are there more blue beads than red beads]?  Another way to ask that is, *is 2p minus 1 bigger than 0*?  
 ![](C:/Users/qp/Pictures/another way to asking this question would be is 2p minus 1 bigger than 0.png)
 Is the spread bigger than 0?  So [][suppose we take a random sample of, say, 100 beads, and we observe 52 blue beads].  This gives us a spread of 4% {52/100 - (1 - 52/100) = 104/100 - 100/100 = 4/100}.  This seems to be pointing to there being more blue beads than red beads, because 4% is larger than 0.  52% is larger than 48%.  {but we all know its just one sample}
 ![](C:/Users/qp/Pictures/there is chance involved, so we can get a 52 even when the actual spread is 0.png)
-However, [][as data scientists, we need to be skeptical].  We know there is chance involved in this process, and we can get a 52 even when the actual spread is 0.  
+However, as data scientists, we need to be skeptical.  We know there is chance involved in this process, and we can get a 52 even when the actual spread is 0.  
 ![](C:/Users/qp/Pictures/the null hypothesis is skeptic's hypothesis, in this case, that the spread is 0.png)
 ![](C:/Users/qp/Pictures/and we have observed a random variable 2 times X_bar  minus 1 which equal to 0.04.png)
 ![](C:/Users/qp/Pictures/and the p-value is the answer to the question, how likely is it to see a value this large when the null hypothesis is true.png)
